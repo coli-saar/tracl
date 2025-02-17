@@ -18,7 +18,7 @@
 
 #let cmsf = "New Computer Modern Sans"
 #let sans = ("Open Sauce One", "Helvetica")
-#let times = "Times New Roman" // source: https://www.freebestfonts.com/timr45w-font
+#let times = "Nimbus Roman No9 L" // "Times New Roman" // source: https://www.freebestfonts.com/timr45w-font
 #let mono = "Inconsolata"
 
 #let linespacing = 0.55em
