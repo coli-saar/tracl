@@ -1,0 +1,9 @@
+
+[package]
+name = "acl"
+version = "VERSION"
+entrypoint = "lib.typ"
+authors = ["Alexander Koller <koller@coli.uni-saarland.de.com>"]
+license = "Apache 2.0"
+description = "Typeset papers in a style that is compatible with *ACL conferences."
+repository = "https://github.com/coli-saar/typst-acl-style"
