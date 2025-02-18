@@ -2,7 +2,7 @@
 #import "acl-macros.typ":*
 
 #show: doc => acl(doc,
-  anonymous: true,
+  anonymous: false,
   title: [Instructions for \*ACL Proceedings],
   authors: (
     (
@@ -41,6 +41,7 @@ The ACL Typst style is written for Typst 0.12.
 = Preamble
 
 You can load the ACL template into your Typst file as follows:
+#v(1em)
 
 ```
 #import "acl.typ":*
@@ -59,6 +60,7 @@ You can load the ACL template into your Typst file as follows:
 )
 ```
 
+#v(1em)
 You can then write the rest of your document as usual. Use the `#abstract` command to typeset your abstract.
 
 Use `anonymous: true` to generate an anonymous version of your paper that is suitable for submission to the conference.
@@ -76,7 +78,40 @@ Footnotes are inserted with the `#footnote` command.#footnote[This is a footnote
 
 == Tables and figures
 
-== Hyperlinks
+See @tab:example for an example of a table and its caption.
+*Do not override the default caption sizes.*
+
+As much as possible, fonts in figures should conform
+to the document fonts. See @fig:experiments for an example of a figure and its caption.
+
+You can use the standard Typst #link("https://typst.app/docs/reference/visualize/image/")[image] function
+to include images into your document. Typst supports PNG, JPEG, and SVG. Use SVG if you want to include a vector graphic;
+you can use e.g. #link("https://github.com/dawbarton/pdf2svg")[pdf2svg] to convert PDF files. Be aware that Typst has
+pretty good built-in support for generating plots (e.g. through #link("https://github.com/cetz-package/cetz-plot")[CeTZ-Plot]), so you may be able to simply generate and style your graphics within your Typst source code.
+
+A floating element will be automatically labeled as a "Table" if the top-level element is a Typst `table`;
+otherwise Typst will call it a "Figure". If you want a table labeled as a "Figure", you can pass the argument `kind: image`
+to the `figure` call (see the #link("https://typst.app/docs/reference/model/figure/#parameters-kind")[Typst documentation]).
+
+By default, Typst places a `figure` within a single column. If you want a figure to stretch across both columns, you can pass the argument `scope: "parent"`.
+See the source code of @citation-guide for an example.
+
+
+#figure(
+  table(
+    columns: (auto, auto),
+    stroke: none,
+    align: left,
+    column-gutter: 1em,
+    table.hline(),
+    [*First column*], [*Second column*],
+    table.hline(),
+    [some stuff], [more stuff],
+    [second row], [more second row],
+    table.hline()
+  ),
+  caption: [An example table. Typst can simply use Unicode characters, so Table 1 from the LaTeX instructions is not needed any more.]
+) <tab:example>
 
 
 == Citations <sec:citations>
@@ -103,9 +138,15 @@ Enclose the content of your appendix in the `#appendix` command
 to switch the section numbering over to letters. See @sec:appendix for an example.
 
 
-= Limitations
+#figure(
+  image("pics/spec-paths-cubic01.svg"),
+  caption: [A figure with a caption that runs for more than one line. The example picture comes from the #link("https://github.com/openscad/svg-tests")[openscad svg-tests] repository.]
+) <fig:experiments>
 
-The Typst ACL style currently has a number of limitations compared to the more mature LaTeX style. Here are some workaround.
+
+= Known Limitations
+
+The Typst ACL style currently has a number of limitations compared to the more mature LaTeX style. Here are some workarounds.
 
 - Author lists with more than three authors will be very crowded. There is currently no real way to expand the titlebox or use a larger grid for the author list.
 

@@ -18,3 +18,9 @@ For the "sans serif" font, download [Nimbus Sans](https://www.fontsquirrel.com/f
 
 For the "typewriter" font, download [Inconsolata](https://fonts.google.com/specimen/Inconsolata).
 
+
+## License information
+
+The ACL style for Typst is distributed under the Apache License 2.0.
+
+The SVG example picture in `pics/spec-paths-cubic01.svg` is (c) 2016 openscad under an MIT License. It comes from [this Github repository](https://github.com/openscad/svg-tests).

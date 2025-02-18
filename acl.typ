@@ -119,7 +119,7 @@
   }
 
   // lists
-  set list(marker: [●], indent: 1em)
+  set list(marker: text(8pt)[#v(4pt)●], indent: 1em)
   show list: e => {
     show par: p => {
       v(1em) 
@@ -138,7 +138,7 @@
    e
   v(1em)
   }
-  
+
   // spacing around figures
   // show figure: set block(inset: (top: 0pt, bottom: 1cm))
 
