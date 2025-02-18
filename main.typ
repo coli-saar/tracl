@@ -76,6 +76,8 @@ Footnotes are inserted with the `#footnote` command.#footnote[This is a footnote
 
 == Tables and figures
 
+== Hyperlinks
+
 
 == Citations <sec:citations>
 
@@ -90,6 +92,15 @@ You can use the command `#citealp(<Gusfield:97>)` (alternative cite without pare
 to get “author, year” citations, which is useful for using citations within 
 parentheses (e.g. #citealp(<Gusfield:97>)).
 A possessive citation can be made with the `#citeposs` command; this will yield e.g. "#citeposs(<Gusfield:97>)".
+
+== References
+
+== Equations
+
+== Appendices
+
+Enclose the content of your appendix in the `#appendix` command
+to switch the section numbering over to letters. See @sec:appendix for an example.
 
 
 = Limitations
@@ -133,13 +144,8 @@ natbib citation commands. It also supports commands defined in previous ACL styl
    #bibliography("custom.bib", style: "./association-for-computational-linguistics-blinky.csl")
 ]
 
-#pagebreak()
+#appendix[
+  = Example Appendix <sec:appendix>
 
-#set heading(numbering: "A.1", supplement: "Appendix")
-#counter(heading).update(0)
-
-= Example Appendix <sec:appendix>
-
-This is an appendix.
-
-
+  This is an appendix.
+]
