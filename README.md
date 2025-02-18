@@ -10,16 +10,11 @@ The usage of the ACL style is documented in [main.pdf](main.pdf).
 
 ## Obtaining the fonts
 
-The official ACL style uses fonts which are not preinstalled with Typst. Here's how you can get them.
+The official ACL style uses fonts which are not preinstalled with Typst. You will need to download these fonts and [install them into your system](https://typst.app/docs/reference/text/text/#parameters-font). Here's how you can get them.
 
-For the "typewriter" font, download [Inconsolata](https://fonts.google.com/specimen/Inconsolata) and [install it into your system](https://typst.app/docs/reference/text/text/#parameters-font).
+For the "Times" font, download [Nimbus Roman No9 L](https://www.fontsquirrel.com/fonts/nimbus-roman-no9-l). (This is the font that the "times" package of TexLive actually uses.)
 
-For the "sans serif" font, the style file currently uses Open Sauce One or Helvetica, whichever one is available on your system. Open Sauce One is preinstalled in the Typst web editor.
+For the "sans serif" font, download [Nimbus Sans](https://www.fontsquirrel.com/fonts/nimbus-sans-l). (This is a replacement for Helvetica.)
 
-Times Roman, the main font for the body of an ACL paper, does not seem to be available as a free font. You can extract it from your LaTeX installation as an OTF font, which Typst can read. Proceed as follows (note that these instructions currently assume we are using Mactex on a Mac):
-
-- Install [FontForge](https://fontforge.org/en-US/), e.g. with `brew install fontforge`.
-- Locate the Times font in your LaTeX distribution, e.g. in `/usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/*.pfb`.
-- For each of these font files, convert it into OTF with `fontforge -lang=ff -c 'Open("/usr/local/texlive/2024/texmf-dist/fonts//type1/urw/times/utmr8a.pfb"); Generate("utmr8a.otf");'` etc.
-
+For the "typewriter" font, download [Inconsolata](https://fonts.google.com/specimen/Inconsolata).
 

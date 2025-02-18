@@ -12,14 +12,10 @@
 // TODO: captions	10 pt - done
 // TODO: bibliography	10 pt	 - done
 
-
-// Install Inconsolata from https://fonts.google.com/specimen/Inconsolata
-
-
-#let cmsf = "New Computer Modern Sans"
-#let sans = ("Open Sauce One", "Helvetica")
-#let times = "Nimbus Roman No9 L" // "Times New Roman" // source: https://www.freebestfonts.com/timr45w-font
-#let mono = "Inconsolata"
+// "Times" in Tex Live is actually Nimbus Roman
+#let times = ("Nimbus Roman No9 L", "Libertinus Serif")  
+#let sans = ("Nimbus Sans L", "Helvetica")
+#let mono = ("Inconsolata", "DejaVu Sans Mono")
 
 #let linespacing = 0.55em
 

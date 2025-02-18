@@ -1,7 +1,7 @@
 #import "acl.typ":*
 
 #show: doc => acl(doc,
-  anonymous: false,
+  anonymous: true,
   title: [Instructions for \*ACL Proceedings],
   authors: (
     (
