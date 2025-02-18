@@ -1,5 +1,5 @@
 #import "acl.typ":*
-#import "acl-macros.typ":*
+// #import "acl-macros.typ":*
 #import "@preview/hidden-bib:0.1.0": hidden-citations
 
 // float all figures to the top
@@ -27,6 +27,8 @@
   These instructions should be used both for papers submitted for review and for final versions of accepted papers.
 ]
 
+
+
 = Introduction
 
 These instructions are for authors submitting papers to \*ACL conferences using Typst. 
@@ -50,7 +52,6 @@ You can load the ACL template into your Typst file as follows:
 
 ```
 #import "acl.typ":*
-#import "acl-macros.typ":*
 
 #show: doc => acl(doc,
   anonymous: false,
@@ -67,10 +68,11 @@ You can load the ACL template into your Typst file as follows:
 
 You can then write the rest of your document as usual. Use the `#abstract` command to typeset your abstract.
 
-Use `anonymous: true` to generate an anonymous version of your paper that is suitable for submission to the conference.
+Use `anonymous:true` to generate an anonymous version of your paper that is suitable for submission to the conference.
 
-If you split your document up over multiple source files, you will need to `#import "acl-macros.typ"` in every source file.
-The `acl.typ` only needs to be included in the main source file.
+If you split your document up over multiple source files, you will need to `#import "acl.typ"` in every source file;
+otherwise functions such as `#citet` will not be defined. The show rule with the call to `acl` should only appear once,
+in the main Typst source file.
 
 
 = Document Body
