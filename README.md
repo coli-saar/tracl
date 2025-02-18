@@ -12,7 +12,7 @@ To start a new document, you will need to copy [acl.typ](https://github.com/coli
 
 ## Obtaining the fonts
 
-The official ACL style uses fonts which are not preinstalled with Typst. You will need to download these fonts and [install them into your system](https://typst.app/docs/reference/text/text/#parameters-font). Here's how you can get them.
+The official ACL style uses fonts which are not preinstalled with Typst. You will need to download these fonts and [install them into your system](https://typst.app/docs/reference/text/text/#parameters-font). If you are working in the web editor, put the font files into the top level of your Typst project.
 
 For the "Times" font, download [Nimbus Roman No9 L](https://www.fontsquirrel.com/fonts/nimbus-roman-no9-l). (This is the font that the "times" package of TexLive actually uses.)
 
