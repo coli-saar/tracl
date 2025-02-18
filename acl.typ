@@ -138,7 +138,7 @@
    e
   v(1em)
   }
-
+  
   // spacing around figures
   // show figure: set block(inset: (top: 0pt, bottom: 1cm))
 

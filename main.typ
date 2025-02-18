@@ -1,4 +1,5 @@
 #import "acl.typ":*
+#import "acl-macros.typ":*
 
 #show: doc => acl(doc,
   anonymous: true,
@@ -43,6 +44,7 @@ You can load the ACL template into your Typst file as follows:
 
 ```
 #import "acl.typ":*
+#import "acl-macros.typ":*
 
 #show: doc => acl(doc,
   anonymous: false,
@@ -61,6 +63,9 @@ You can then write the rest of your document as usual. Use the `#abstract` comma
 
 Use `anonymous: true` to generate an anonymous version of your paper that is suitable for submission to the conference.
 
+If you split your document up over multiple source files, you will need to `#import "acl-macros.typ"` in every source file.
+The `acl.typ` only needs to be included in the main source file.
+
 
 = Document Body
 
@@ -75,9 +80,16 @@ Footnotes are inserted with the `#footnote` command.#footnote[This is a footnote
 == Citations <sec:citations>
 
 @citation-guide shows the syntax supported by the style files.
-You can use the Typst `cite` command to get "(author, year)" citations @Gusfield:97.
-You can use the `cite` command in `prose` form to get "author (year)" citations, like this citation to a paper by #cite(<Gusfield:97>, form: "prose").
+The default Typst `cite` command (`@Gusfield:97`) will generate citations in the form "(author, year)".
+You can also write `#cite(<Gusfield:97>)` or `#citep(<Gusfield:97>)`; note that you will have to enclose
+the reference key in angle brackets for this.
 
+You can write `#citet(<Gusfield:97>)` to get citations of the form "author (year)",
+as in #citet(<Gusfield:97>). 
+You can use the command `#citealp(<Gusfield:97>)` (alternative cite without parentheses)
+to get “author, year” citations, which is useful for using citations within 
+parentheses (e.g. #citealp(<Gusfield:97>)).
+A possessive citation can be made with the `#citeposs` command; this will yield e.g. "#citeposs(<Gusfield:97>)".
 
 
 = Limitations
@@ -89,8 +101,6 @@ The Typst ACL style currently has a number of limitations compared to the more m
 - When you directly follow a first-level heading (`=`) with a second-level heading (`==`), the style generates some extra whitespace in between. You can remove this extra whitespace with `#v(-0.5em)`. See the source code of @sec:footnotes for an example.
 
 - The two columns of a page will not automatically be aligned at the bottom. This is a #link("https://github.com/typst/typst/issues/3442")[known limitation in Typst] that should be fixed at some point. For the time being, you can manually insert whitespace above each paragraph in the shorter column with `#v`.
-
-- There is no command for a possessive citation (`\citeposs` in the LaTeX style). You can piece it together with the `author` and `year` forms of the `cite` command.
 
 
 
@@ -104,8 +114,10 @@ The Typst ACL style currently has a number of limitations compared to the more m
     table.hline(),
     [*Output*], [*Citation command*], 
     table.hline(),
-    [@Gusfield:97], [`@`, `cite`],
-    [#cite(<Gusfield:97>, form: "prose")], [`cite(<...>, form: "prose"`],
+    [@Gusfield:97], [`@Gusfield:97` or `#cite<Gusfield:97>` or `#citep<Gusfield:97>`],
+    [#citet(<Gusfield:97>)], [`#citet(<Gusfield:97>)`],
+    [#citealp(<Gusfield:97>)], [`#citealp(<Gusfield:97>)`],
+    [#citeposs(<Gusfield:97>)], [`#citeposs(<Gusfield:97>)`],
     table.hline()
   ),
   caption: [Citation commands supported by the style file. The style is based on the natbib package and supports all
