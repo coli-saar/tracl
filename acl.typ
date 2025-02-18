@@ -1,16 +1,11 @@
 // Official ACL style guidelines:
 // https://acl-org.github.io/ACLPUB/formatting.html
 
+// v0.4, many small changes and cleanup, and switch to Nimbus fonts
 // v0.3.2, ensure page numbers are printed only in anonymous version
 // v0.3.1, fixed "locate" deprecation
 // v0.3, adjusted some formatting to the ACL style rules
 // v0.2, adapted to Typst 0.12
-
-// v0.3 changes:
-// TODO: one line of space between bib entries - done
-// TODO: footnotes	9 pt - done
-// TODO: captions	10 pt - done
-// TODO: bibliography	10 pt	 - done
 
 // "Times" in Tex Live is actually Nimbus Roman
 #let times = ("Nimbus Roman No9 L", "Libertinus Serif")  
