@@ -1,7 +1,8 @@
-// Official ACL style guidelines:
-// https://acl-org.github.io/ACLPUB/formatting.html
 
-// v0.4, many small changes and cleanup, and switch to Nimbus fonts
+// Typst ACL style - https://github.com/coli-saar/typst-acl-style
+// by Alexander Koller
+
+// 2025-02-18 v0.4, many small changes and cleanup, and switch to Nimbus fonts
 // v0.3.2, ensure page numbers are printed only in anonymous version
 // v0.3.1, fixed "locate" deprecation
 // v0.3, adjusted some formatting to the ACL style rules
