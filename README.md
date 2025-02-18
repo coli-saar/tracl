@@ -7,6 +7,8 @@ This repository contains a Typst template for writing ACL papers with Typst. It 
 
 The usage of the ACL style is documented in [main.pdf](main.pdf).
 
+To start a new document, you will need to copy [acl.typ](https://github.com/coli-saar/typst-acl-style/blob/main/acl.typ), [acl-macros.typ](https://github.com/coli-saar/typst-acl-style/blob/main/acl-macros.typ), and [association-for-computational-linguistics-blinky.csl](https://github.com/coli-saar/typst-acl-style/blob/main/association-for-computational-linguistics-blinky.csl) into a new directory. The other files in this repository are for documentation purposes.
+
 
 ## Obtaining the fonts
 
