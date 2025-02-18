@@ -119,7 +119,7 @@
   }
 
   // lists
-  set list(marker: text(8pt)[#v(4pt)●], indent: 1em)
+  set list(marker: text(7pt)[#v(5pt)●], indent: 1em)
   show list: e => {
     show par: p => {
       v(1em) 
