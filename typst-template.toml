@@ -1,9 +1,14 @@
 
 [package]
-name = "acl"
+name = "treacle"
 version = "VERSION"
 entrypoint = "lib.typ"
 authors = ["Alexander Koller <koller@coli.uni-saarland.de.com>"]
 license = "Apache 2.0"
 description = "Typeset papers in a style that is compatible with *ACL conferences."
 repository = "https://github.com/coli-saar/typst-acl-style"
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"

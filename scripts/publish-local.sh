@@ -3,4 +3,4 @@
 LOCAL="/Users/koller/Library/ApplicationSupport/typst/packages/local"
 mkdir -p "$LOCAL"
 
-cp -r release/preview/acl "$LOCAL"
+cp -r release/preview/treacle "$LOCAL"
