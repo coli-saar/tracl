@@ -1,5 +1,5 @@
-#import "acl.typ":*
-// #import "acl-macros.typ":*
+
+#import "@local/acl:0.4.0": *
 #import "@preview/hidden-bib:0.1.0": hidden-citations
 
 // float all figures to the top
@@ -51,7 +51,7 @@ The ACL Typst style is written for Typst 0.12.
 You can load the ACL template into your Typst file as follows:
 
 ```
-#import "acl.typ":*
+#import "@local/acl:0.4.0": *
 
 #show: doc => acl(doc,
   anonymous: false,
