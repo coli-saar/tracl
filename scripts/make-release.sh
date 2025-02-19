@@ -26,6 +26,6 @@ cp association-for-computational-linguistics-blinky.csl $RELEASE_DIR/template/
 cp template/blank.typ $RELEASE_DIR/template/main.typ
 
 # replace version in typst.toml
-sed "s/VERSION/$VERSION/g" typst-template.toml > $RELEASE_DIR/typst.toml
+sed "s/VERSION/$VERSION/g" template/typst-template.toml > $RELEASE_DIR/typst.toml
 
 echo "Package is ready for release in $RELEASE_DIR."
