@@ -1,5 +1,5 @@
 
-// Typst ACL style - https://github.com/coli-saar/typst-acl-style
+// Typst ACL style - https://github.com/coli-saar/tracl
 // by Alexander Koller <koller@coli.uni-saarland.de>
 
 // 2025-02-28 v0.5.0 - adapted to Typst 0.13, released to Typst Universe

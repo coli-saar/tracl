@@ -21,8 +21,7 @@
 )
 
 #abstract[
-  This document is a supplement to the general instructions for \*ACL authors. It contains instructions for using the
-  Typst  style files for ACL conferences.
+  This document is a supplement to the general instructions for \*ACL authors. It contains instructions for using the #link("https://github.com/coli-saar/tracl")[tracl] Typst template for ACL conferences.
   The document itself conforms to its own specifications, and is therefore an example of what your manuscript should look like.
   These instructions should be used both for papers submitted for review and for final versions of accepted papers.
 ]
@@ -31,7 +30,8 @@
 
 = Introduction
 
-These instructions are for authors submitting papers to \*ACL conferences using Typst. 
+These instructions are for authors submitting papers to \*ACL conferences using Typst using the 
+#link("https://github.com/coli-saar/tracl")[tracl] style. 
 They are not self-contained. All authors must follow the general instructions for \*ACL proceedings,
 #footnote[http://acl-org.github.io/ACLPUB/formatting.html] and this document contains additional 
 instructions for the Typst style files.
@@ -43,12 +43,12 @@ and an example bibliography (`custom.bib`).
 
 = Engines
 
-The ACL Typst style is written for Typst 0.12.
+Tracl is written for Typst 0.12.
 
 
 = Preamble
 
-You can load the ACL template into your Typst file as follows:
+You can load tracl into your Typst file as follows:
 
 ```
 #import "@preview/tracl:0.5.0": *
@@ -145,11 +145,11 @@ A possessive citation can be made with the `#citeposs` command; this will yield 
 // this is like \nocite in LaTeX
 #hidden-citations[@Ando2005 @andrew2007scalable @rasooli-tetrault-2015]
 
-The Typst ACL style uses the #link("https://github.com/citation-style-language/styles/blob/master/association-for-computational-linguistics.csl")[association-for-computational-linguistics] CSL style, which was developed by 
-Hajime Senuma to replicate the #link("https://github.com/acl-org/acl-style-files/blob/master/latex/acl_natbib.bst")[ACL BibTeX style].
+Tracl uses the #link("https://github.com/citation-style-language/styles/blob/master/association-for-computational-linguistics.csl")[association-for-computational-linguistics] CSL style, which was developed by 
+Hajime Senuma to replicate the #link("https://github.com/acl-org/tracl/blob/master/latex/acl_natbib.bst")[ACL BibTeX style].
 This style, in turn, was designed to roughly follow the American Psychological Association format.
 
-More specifically, we use the #link("https://github.com/alexanderkoller/typst-blinky/tree/main/examples")[Blinky] 
+More specifically, Tracl uses the #link("https://github.com/alexanderkoller/typst-blinky/tree/main/examples")[Blinky] 
 version of this CSL style. Blinky typesets the titles of references in the bibliography as hyperlinks if 
 a URL or DOI field is given in the BibTeX entry.
 See the reference for #citet(<rasooli-tetrault-2015>) for an example.
@@ -228,7 +228,7 @@ may be up to one page and will not count toward the final page limit. Note that 
 used by venues that do not rely on ARR so it is recommended to verify the requirement of a 
 "Limitations" section and other criteria with the venue in question.
 
-The Typst ACL style currently has a number of limitations compared to the more mature LaTeX style. 
+Tracl currently has a number of limitations compared to the more mature LaTeX style. 
 Here are some workarounds.
 
 - Author lists with more than three authors will be very crowded. There is currently no real way to 

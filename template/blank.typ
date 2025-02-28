@@ -1,6 +1,6 @@
 
 // This is a minimal starting document for tracl, a Typst style for ACL.
-// See https://github.com/coli-saar/typst-acl-style for details.
+// See https://github.com/coli-saar/tracl for details.
 
 
 #import "@preview/tracl:0.5.0": *

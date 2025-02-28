@@ -20,7 +20,7 @@ typst init @preview/tracl my-new-paper
 
 This will create a new directory called `my-new-paper` that contains all the files to get started. Compile `main.typ` to obtain an initial PDF file.
 
-Alternatively, you can copy [association-for-computational-linguistics-blinky.csl](https://github.com/coli-saar/typst-acl-style/blob/main/association-for-computational-linguistics-blinky.csl) into a new directory. Your Typst file can then `#import` the ACL style, as described in [main.pdf](https://github.com/coli-saar/tracl/blob/main/main.pdf).
+Alternatively, you can copy [association-for-computational-linguistics-blinky.csl](https://github.com/coli-saar/tracl/blob/main/association-for-computational-linguistics-blinky.csl) into a new directory. Your Typst file can then `#import` the ACL style, as described in [main.pdf](https://github.com/coli-saar/tracl/blob/main/main.pdf).
 
 
 
