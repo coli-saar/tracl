@@ -2,7 +2,7 @@
 // Typst ACL style - https://github.com/coli-saar/typst-acl-style
 // by Alexander Koller <koller@coli.uni-saarland.de>
 
-// 2025-02-28 v0.4.1 - released to Typst Universe
+// 2025-02-28 v0.5.0 - adapted to Typst 0.13, released to Typst Universe
 // 2025-02-18 v0.4, many small changes and cleanup, and switch to Nimbus fonts
 // v0.3.2, ensure page numbers are printed only in anonymous version
 // v0.3.1, fixed "locate" deprecation
@@ -18,7 +18,6 @@
 
 #let linespacing = 0.55em
 
-// fixed for Typst 0.12
 #let maketitle(title:none, authors:none, anonymous:false) = place(
   top + center, scope: "parent", float: true)[
     #box(height: 5cm, width: 1fr)[
@@ -32,19 +31,19 @@
           set text(12pt)
           [*Anonymous ACL submission*]
         } else {
-          text(12pt)[#par(leading: 0.5em)[
-            #let count = authors.len()
-            #let ncols = calc.min(count, 3)
-            #grid(
-              columns: (1fr,) * ncols,
-              row-gutter: 24pt,
-              ..authors.map(author => [
-                *#author.name* \
-                #author.affiliation \
-                #text(font:mono, 11pt)[#link("mailto:" + author.email)]
-              ]),
-            )
-            ]]
+          set text(12pt)
+          set par(leading: 0.5em)
+          let count = authors.len()
+          let ncols = calc.min(count, 3)
+          grid(
+            columns: (1fr,) * ncols,
+            row-gutter: 24pt,
+            ..authors.map(author => [
+              *#author.name* \
+              #author.affiliation \
+              #text(font:mono, 11pt)[#link("mailto:" + author.email)]
+            ]),
+          )  
         }
         #v(1em)
       ]      

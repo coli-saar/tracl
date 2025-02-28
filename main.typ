@@ -1,5 +1,5 @@
 
-#import "@preview/tracl:0.4.1": *
+#import "@local/tracl:0.5.0": *
 #import "@preview/hidden-bib:0.1.0": hidden-citations
 
 // float all figures to the top
@@ -9,7 +9,7 @@
 #show raw.where(block: true): it => pad(left: 1em, top: 1em, bottom: 1em, it)
 
 #show: doc => acl(doc,
-  anonymous: false,
+  anonymous: true,
   title: [Instructions for \*ACL Proceedings],
   authors: (
     (
@@ -51,7 +51,7 @@ The ACL Typst style is written for Typst 0.12.
 You can load the ACL template into your Typst file as follows:
 
 ```
-#import "@local/acl:0.4.0": *
+#import "@preview/tracl:0.5.0": *
 
 #show: doc => acl(doc,
   anonymous: false,
