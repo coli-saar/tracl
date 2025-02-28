@@ -1,5 +1,5 @@
 
-#import "@local/treacle:0.4.0": *
+#import "@preview/tracl:0.4.1": *
 #import "@preview/hidden-bib:0.1.0": hidden-citations
 
 // float all figures to the top

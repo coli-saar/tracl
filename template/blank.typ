@@ -1,9 +1,9 @@
 
-// This is a minimal starting document for Treacle, a Typst style for ACL.
+// This is a minimal starting document for tracl, a Typst style for ACL.
 // See https://github.com/coli-saar/typst-acl-style for details.
 
 
-#import "@local/treacle:0.4.0": *
+#import "@preview/tracl:0.4.1": *
 
 #show: doc => acl(doc,
   anonymous: false,

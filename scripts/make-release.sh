@@ -9,7 +9,7 @@ then
 fi
 
 
-RELEASE_DIR=release/preview/treacle/$VERSION
+RELEASE_DIR=release/preview/tracl/$VERSION
 
 
 

@@ -1,7 +1,8 @@
 
 // Typst ACL style - https://github.com/coli-saar/typst-acl-style
-// by Alexander Koller
+// by Alexander Koller <koller@coli.uni-saarland.de>
 
+// 2025-02-28 v0.4.1 - released to Typst Universe
 // 2025-02-18 v0.4, many small changes and cleanup, and switch to Nimbus fonts
 // v0.3.2, ensure page numbers are printed only in anonymous version
 // v0.3.1, fixed "locate" deprecation

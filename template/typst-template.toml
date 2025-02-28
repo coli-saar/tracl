@@ -1,12 +1,20 @@
 
 [package]
-name = "treacle"
+name = "tracl"
 version = "VERSION"
+compiler = "0.12"
 entrypoint = "lib.typ"
 authors = ["Alexander Koller <koller@coli.uni-saarland.de.com>"]
 license = "Apache 2.0"
-description = "Template for submissions to *ACL conferences."
+description = "Template for papers at *ACL conferences."
 repository = "https://github.com/coli-saar/typst-acl-style"
+keywords = [
+    "Association for Computational Linguistics", "ACL",
+    "NAACL", "EACL", "EMNLP",
+    "Natural Language Processing", "Computational Linguistics"
+]
+categories = ["paper"]
+disciplines = ["computer-science", "linguistics"]
 
 [template]
 path = "template"
