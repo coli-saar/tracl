@@ -1,12 +1,14 @@
 # Tracl: ACL Style for Typst
 
-This repository contains tracl, a Typst template for writing ACL papers with Typst. It implements the official [ACL paper formatting guidelines](https://acl-org.github.io/ACLPUB/formatting.html) and is modeled after the [LaTeX style](https://github.com/acl-org/acl-style-files). Tracl is the **T**ypst **R**econstruction of the **ACL** style.
+Tracl is a Typst template for writing papers for the *ACL series of conferences with Typst. ACL is the [Association for Computational Linguistics](https://www.aclweb.org/portal/).
+
+It implements the official [ACL paper formatting guidelines](https://acl-org.github.io/ACLPUB/formatting.html) and is modeled after the [LaTeX style](https://github.com/acl-org/acl-style-files). Tracl is the **T**ypst **R**econstruction of the **ACL** style.
 
 Tracl was developed by [Alexander Koller](https://www.coli.uni-saarland.de/~koller/), out of a personal desire to use Typst to write ACL papers. It is not officially supported by the ACL.
 
 ## Usage
 
-The usage of the ACL style is documented in [main.pdf](main.pdf).
+The usage of the ACL style is documented in [main.pdf](https://github.com/coli-saar/tracl/blob/main/main.pdf).
 
 To create a new document using tracl from the _Typst web app_, simply choose "Start from template" and select tracl.
 
@@ -18,7 +20,7 @@ typst init @preview/tracl my-new-paper
 
 This will create a new directory called `my-new-paper` that contains all the files to get started. Compile `main.typ` to obtain an initial PDF file.
 
-Alternatively, you can copy [association-for-computational-linguistics-blinky.csl](https://github.com/coli-saar/typst-acl-style/blob/main/association-for-computational-linguistics-blinky.csl) into a new directory. Your Typst file can then `#import` the ACL style, as described in [main.pdf](main.pdf).
+Alternatively, you can copy [association-for-computational-linguistics-blinky.csl](https://github.com/coli-saar/typst-acl-style/blob/main/association-for-computational-linguistics-blinky.csl) into a new directory. Your Typst file can then `#import` the ACL style, as described in [main.pdf](https://github.com/coli-saar/tracl/blob/main/main.pdf).
 
 
 
