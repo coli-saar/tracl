@@ -1,5 +1,12 @@
 #! /bin/bash
 
+# Bundles the files in this repository up for release.
+#
+# Usage: ./scripts/make-release.sh <VERSION>
+#
+# The resulting release package will be in release/preview/<PACKAGE>/<VERSION>.
+
+
 VERSION=$1
 
 if [ -z "$VERSION" ];
