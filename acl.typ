@@ -2,6 +2,7 @@
 // Typst ACL style - https://github.com/coli-saar/tracl
 // by Alexander Koller <koller@coli.uni-saarland.de>
 
+// 2025-03-02 v0.5.1 - fixed font names so as not to overwrite existing Typst symbols
 // 2025-02-28 v0.5.0 - adapted to Typst 0.13, released to Typst Universe
 // 2025-02-18 v0.4, many small changes and cleanup, and switch to Nimbus fonts
 // v0.3.2, ensure page numbers are printed only in anonymous version
@@ -12,9 +13,9 @@
 
 
 // "Times" in Tex Live is actually Nimbus Roman
-#let times = ("Nimbus Roman No9 L", "Libertinus Serif")  
-#let sans = ("Nimbus Sans L", "Helvetica")
-#let mono = ("Inconsolata", "DejaVu Sans Mono")
+#let tracl-serif = ("Nimbus Roman No9 L", "Libertinus Serif")  
+#let tracl-sans = ("Nimbus Sans L", "Helvetica")
+#let tracl-mono = ("Inconsolata", "DejaVu Sans Mono")
 
 #let linespacing = 0.55em
 
@@ -22,7 +23,7 @@
   top + center, scope: "parent", float: true)[
     #box(height: 5cm, width: 1fr)[
       #align(center)[
-        #text(15pt, font:times)[#par(leading:0.5em)[
+        #text(15pt, font: tracl-serif)[#par(leading:0.5em)[
           *#title*
         ]]
         #v(2.5em)
@@ -41,7 +42,7 @@
             ..authors.map(author => [
               *#author.name* \
               #author.affiliation \
-              #text(font:mono, 11pt)[#link("mailto:" + author.email)]
+              #text(font: tracl-mono, 11pt)[#link("mailto:" + author.email)]
             ]),
           )  
         }
@@ -73,7 +74,7 @@
   while s.len() < 3 {
     s = "0" + s
   }
-  text(font: sans, 7pt, fill: sidenumgray)[#s]
+  text(font: tracl-sans, 7pt, fill: sidenumgray)[#s]
 }
 
 
@@ -108,24 +109,25 @@
   show link: it => text(darkblue)[#it]
   show cite: it => text(darkblue)[#it]
   show ref: it => text(darkblue)[#it] // TODO - this makes all of "Section 6" blue; instead, make only the 6 blue
-  
 
   // font sizes
-  set text(11pt, font: times)
+  set text(11pt, font: tracl-serif)
   set par(leading: linespacing, first-line-indent: 4mm, justify: true, spacing: linespacing)
 
-  show figure.caption: set text(10pt, font:times)
+  show figure.caption: set text(10pt, font: tracl-serif)
   show figure.caption: set align(left)
   show figure.caption: it => [#v(0.5em) #it]
 
-  show footnote.entry: set text(9pt, font: times)
+  show footnote.entry: set text(9pt, font: tracl-serif)
+
+  show raw: set text(10pt, font: tracl-mono)
 
   // headings
   set heading(numbering: "1.1")
 
   let sectionheading(title) = {
     v(1.2em, weak: true)
-    text(12pt, font: times)[#title]
+    text(12pt, font: tracl-serif)[#title]
     v(1em, weak: true)
   }
 
@@ -135,7 +137,7 @@
     // This is better than it was, but = followed by ==
     // is still too wide a gap - get rid of it manually with v(-0.5em) if needed
     v(1.5em, weak: true)
-    text(11pt, font: times)[#it]
+    text(11pt, font: tracl-serif)[#it]
     v(1em, weak: true)
   }
 

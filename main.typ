@@ -1,5 +1,5 @@
 
-#import "@local/tracl:0.5.0": *
+#import "@local/tracl:0.5.1": *
 #import "@preview/hidden-bib:0.1.0": hidden-citations
 
 // float all figures to the top
@@ -9,7 +9,7 @@
 #show raw.where(block: true): it => pad(left: 1em, top: 1em, bottom: 1em, it)
 
 #show: doc => acl(doc,
-  anonymous: true,
+  anonymous: false,
   title: [Instructions for \*ACL Proceedings],
   authors: (
     (
@@ -51,7 +51,7 @@ Tracl is written for Typst 0.12.
 You can load tracl into your Typst file as follows:
 
 ```
-#import "@preview/tracl:0.5.0": *
+#import "@preview/tracl:0.5.1": *
 
 #show: doc => acl(doc,
   anonymous: false,
@@ -73,6 +73,15 @@ Use `anonymous:true` to generate an anonymous version of your paper that is suit
 If you split your document up over multiple source files, you will need to `#import "acl.typ"` in every source file;
 otherwise functions such as `#citet` will not be defined. The show rule with the call to `acl` should only appear once,
 in the main Typst source file.
+
+
+= Fonts
+
+You will need to install a number of free fonts to make tracl documents conform to the ACL style.
+See the #link("https://github.com/coli-saar/tracl")[README] for details.
+
+The serif, sans-serif, and monospace fonts that tracl uses to typeset the document can be accessed
+in the variables `tracl-serif`, `tracl-sans`, and `tracl-mono`. Use these in your own styling if you find it useful.
 
 
 = Document Body
