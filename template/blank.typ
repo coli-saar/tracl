@@ -35,7 +35,7 @@
 // Uncomment this to include your bibliography
 
 /*
-#import "@preview/blinky:0.1.0": link-bib-urls
+#import "@preview/blinky:0.1.1": link-bib-urls
 #let bibsrc = read("custom.bib")
 
 #link-bib-urls(bibsrc)[

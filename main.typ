@@ -1,5 +1,5 @@
 
-#import "@local/tracl:0.5.1": *
+#import "@preview/tracl:0.5.1": *
 #import "@preview/hidden-bib:0.1.0": hidden-citations
 
 // float all figures to the top
@@ -276,7 +276,7 @@ natbib citation commands. It also supports commands defined in previous ACL styl
 <citation-guide>
 
 
-#import "@preview/blinky:0.1.0": link-bib-urls  // :) :)
+#import "@preview/blinky:0.1.1": link-bib-urls  // :) :)
 #let bibsrc = read("custom.bib")
 
 #link-bib-urls(bibsrc)[
