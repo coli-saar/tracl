@@ -2,6 +2,7 @@
 // Typst ACL style - https://github.com/coli-saar/tracl
 // by Alexander Koller <koller@coli.uni-saarland.de>
 
+// 2025-03-28 v0.5.2 - bumped blinky dependency to 0.2.0
 // 2025-03-02 v0.5.1 - fixed font names so as not to overwrite existing Typst symbols
 // 2025-02-28 v0.5.0 - adapted to Typst 0.13, released to Typst Universe
 // 2025-02-18 v0.4, many small changes and cleanup, and switch to Nimbus fonts
@@ -10,7 +11,7 @@
 // v0.3, adjusted some formatting to the ACL style rules
 // v0.2, adapted to Typst 0.12
 
-
+#import "@preview/oxifmt:0.2.1": strfmt
 
 // "Times" in Tex Live is actually Nimbus Roman
 #let tracl-serif = ("Nimbus Roman No9 L", "Libertinus Serif")  
@@ -53,7 +54,7 @@
 
 
 #let darkblue = rgb("000099")
-#let sidenumgray = rgb("aaaaaa")
+#let sidenumgray = rgb("bfbfbf")
 
 #show link: it => text(blue)[#it]
 
@@ -175,24 +176,14 @@
 
   // if anonymous, add line numbering to every page
   // by executing it in the header
-  // TODO - font for line numbers is not quite right
-  let h = ""
-  if anonymous {
-    h = {
-      context { 
-        let loc = here()
-        let p = loc.page()-1
-        let ystart=2.4cm
-        for row in range(50) {
-          place(dx:-2cm, dy:ystart + 5mm * row, sidenum(p*100+row))
-          place(dx:17.5cm, dy:ystart + 5mm * row, sidenum(p*100+row+50))
-        }
-      }
-    }
-  }
-  
-  set page(header: h)
-  
+  set par.line(numbering: "001", number-clearance: 4em)
+  set par.line(
+    numbering: n => text(sidenumgray, font: tracl-sans, size: 8pt)[
+      *#strfmt("{:03}", n)*
+    ]
+  )
+  show figure: set par.line(numbering: none) // Disable numbers inside figures.
+
 
   // TODO: play around with these costs to optimize the layout in the end
   // set text(costs: (orphan: 0%, widow: 0%))

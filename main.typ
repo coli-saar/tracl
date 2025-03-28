@@ -1,5 +1,6 @@
 
-#import "@preview/tracl:0.5.2": *
+// #import "@local/tracl:0.5.2": *
+#import "acl.typ": *
 #import "@preview/hidden-bib:0.1.0": hidden-citations
 
 // float all figures to the top
@@ -9,13 +10,13 @@
 #show raw.where(block: true): it => pad(left: 1em, top: 1em, bottom: 1em, it)
 
 #show: doc => acl(doc,
-  anonymous: false,
+  anonymous: true,
   title: [Instructions for \*ACL Proceedings],
   authors: (
     (
       name: "Alexander Koller",
       affiliation: [Saarland University],
-      email: "koller@coli.uni-saarland.de",
+      email: "koller@coli.uni-saarland.de"
     ),
   ),
 )
@@ -51,7 +52,7 @@ Tracl is written for Typst 0.12.
 You can load tracl into your Typst file as follows:
 
 ```
-#import "@preview/tracl:0.5.1": *
+#import "@preview/tracl:0.5.2": *
 
 #show: doc => acl(doc,
   anonymous: false,
