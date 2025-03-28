@@ -3,7 +3,7 @@
 // See https://github.com/coli-saar/tracl for details.
 
 
-#import "@preview/tracl:0.5.2": *
+#import "@preview/tracl:0.6.0": *
 
 #show: doc => acl(doc,
   anonymous: false,

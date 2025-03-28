@@ -1,6 +1,5 @@
 
-// #import "@local/tracl:0.5.2": *
-#import "acl.typ": *
+#import "@local/tracl:0.6.0": *
 #import "@preview/hidden-bib:0.1.0": hidden-citations
 
 // float all figures to the top
@@ -52,7 +51,7 @@ Tracl is written for Typst 0.12.
 You can load tracl into your Typst file as follows:
 
 ```
-#import "@preview/tracl:0.5.2": *
+#import "@preview/tracl:0.6.0": *
 
 #show: doc => acl(doc,
   anonymous: false,

@@ -2,6 +2,7 @@
 // Typst ACL style - https://github.com/coli-saar/tracl
 // by Alexander Koller <koller@coli.uni-saarland.de>
 
+// 2025-03-28 v0.6.0 - improved lists and line numbers
 // 2025-03-28 v0.5.2 - bumped blinky dependency to 0.2.0
 // 2025-03-02 v0.5.1 - fixed font names so as not to overwrite existing Typst symbols
 // 2025-02-28 v0.5.0 - adapted to Typst 0.13, released to Typst Universe
