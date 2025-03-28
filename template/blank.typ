@@ -3,7 +3,7 @@
 // See https://github.com/coli-saar/tracl for details.
 
 
-#import "@preview/tracl:0.5.1": *
+#import "@preview/tracl:0.5.2": *
 
 #show: doc => acl(doc,
   anonymous: false,
@@ -35,11 +35,10 @@
 // Uncomment this to include your bibliography
 
 /*
-#import "@preview/blinky:0.1.1": link-bib-urls
+#import "@preview/blinky:0.2.0": link-bib-urls
 #let bibsrc = read("custom.bib")
 
-#link-bib-urls(bibsrc)[
+#link-bib-urls()[
    #bibliography("custom.bib", style: "./association-for-computational-linguistics-blinky.csl")
 ]
 */
-

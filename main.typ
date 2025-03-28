@@ -1,5 +1,5 @@
 
-#import "@preview/tracl:0.5.1": *
+#import "@preview/tracl:0.5.2": *
 #import "@preview/hidden-bib:0.1.0": hidden-citations
 
 // float all figures to the top
@@ -167,11 +167,11 @@ If your bib file is named `custom.bib`, then placing the following before any ap
 in your Typst file  will generate the references section for you:
 
 ```
-#import "@preview/blinky:0.1.0": 
+#import "@preview/blinky:0.2.0": 
    link-bib-urls
 #let bibsrc = read("custom.bib")
 
-#link-bib-urls(bibsrc)[
+#link-bib-urls()[
  #bibliography("custom.bib", 
   style: "./association-for-computational-linguistics-blinky.csl")
 ]
@@ -276,10 +276,10 @@ natbib citation commands. It also supports commands defined in previous ACL styl
 <citation-guide>
 
 
-#import "@preview/blinky:0.1.1": link-bib-urls  // :) :)
+#import "@preview/blinky:0.2.0": link-bib-urls
 #let bibsrc = read("custom.bib")
 
-#link-bib-urls(bibsrc)[
+#link-bib-urls()[
    #bibliography("custom.bib", style: "./association-for-computational-linguistics-blinky.csl")
 ]
 
