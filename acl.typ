@@ -142,26 +142,12 @@
     v(1em, weak: true)
   }
 
-  // lists
-  set list(marker: text(7pt)[#v(5pt)●], indent: 1em)
-  show list: e => {
-    show par: p => {
-      v(1em) 
-      p
-    }
-   e
-   v(1em)
-  }
+  // lists and enums
+  set list(marker: text(7pt, baseline: 0.2em)[●], indent: 1em)
+  show list: set par(spacing: 1em)
 
   set enum(indent: 1em)
-  show enum: e => {
-    show par: p => {
-      v(1em) 
-      p
-    }
-   e
-  v(1em)
-  }
+  show enum: set par(spacing: 1em)
 
   // spacing around figures
   // show figure: set block(inset: (top: 0pt, bottom: 1cm))

@@ -202,6 +202,22 @@ and cross references to them are made with #link("https://typst.app/docs/referen
 This is an example cross-reference to @eq:example.
 
 
+== Lists
+
+Typst distinguishes between lists and enums with tight and non-tight spacing. Lists and enums with tight spacing are set with no extra space between the items:
+
++ This is the first item of the list.
++ Here's a second item.
+
+Lists and enums with non-tight spacing are set with a blank line of space in between, as in the `itemize` and `enumerate` environments of the LaTeX style:
+
+- First element
+
+- Second element 
+
+Here's some text to illustrate the distance of the list from the subsequent paragraph:
+#lorem(10)
+
 == Appendices
 
 Enclose the content of your appendix in the `#appendix` command
