@@ -163,22 +163,26 @@
 
   // if anonymous, add line numbering to every page
   // by executing it in the header
-  set par.line(numbering: "001", number-clearance: 4em)
-  set par.line(
-    numbering: n => text(sidenumgray, font: tracl-sans, size: 8pt)[
-      *#strfmt("{:03}", n)*
-    ]
-  )
-  show figure: set par.line(numbering: none) // Disable numbers inside figures.
+  if anonymous {
+    set par.line(numbering: "001", number-clearance: 4em)
+    set par.line(
+      numbering: n => text(sidenumgray, font: tracl-sans, size: 8pt)[
+        *#strfmt("{:03}", n)*
+      ]
+    )
+    show figure: set par.line(numbering: none) // Disable numbers inside figures.
 
+    maketitle(title:title, authors:authors, anonymous:anonymous)    
+    doc 
+  } else {
+    maketitle(title:title, authors:authors, anonymous:anonymous)    
+    doc 
+  }
 
   // TODO: play around with these costs to optimize the layout in the end
   // set text(costs: (orphan: 0%, widow: 0%))
 
   
-  maketitle(title:title, authors:authors, anonymous:anonymous)
-    
-  doc
 }
 
 
