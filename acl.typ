@@ -15,19 +15,21 @@
 #import "@preview/oxifmt:0.2.1": strfmt
 
 // "Times" in Tex Live is actually Nimbus Roman
-#let tracl-serif = ("Nimbus Roman No9 L", "Libertinus Serif")  
+// #let tracl-serif = ("TeX Gyre Termes", "Nimbus Roman No9 L", "Libertinus Serif")
+#let tracl-serif = ("Nimbus Roman No9 L", "Libertinus Serif")
 #let tracl-sans = ("Nimbus Sans L", "Helvetica")
 #let tracl-mono = ("Inconsolata", "DejaVu Sans Mono")
 
 #let linespacing = 0.55em
 
-#let maketitle(title:none, authors:none, anonymous:false) = place(
+#let maketitle(papertitle:none, authors:none, anonymous:false) = place(
   top + center, scope: "parent", float: true)[
     #box(height: 5cm, width: 1fr)[
       #align(center)[
         #text(15pt, font: tracl-serif)[#par(leading:0.5em)[
-          *#title*
+          *#papertitle*
         ]]
+        // #title()
         #v(2.5em)
       
         #if anonymous {
@@ -102,6 +104,9 @@
 
 
 #let acl(doc, title:none, authors: none, anonymous: false) = {
+  // accessibility
+  set document(title: title)
+
   // overall page setup
   let page-numbering = if anonymous { "1" } else { none } // number pages only if anonymous
   set page(paper: "a4", margin: (x: 2.5cm, y: 2.5cm), columns: 2, numbering: page-numbering)
@@ -132,6 +137,12 @@
     text(12pt, font: tracl-serif)[#title]
     v(1em, weak: true)
   }
+
+  // This doesn't work - waiting for advice.
+  // if sys.version.at(1) >= 14 {
+  //   show std.title: set text(15pt, font: tracl-serif)
+  //   show std.title: set par(leading:0.5em)
+  // }
 
   show heading.where(level:1): it => sectionheading(it)
 
@@ -172,10 +183,10 @@
     )
     show figure: set par.line(numbering: none) // Disable numbers inside figures.
 
-    maketitle(title:title, authors:authors, anonymous:anonymous)    
+    maketitle(papertitle:title, authors:authors, anonymous:anonymous)    
     doc 
   } else {
-    maketitle(title:title, authors:authors, anonymous:anonymous)    
+    maketitle(papertitle:title, authors:authors, anonymous:anonymous)    
     doc 
   }
 

@@ -1,6 +1,6 @@
 
-#import "@preview/tracl:0.6.1": *
-// #import "acl.typ": *
+// #import "@preview/tracl:0.6.1": *
+#import "acl.typ": *
 #import "@preview/hidden-bib:0.1.0": hidden-citations
 
 // float all figures to the top
@@ -31,6 +31,7 @@
 
 = Introduction
 
+ü
 These instructions are for authors submitting papers to \*ACL conferences using Typst using the 
 #link("https://github.com/coli-saar/tracl")[tracl] style. 
 They are not self-contained. All authors must follow the general instructions for \*ACL proceedings,
