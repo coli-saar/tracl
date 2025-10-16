@@ -105,7 +105,8 @@
 
 #let acl(doc, title:none, authors: none, anonymous: false) = {
   // accessibility
-  set document(title: title)
+  let doc-authors = authors.map(dct => dct.name).join(", ")
+  set document(title: title, author: doc-authors)
 
   // overall page setup
   let page-numbering = if anonymous { "1" } else { none } // number pages only if anonymous
