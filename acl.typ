@@ -22,15 +22,22 @@
 
 #let linespacing = 0.55em
 
+// In Typst 0.14.0 and later, use a #title element for the title
+#let use-title = sys.version >= version(0, 14, 0)
+
 #let maketitle(papertitle:none, authors:none, anonymous:false) = place(
   top + center, scope: "parent", float: true)[
     #box(height: 5cm, width: 1fr)[
       #align(center)[
-        #text(15pt, font: tracl-serif)[#par(leading:0.5em)[
-          *#papertitle*
-        ]]
-        // #title()
-        #v(2.5em)
+        #if use-title {
+          title()
+          v(2.2em)
+        } else {
+          text(15pt, font: tracl-serif)[#par(leading:0.5em)[
+            *#papertitle*
+          ]]
+          v(2.5em)
+        }
       
         #if anonymous {
           set text(12pt)
@@ -101,7 +108,16 @@
 
 
 
-
+#let style-title(doc) = {
+  // This doesn't work - waiting for advice.
+  if use-title {
+    show std.title: set text(15pt, font: tracl-serif)
+    show std.title: set par(leading:0.5em)
+    doc
+  } else {
+    doc
+  }
+}
 
 #let acl(doc, title:none, authors: none, anonymous: false) = {
   // accessibility
@@ -139,11 +155,6 @@
     v(1em, weak: true)
   }
 
-  // This doesn't work - waiting for advice.
-  // if sys.version.at(1) >= 14 {
-  //   show std.title: set text(15pt, font: tracl-serif)
-  //   show std.title: set par(leading:0.5em)
-  // }
 
   show heading.where(level:1): it => sectionheading(it)
 
@@ -184,11 +195,11 @@
     )
     show figure: set par.line(numbering: none) // Disable numbers inside figures.
 
-    maketitle(papertitle:title, authors:authors, anonymous:anonymous)    
-    doc 
+    maketitle(papertitle:title, authors:authors, anonymous:anonymous)
+    style-title(doc) 
   } else {
-    maketitle(papertitle:title, authors:authors, anonymous:anonymous)    
-    doc 
+    style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous))
+    doc
   }
 
   // TODO: play around with these costs to optimize the layout in the end
