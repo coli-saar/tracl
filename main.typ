@@ -10,7 +10,7 @@
 #show raw.where(block: true): it => pad(left: 1em, top: 1em, bottom: 1em, it)
 
 #show: doc => acl(doc,
-  anonymous: false,
+  anonymous: true,
   title: [Instructions for \*ACL Proceedings],
   authors: (
     (
@@ -31,7 +31,6 @@
 
 = Introduction
 
-ü
 These instructions are for authors submitting papers to \*ACL conferences using Typst using the 
 #link("https://github.com/coli-saar/tracl")[tracl] style. 
 They are not self-contained. All authors must follow the general instructions for \*ACL proceedings,
@@ -45,7 +44,7 @@ and an example bibliography (`custom.bib`).
 
 = Engines
 
-Tracl is written for Typst 0.12.
+Tracl requires Typst 0.12. The most recent compatibility update is for Typst 0.14.
 
 
 = Preamble

@@ -2,6 +2,7 @@
 // Typst ACL style - https://github.com/coli-saar/tracl
 // by Alexander Koller <koller@coli.uni-saarland.de>
 
+// 2025-11-01 v0.7.0 - default font now TeX Gyre Termes; use Pergamon for references; compatible to Typst 0.14
 // 2025-03-28 v0.6.0 - improved lists and line numbers
 // 2025-03-28 v0.5.2 - bumped blinky dependency to 0.2.0
 // 2025-03-02 v0.5.1 - fixed font names so as not to overwrite existing Typst symbols
@@ -14,9 +15,9 @@
 
 #import "@preview/oxifmt:0.2.1": strfmt
 
-// "Times" in Tex Live is actually Nimbus Roman
-// #let tracl-serif = ("TeX Gyre Termes", "Nimbus Roman No9 L", "Libertinus Serif")
-#let tracl-serif = ("Nimbus Roman No9 L", "Libertinus Serif")
+// "Times" in TeX Live is actually Nimbus Roman.
+// TeX Gyre Termes is builtin in the Typst web app and accepted by aclpubcheck.
+#let tracl-serif = ("TeX Gyre Termes", "Nimbus Roman No9 L", "Libertinus Serif")
 #let tracl-sans = ("Nimbus Sans L", "Helvetica")
 #let tracl-mono = ("Inconsolata", "DejaVu Sans Mono")
 
@@ -122,7 +123,7 @@
 #let acl(doc, title:none, authors: none, anonymous: false) = {
   // accessibility
   let doc-authors = authors.map(dct => dct.name).join(", ")
-  set document(title: title, author: doc-authors)
+  set document(title: title, author: if anonymous { "Anonymous " } else {doc-authors })
 
   // overall page setup
   let page-numbering = if anonymous { "1" } else { none } // number pages only if anonymous
