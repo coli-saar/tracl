@@ -1,7 +1,8 @@
 
-// #import "@preview/tracl:0.6.1": *
 #import "acl.typ": *
-#import "@preview/hidden-bib:0.1.0": hidden-citations
+#import "@local/pergamon:0.5.0": * // NB change both
+
+
 
 // float all figures to the top
 #set figure(placement: top)
@@ -20,6 +21,7 @@
     ),
   ),
 )
+
 
 #abstract[
   This document is a supplement to the general instructions for \*ACL authors. It contains instructions for using the #link("https://github.com/coli-saar/tracl")[tracl] Typst template for ACL conferences.
@@ -71,8 +73,8 @@ You can then write the rest of your document as usual. Use the `#abstract` comma
 
 Use `anonymous:true` to generate an anonymous version of your paper that is suitable for submission to the conference.
 
-If you split your document up over multiple source files, you will need to `#import "acl.typ"` in every source file;
-otherwise functions such as `#citet` will not be defined. The show rule with the call to `acl` should only appear once,
+If you split your document up over multiple source files, you will need to `#import "acl.typ"` in every source file
+to use the functions that tracl defines. The show rule with the call to `acl` should only appear once,
 in the main Typst source file.
 
 
@@ -135,57 +137,6 @@ See the source code of @citation-guide for an example.
 ) <tab:example>
 
 
-== Citations <sec:citations>
-
-@citation-guide shows the syntax supported by the style files. The default Typst `cite` 
-command (`@Gusfield:97`) will generate citations in the form "(author, year)".
-You can also write `#cite(<Gusfield:97>)` or `#citep(<Gusfield:97>)`; note that you  
-have to enclose the reference key in angle brackets for this.
-
-You can write `#citet(<Gusfield:97>)` to get citations of the form "author (year)",
-as in #citet(<Gusfield:97>).  You can use the command `#citealp(<Gusfield:97>)` 
-(alternative cite without parentheses) to get “author, year” citations, which is useful 
-for using citations within  parentheses (e.g. #citealp(<Gusfield:97>)).
-A possessive citation can be made with the `#citeposs` command; this will yield e.g. 
-"#citeposs(<Gusfield:97>)".
-
-
-== References
-
-// this is like \nocite in LaTeX
-#hidden-citations[@Ando2005 @andrew2007scalable @rasooli-tetrault-2015]
-
-Tracl uses the #link("https://github.com/citation-style-language/styles/blob/master/association-for-computational-linguistics.csl")[association-for-computational-linguistics] CSL style, which was developed by 
-Hajime Senuma to replicate the #link("https://github.com/acl-org/tracl/blob/master/latex/acl_natbib.bst")[ACL BibTeX style].
-This style, in turn, was designed to roughly follow the American Psychological Association format.
-
-More specifically, Tracl uses the #link("https://github.com/alexanderkoller/typst-blinky/tree/main/examples")[Blinky] 
-version of this CSL style. Blinky typesets the titles of references in the bibliography as hyperlinks if 
-a URL or DOI field is given in the BibTeX entry.
-See the reference for #citet(<rasooli-tetrault-2015>) for an example.
-
-If your bib file is named `custom.bib`, then placing the following before any appendices 
-in your Typst file  will generate the references section for you:
-
-```
-#import "@preview/blinky:0.2.0": 
-   link-bib-urls
-#let bibsrc = read("custom.bib")
-
-#link-bib-urls()[
- #bibliography("custom.bib", 
-  style: "./association-for-computational-linguistics-blinky.csl")
-]
-```
-
-You can, in principle, using multiple bibliography files to the `bibliography` function (e.g. your 
-own bib file and the ACL Anthology) by passing their names in an array. However, Blinky currently 
-#link("https://github.com/alexanderkoller/typst-blinky/issues/2")[does not support multiple bibliographies]. 
-This means you'll either have to consolidate your bibliographies into a single file or live without 
-hyperlinked paper titles.
-
-Please see @sec:bibtex for information on preparing BibTeX files.
-
 
 == Equations
 
@@ -231,7 +182,11 @@ to switch the section numbering over to letters. See @sec:appendix for an exampl
 ) <fig:experiments>
 
 
-= BibTeX Files <sec:bibtex>
+
+= References
+
+#v(-0.5em)
+== BibTeX Files <sec:bibtex>
 
 You can use regular BibTeX bibliography files with Typst.
 You can obtain the complete ACL Anthology as a BibTeX file from https://aclweb.org/anthology/anthology.bib.gz.
@@ -239,8 +194,58 @@ You can obtain the complete ACL Anthology as a BibTeX file from https://aclweb.o
 Please ensure that BibTeX records contain DOIs or URLs when possible, and for all the ACL 
 materials that you reference. Use the `doi` field for DOIs and the `url` field for URLs.
 If a BibTeX entry has a URL or DOI field, the paper title in the references section will 
-appear as a hyperlink to the paper, using the 
-#link("https://typst.app/universe/package/blinky/")[Blinky] package.
+appear as a hyperlink to the paper.
+#text(size:0.001pt)[#cite("Ando2005", "andrew2007scalable", "rasooli-tetrault-2015")]
+
+== Bibliographies
+
+Tracl uses #link("https://typst.app/universe/package/pergamon")[Pergamon] to
+typeset the bibliography, with ACL-specific customization. The structure of a typical 
+tracl document therefore looks like this:
+
+```
+#import "@preview/tracl:0.6.1": *
+#import "@preview/pergamon:0.5.0": *
+
+... your document ...
+
+#add-bib-resource(read("custom.bib"))
+#print-acl-bibliography()
+```
+
+You can call `add-bib-resource` as many times as you like to make Bibtex files available
+to your paper. Note that you have to `read` the Bibtex file yourself before calling
+`add-bib-resource` because of architectural limitations of Typst.
+
+The bibliography will be printed at the location where you call `print-acl-bibliography`.
+This is typically after the Limitations sections, but before the appendices.
+
+
+
+== Citations <sec:citations>
+
+@citation-guide shows how to cite papers in your text. Note that we use Pergamon's
+`cite` function, rather than Typst's builtin `cite`. This means that you must write
+`#cite("paperkey")` rather than `#cite(<paperkey>)`, and you cannot just write
+`@paperkey`.
+
+The functions `cite` and `citep` will generate citations in the form "(author, year)".
+You can write `#citet("Gusfield:97")` to get citations of the form "author (year)",
+as in #citet("Gusfield:97").  You can use the command `#citen("Gusfield:97")` 
+("cite none") to get “author, year” citations, which is useful 
+for using citations within  parentheses. 
+A possessive citation can be made with the `#citeg` command; this will yield e.g. 
+"#citeg("Gusfield:97")".
+
+For comparison with the ACL LaTeX style, `citen` corresponds to their `citealp`,
+and `citeg` corresponds to their `citeposs`.
+
+The citation commands are defined by Pergamon. If you split your paper across multiple 
+source files, you must therefore `#import` Pergamon in each of them. If the citation 
+commands are all the tracl-related functions you need in a source file, it's okay to 
+`#import` only Pergamon and not tracl itself.
+
+
 
 
 #set heading(numbering: none) // turn off section numbers
@@ -271,34 +276,38 @@ Here are some workarounds.
 
 
 
+
 #figure(
   scope: "parent",
-  table(
-    columns: (auto, auto),
-    stroke: none,
-    column-gutter: 1em,
-    align: left,
-    table.hline(),
-    [*Output*], [*Citation command*], 
-    table.hline(),
-    [@Gusfield:97], [`@Gusfield:97` or `#cite<Gusfield:97>` or `#citep<Gusfield:97>`],
-    [#citet(<Gusfield:97>)], [`#citet(<Gusfield:97>)`],
-    [#citealp(<Gusfield:97>)], [`#citealp(<Gusfield:97>)`],
-    [#citeposs(<Gusfield:97>)], [`#citeposs(<Gusfield:97>)`],
-    table.hline()
-  ),
-  caption: [Citation commands supported by the style file. The style is based on the natbib package and supports all
-natbib citation commands. It also supports commands defined in previous ACL style files for compatibility.]
+    table(
+      columns: (auto, auto, auto),
+      stroke: none,
+      column-gutter: 1em,
+      align: left,
+      table.hline(),
+      [*Output*], [*Citation command*], [*LaTeX equivalent*],
+      table.hline(),
+      cite("Gusfield:97"), [`#cite("Gusfield:97")` or `#citep("Gusfield:97")`], [`citep`],
+      citet("Gusfield:97"), [`#citet("Gusfield:97")`], [`citet`],
+      citen("Gusfield:97"), [`#citen("Gusfield:97")`], [`citealp`],
+      citeg("Gusfield:97"), [`#citeg("Gusfield:97")`], [`citeposs`],
+      table.hline()
+    ),
+  caption: [Citation commands supported by the style file.]
 )
 <citation-guide>
 
 
-#import "@preview/blinky:0.2.0": link-bib-urls
-#let bibsrc = read("custom.bib")
 
-#link-bib-urls()[
-   #bibliography("custom.bib", style: "./association-for-computational-linguistics-blinky.csl")
-]
+#add-bib-resource(read("custom.bib"))
+#print-acl-bibliography()
+
+// #import "@preview/blinky:0.2.0": link-bib-urls
+// #let bibsrc = read("custom.bib")
+
+// #link-bib-urls()[
+//    #bibliography("custom.bib", style: "./association-for-computational-linguistics-blinky.csl")
+// ]
 
 #appendix[
   = Example Appendix <sec:appendix>

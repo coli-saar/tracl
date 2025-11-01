@@ -14,6 +14,8 @@
 // v0.2, adapted to Typst 0.12
 
 #import "@preview/oxifmt:0.2.1": strfmt
+#import "@local/pergamon:0.5.0": * // NB change both
+#let dev = pergamon-dev
 
 // "Times" in TeX Live is actually Nimbus Roman.
 // TeX Gyre Termes is builtin in the Typst web app and accepted by aclpubcheck.
@@ -120,6 +122,143 @@
   }
 }
 
+
+// modified formatting of volume and number for Pergamon
+#let volume-number-pages(reference, options) = {
+  let volume = fd(reference, "volume", options)
+  let number = fd(reference, "number", options)
+  let pages = fd(reference, "pages", options)
+
+  let a = if volume == none and number == none {
+    none
+  } else if number == none {
+    " " + volume
+  } else if volume == none {
+    panic("Can't use 'number' without 'volume' (in " + reference.entry_key + ")!")
+  } else {
+    strfmt(" {}({})", volume, number)
+  }
+
+  let pp = if pages == none {
+    ""
+  } else if a != none {
+    ":" + pages
+  } else {
+    ", " + (dev.printfield)(reference, "pages", options)
+  }
+
+  a + pp
+}
+
+
+  #let acl-cite = format-citation-authoryear(
+    author-year-separator: ", "
+  )
+
+  #let acl-ref = format-reference(
+      name-format: "{given} {family}",
+      reference-label: acl-cite.reference-label,
+      format-quotes: it => it,
+      print-isbn: false,
+      // TODO: this needs to stay configurable, perhaps with default dictionary overriding
+      suppress-fields: (
+        "*": ("month",),
+        "inproceedings": ("editor",),
+      ), 
+
+      print-date-after-authors: true,
+
+      format-functions: (
+        "maybe-with-date": (reference, options) => {
+          name => {
+            periods(
+              name,
+              (dev.date-with-extradate)(reference, options)
+            )
+          }
+        },
+
+        // reordered location and organization
+        "driver-inproceedings": (reference, options) => {
+          (dev.require-fields)(reference, options, "author", "title", "booktitle")
+
+          (options.periods)(
+            (dev.author-translator-others)(reference, options),
+            (dev.date-with-extradate)(reference, options),
+            (dev.printfield)(reference, "title", options),
+            (options.commas)(
+              spaces(options.bibstring.in, (dev.maintitle-booktitle)(reference, options)),
+              (dev.printfield)(reference, "pages", options),
+              (dev.printfield)(reference, "location", options),
+              (dev.printfield)(reference, "organization", options),
+            ),
+            (dev.doi-eprint-url)(reference, options),
+            (dev.addendum-pubstate)(reference, options)
+          )
+        },
+
+        // TODO: include "edited by"
+        "driver-incollection": (reference, options) => {
+          (dev.require-fields)(reference, options, "author", "title", "editor", "booktitle")
+
+          (options.periods)(
+            (dev.author-translator-others)(reference, options),
+            (dev.date-with-extradate)(reference, options),
+            (dev.printfield)(reference, "title", options),
+            spaces(
+              options.bibstring.in,
+              (options.commas)(
+                (dev.printfield)(reference, "editor", options),
+                (dev.maintitle-booktitle)(reference, options),
+                (dev.printfield)(reference, "pages", options)
+              )
+            ),
+            (dev.publisher-location-date)(reference, options),
+          )
+        },
+
+        // different formatting of volume and number
+        // TODO: check eid
+        "driver-article": (reference, options) => {
+            (dev.require-fields)(reference, options, "author", "title", "journaltitle")
+
+            (options.periods)(
+              (dev.author-translator-others)(reference, options),
+              (dev.date-with-extradate)(reference, options),
+              (dev.printfield)(reference, "title", options),
+              epsilons(
+                emph((dev.printfield)(reference, "journaltitle", options)),
+                volume-number-pages(reference, options)
+              ),
+              (dev.doi-eprint-url)(reference, options),
+              (dev.addendum-pubstate)(reference, options)
+            )
+        },
+      ),
+
+      // Override bibstring entries like this:
+      bibstring: (
+        "in": "In",
+      ),
+
+
+
+      // TODO: Things like this should be addable by the user:
+      eval-scope: (todo: x => text(fill: red, x))
+    )
+
+
+
+#let print-acl-bibliography() = {
+  print-bibliography(
+    format-reference: acl-ref, 
+    sorting: "nyt",
+    label-generator: acl-cite.label-generator,
+    )
+}
+
+#let acl-refsection = refsection.with(format-citation: acl-cite.format-citation)
+
 #let acl(doc, title:none, authors: none, anonymous: false) = {
   // accessibility
   let doc-authors = authors.map(dct => dct.name).join(", ")
@@ -132,7 +271,7 @@
   
   // some colors
   show link: it => text(darkblue)[#it]
-  show cite: it => text(darkblue)[#it]
+  // show cite: it => text(darkblue)[#it] // TODO - reactivate if necessary
   show ref: it => text(darkblue)[#it] // TODO - this makes all of "Section 6" blue; instead, make only the 6 blue
 
   // font sizes
@@ -156,7 +295,6 @@
     v(1em, weak: true)
   }
 
-
   show heading.where(level:1): it => sectionheading(it)
 
   show heading.where(level:2): it => {
@@ -178,12 +316,15 @@
   // show figure: set block(inset: (top: 0pt, bottom: 1cm))
 
   // bibliography
-  show bibliography: it => {
-    set text(size: 10pt)
-    set par(leading: linespacing, first-line-indent: 0mm, hanging-indent: 4mm, justify: true, spacing: 1em)
-    show heading: it => sectionheading("References")
-    it
-  }
+  // TODO reactivate with parameter
+  // show bibliography: it => {
+  //   set text(size: 10pt)
+  //   set par(leading: linespacing, first-line-indent: 0mm, hanging-indent: 4mm, justify: true, spacing: 1em)
+  //   show heading: it => sectionheading("References")
+  //   it
+  // }
+
+
 
   // if anonymous, add line numbering to every page
   // by executing it in the header
@@ -197,10 +338,10 @@
     show figure: set par.line(numbering: none) // Disable numbers inside figures.
 
     maketitle(papertitle:title, authors:authors, anonymous:anonymous)
-    style-title(doc) 
+    style-title(acl-refsection(doc))
   } else {
     style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous))
-    doc
+    acl-refsection(doc)
   }
 
   // TODO: play around with these costs to optimize the layout in the end
