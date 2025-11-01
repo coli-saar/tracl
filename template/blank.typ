@@ -4,6 +4,9 @@
 
 
 #import "@preview/tracl:0.6.1": *
+#import "@local/pergamon:0.5.0": * // NB change both
+
+
 
 #show: doc => acl(doc,
   anonymous: false,
@@ -35,10 +38,6 @@
 // Uncomment this to include your bibliography
 
 /*
-#import "@preview/blinky:0.2.0": link-bib-urls
-#let bibsrc = read("custom.bib")
-
-#link-bib-urls()[
-   #bibliography("custom.bib", style: "./association-for-computational-linguistics-blinky.csl")
-]
+#add-bib-resource(read("custom.bib"))
+#print-acl-bibliography()
 */
