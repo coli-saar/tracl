@@ -220,6 +220,10 @@ to your paper. Note that you have to `read` the Bibtex file yourself before call
 The bibliography will be printed at the location where you call `print-acl-bibliography`.
 This is typically after the Limitations sections, but before the appendices.
 
+You can tweak the formatting of the bibliography by passing additional named arguments 
+to the `acl` function. These arguments will be passed on to Pergamon's `format-reference`
+function. See the #link("https://typst.app/universe/package/pergamon")[Pergamon documentation]
+for details.
 
 
 == Citations <sec:citations>

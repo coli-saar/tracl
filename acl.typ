@@ -150,116 +150,21 @@
   a + pp
 }
 
-
-  #let acl-cite = format-citation-authoryear(
-    author-year-separator: ", "
-  )
-
-  #let acl-ref = format-reference(
-      name-format: "{given} {family}",
-      reference-label: acl-cite.reference-label,
-      format-quotes: it => it,
-      print-isbn: false,
-      // TODO: this needs to stay configurable, perhaps with default dictionary overriding
-      suppress-fields: (
-        "*": ("month",),
-        "inproceedings": ("editor",),
-      ), 
-
-      print-date-after-authors: true,
-
-      format-functions: (
-        "maybe-with-date": (reference, options) => {
-          name => {
-            periods(
-              name,
-              (dev.date-with-extradate)(reference, options)
-            )
-          }
-        },
-
-        // reordered location and organization
-        "driver-inproceedings": (reference, options) => {
-          (dev.require-fields)(reference, options, "author", "title", "booktitle")
-
-          (options.periods)(
-            (dev.author-translator-others)(reference, options),
-            (dev.date-with-extradate)(reference, options),
-            (dev.printfield)(reference, "title", options),
-            (options.commas)(
-              spaces(options.bibstring.in, (dev.maintitle-booktitle)(reference, options)),
-              (dev.printfield)(reference, "pages", options),
-              (dev.printfield)(reference, "location", options),
-              (dev.printfield)(reference, "organization", options),
-            ),
-            (dev.doi-eprint-url)(reference, options),
-            (dev.addendum-pubstate)(reference, options)
-          )
-        },
-
-        // TODO: include "edited by"
-        "driver-incollection": (reference, options) => {
-          (dev.require-fields)(reference, options, "author", "title", "editor", "booktitle")
-
-          (options.periods)(
-            (dev.author-translator-others)(reference, options),
-            (dev.date-with-extradate)(reference, options),
-            (dev.printfield)(reference, "title", options),
-            spaces(
-              options.bibstring.in,
-              (options.commas)(
-                (dev.printfield)(reference, "editor", options),
-                (dev.maintitle-booktitle)(reference, options),
-                (dev.printfield)(reference, "pages", options)
-              )
-            ),
-            (dev.publisher-location-date)(reference, options),
-          )
-        },
-
-        // different formatting of volume and number
-        // TODO: check eid
-        "driver-article": (reference, options) => {
-            (dev.require-fields)(reference, options, "author", "title", "journaltitle")
-
-            (options.periods)(
-              (dev.author-translator-others)(reference, options),
-              (dev.date-with-extradate)(reference, options),
-              (dev.printfield)(reference, "title", options),
-              epsilons(
-                emph((dev.printfield)(reference, "journaltitle", options)),
-                volume-number-pages(reference, options)
-              ),
-              (dev.doi-eprint-url)(reference, options),
-              (dev.addendum-pubstate)(reference, options)
-            )
-        },
-      ),
-
-      // Override bibstring entries like this:
-      bibstring: (
-        "in": "In",
-      ),
-
-
-
-      // TODO: Things like this should be addable by the user:
-      eval-scope: (todo: x => text(fill: red, x))
-    )
-
-
-
-#let print-acl-bibliography() = {
-  print-bibliography(
-    format-reference: acl-ref, 
-    sorting: "nyt",
-    label-generator: acl-cite.label-generator,
-    )
+// Storing the Pergamon styles in a state is a bit clunky,
+// but I think it is necessary because I want to override style arguments.
+#let pergamon-data = state("acl-pergamon-data", none)
+#let print-acl-bibliography() = context {
+  let data = pergamon-data.get()
+  if type(data) == dictionary {
+    print-bibliography(
+      format-reference: data.acl-ref,
+      sorting: "nyt",
+      label-generator: data.acl-cite.label-generator,
+      )
+  }
 }
 
-#let acl-refsection = refsection.with(format-citation: acl-cite.format-citation)
-
-#let acl(doc, title:none, authors: none, anonymous: false) = {
+#let acl(doc, title:none, authors: none, anonymous: false, ..pergamon-arguments) = {
   // accessibility
   let doc-authors = authors.map(dct => dct.name).join(", ")
   set document(title: title, author: if anonymous { "Anonymous " } else {doc-authors })
@@ -315,14 +220,102 @@
   // spacing around figures
   // show figure: set block(inset: (top: 0pt, bottom: 1cm))
 
-  // bibliography
-  // TODO reactivate with parameter
-  // show bibliography: it => {
-  //   set text(size: 10pt)
-  //   set par(leading: linespacing, first-line-indent: 0mm, hanging-indent: 4mm, justify: true, spacing: 1em)
-  //   show heading: it => sectionheading("References")
-  //   it
-  // }
+  // Pergamon config
+  let acl-cite = format-citation-authoryear(
+    author-year-separator: ", "
+  )
+
+  let format-reference-arguments = (
+    name-format: "{given} {family}",
+    reference-label: acl-cite.reference-label,
+    format-quotes: it => it,
+    print-isbn: false,
+
+    suppress-fields: (
+      "*": ("month",),
+      "inproceedings": ("editor",),
+    ), 
+
+    print-date-after-authors: true,
+
+    format-functions: (
+      "maybe-with-date": (reference, options) => {
+        name => {
+          periods(
+            name,
+            (dev.date-with-extradate)(reference, options)
+          )
+        }
+      },
+
+      // reordered location and organization
+      "driver-inproceedings": (reference, options) => {
+        (dev.require-fields)(reference, options, "author", "title", "booktitle")
+
+        (options.periods)(
+          (dev.author-translator-others)(reference, options),
+          (dev.date-with-extradate)(reference, options),
+          (dev.printfield)(reference, "title", options),
+          (options.commas)(
+            spaces(options.bibstring.in, (dev.maintitle-booktitle)(reference, options)),
+            (dev.printfield)(reference, "pages", options),
+            (dev.printfield)(reference, "location", options),
+            (dev.printfield)(reference, "organization", options),
+          ),
+          (dev.doi-eprint-url)(reference, options),
+          (dev.addendum-pubstate)(reference, options)
+        )
+      },
+
+      // TODO: include "edited by"
+      "driver-incollection": (reference, options) => {
+        (dev.require-fields)(reference, options, "author", "title", "editor", "booktitle")
+
+        (options.periods)(
+          (dev.author-translator-others)(reference, options),
+          (dev.date-with-extradate)(reference, options),
+          (dev.printfield)(reference, "title", options),
+          spaces(
+            options.bibstring.in,
+            (options.commas)(
+              (dev.printfield)(reference, "editor", options),
+              (dev.maintitle-booktitle)(reference, options),
+              (dev.printfield)(reference, "pages", options)
+            )
+          ),
+          (dev.publisher-location-date)(reference, options),
+        )
+      },
+
+      // different formatting of volume and number
+      // TODO: check eid
+      "driver-article": (reference, options) => {
+          (dev.require-fields)(reference, options, "author", "title", "journaltitle")
+
+          (options.periods)(
+            (dev.author-translator-others)(reference, options),
+            (dev.date-with-extradate)(reference, options),
+            (dev.printfield)(reference, "title", options),
+            epsilons(
+              emph((dev.printfield)(reference, "journaltitle", options)),
+              volume-number-pages(reference, options)
+            ),
+            (dev.doi-eprint-url)(reference, options),
+            (dev.addendum-pubstate)(reference, options)
+          )
+      },
+    ),
+
+    bibstring: (
+      "in": "In",
+    ),
+  ) + pergamon-arguments.named()
+
+  let acl-ref = format-reference(..format-reference-arguments)
+
+  let acl-refsection = refsection.with(format-citation: acl-cite.format-citation)
+
+  pergamon-data.update(x => (acl-ref: acl-ref, acl-cite: acl-cite))
 
 
 
