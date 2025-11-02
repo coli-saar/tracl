@@ -93,10 +93,10 @@
 
 
 // citation commands
-#let citet(x) = cite(x, form: "prose")
-#let citep(x) = cite(x)
-#let citealp(x) = [#cite(x, form: "author"), #cite(x, form: "year")]
-#let citeposs(x) = [#cite(x, form: "author")'s (#cite(x, form: "year"))]
+// #let citet(x) = cite(x, form: "prose")
+// #let citep(x) = cite(x)
+// #let citealp(x) = [#cite(x, form: "author"), #cite(x, form: "year")]
+// #let citeposs(x) = [#cite(x, form: "author")'s (#cite(x, form: "year"))]
 
 // Switch to appendix. By default, the appendices start on a fresh page.
 // If you don't want this, pass "clearpage: false".
@@ -122,6 +122,8 @@
   }
 }
 
+
+////// PERGAMON CONFIG ///////
 
 // modified formatting of volume and number for Pergamon
 #let volume-number-pages(reference, options) = {
@@ -150,72 +152,18 @@
   a + pp
 }
 
-// Storing the Pergamon styles in a state is a bit clunky,
-// but I think it is necessary because I want to override style arguments.
-#let pergamon-data = state("acl-pergamon-data", none)
-#let print-acl-bibliography() = context {
-  let data = pergamon-data.get()
-  if type(data) == dictionary {
-    print-bibliography(
-      format-reference: data.acl-ref,
-      sorting: "nyt",
-      label-generator: data.acl-cite.label-generator,
-      )
-  }
-}
+// Pergamon citation style suitable for ACL
+#let acl-cite = format-citation-authoryear(
+  author-year-separator: ", "
+)
 
-#let acl(doc, title:none, authors: none, anonymous: false, ..pergamon-arguments) = {
-  // accessibility
-  let doc-authors = authors.map(dct => dct.name).join(", ")
-  set document(title: title, author: if anonymous { "Anonymous " } else {doc-authors })
+// Define Pergamon refsection for ACL papers
+#let acl-refsection = refsection.with(format-citation: acl-cite.format-citation)
 
-  // overall page setup
-  let page-numbering = if anonymous { "1" } else { none } // number pages only if anonymous
-  set page(paper: "a4", margin: (x: 2.5cm, y: 2.5cm), columns: 2, numbering: page-numbering)
-  set columns(gutter: 6mm)
-  
-  // some colors
-  show link: it => text(darkblue)[#it]
-  // show cite: it => text(darkblue)[#it] // TODO - reactivate if necessary
-  show ref: it => text(darkblue)[#it] // TODO - this makes all of "Section 6" blue; instead, make only the 6 blue
-
-  // font sizes
-  set text(11pt, font: tracl-serif)
-  set par(leading: linespacing, first-line-indent: 4mm, justify: true, spacing: linespacing)
-
-  show figure.caption: set text(10pt, font: tracl-serif)
-  show figure.caption: set align(left)
-  show figure.caption: it => [#v(0.5em) #it]
-
-  show footnote.entry: set text(9pt, font: tracl-serif)
-
-  show raw: set text(10pt, font: tracl-mono)
-
-  // headings
-  set heading(numbering: "1.1   ")
-
-  show heading: it => {
-    set block(above: if it.level == 1 { 1.3em } else { 1.5em })
-    set text(if it.level == 1 { 12pt } else { 11pt })
-    it
-    v(if it.level == 1 { 1.2em } else { 1em }, weak: true)
-  }
-
-  // lists and enums
-  set list(marker: text(7pt, baseline: 0.2em)[●], indent: 1em)
-  show list: set par(spacing: 1em)
-
-  set enum(indent: 1em)
-  show enum: set par(spacing: 1em)
-
-  // spacing around figures
-  // show figure: set block(inset: (top: 0pt, bottom: 1cm))
-
-  // Pergamon config
-  let acl-cite = format-citation-authoryear(
-    author-year-separator: ", "
-  )
-
+// Call this to print the bibliography. All named arguments that you pass
+// to this function will be forwarded to the format-reference call, enabling customization.
+#let print-acl-bibliography(..pergamon-arguments) = {
+  // default arguments for format-reference
   let format-reference-arguments = (
     name-format: "{given} {family}",
     reference-label: acl-cite.reference-label,
@@ -304,11 +252,67 @@
 
   let acl-ref = format-reference(..format-reference-arguments)
 
-  let acl-refsection = refsection.with(format-citation: acl-cite.format-citation)
+  print-bibliography(
+    format-reference: acl-ref,
+    sorting: "nyt",
+    label-generator: acl-cite.label-generator,
+    )
+}
 
-  pergamon-data.update(x => (acl-ref: acl-ref, acl-cite: acl-cite))
+////// END PERGAMON CONFIG ///////
 
 
+
+
+
+
+
+
+#let acl(doc, title:none, authors: none, anonymous: false) = {
+  // accessibility
+  let doc-authors = authors.map(dct => dct.name).join(", ")
+  set document(title: title, author: if anonymous { "Anonymous" } else {doc-authors })
+
+  // overall page setup
+  let page-numbering = if anonymous { "1" } else { none } // number pages only if anonymous
+  set page(paper: "a4", margin: (x: 2.5cm, y: 2.5cm), columns: 2, numbering: page-numbering)
+  set columns(gutter: 6mm)
+  
+  // some colors
+  show link: it => text(darkblue)[#it]
+  show ref: it => text(darkblue)[#it] // TODO - this makes all of "Section 6" blue; instead, make only the 6 blue
+
+  // font sizes
+  set text(11pt, font: tracl-serif)
+  set par(leading: linespacing, first-line-indent: 4mm, justify: true, spacing: linespacing)
+
+  show figure.caption: set text(10pt, font: tracl-serif)
+  show figure.caption: set align(left)
+  show figure.caption: it => [#v(0.5em) #it]
+
+  show footnote.entry: set text(9pt, font: tracl-serif)
+
+  show raw: set text(10pt, font: tracl-mono)
+
+  // headings
+  set heading(numbering: "1.1   ")
+
+  show heading: it => {
+    set block(above: if it.level == 1 { 1.3em } else { 1.5em })
+    set text(if it.level == 1 { 12pt } else { 11pt })
+    it
+    v(if it.level == 1 { 1.2em } else { 1em }, weak: true)
+  }
+
+  // lists and enums
+  set list(marker: text(7pt, baseline: 0.2em)[●], indent: 1em)
+  show list: set par(spacing: 1em)
+
+  set enum(indent: 1em)
+  show enum: set par(spacing: 1em)
+
+  // spacing around figures
+  // show figure: set block(inset: (top: 0pt, bottom: 1cm))
 
   // if anonymous, add line numbering to every page
   // by executing it in the header
@@ -330,8 +334,6 @@
 
   // TODO: play around with these costs to optimize the layout in the end
   // set text(costs: (orphan: 0%, widow: 0%))
-
-  
 }
 
 

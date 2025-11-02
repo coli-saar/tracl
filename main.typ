@@ -11,7 +11,7 @@
 #show raw.where(block: true): it => pad(left: 1em, top: 1em, bottom: 1em, it)
 
 #show: doc => acl(doc,
-  anonymous: true,
+  anonymous: false,
   title: [Instructions for \*ACL Proceedings],
   authors: (
     (
@@ -303,13 +303,6 @@ Here are some workarounds.
 
 #add-bib-resource(read("custom.bib"))
 #print-acl-bibliography()
-
-// #import "@preview/blinky:0.2.0": link-bib-urls
-// #let bibsrc = read("custom.bib")
-
-// #link-bib-urls()[
-//    #bibliography("custom.bib", style: "./association-for-computational-linguistics-blinky.csl")
-// ]
 
 #appendix[
   = Example Appendix <sec:appendix>
