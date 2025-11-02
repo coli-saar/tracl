@@ -201,22 +201,6 @@
     v(if it.level == 1 { 1.2em } else { 1em }, weak: true)
   }
 
-  // let sectionheading(title) = {
-  //   v(1.2em, weak: true)
-  //   text(12pt, font: tracl-serif)[#title]
-  //   v(1em, weak: true)
-  // }
-
-  // show heading.where(level:1): it => sectionheading(it)
-
-  // show heading.where(level:2): it => {
-  //   // This is better than it was, but = followed by ==
-  //   // is still too wide a gap - get rid of it manually with v(-0.5em) if needed
-  //   v(1.5em, weak: true)
-  //   text(11pt, font: tracl-serif)[#it]
-  //   v(1em, weak: true)
-  // }
-
   // lists and enums
   set list(marker: text(7pt, baseline: 0.2em)[●], indent: 1em)
   show list: set par(spacing: 1em)
