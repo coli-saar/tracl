@@ -89,7 +89,6 @@ in the variables `tracl-serif`, `tracl-sans`, and `tracl-mono`. Use these in you
 
 = Document Body
 
-#v(-0.5em)
 == Footnotes <sec:footnotes>
 
 Footnotes are inserted with the `#footnote` command.#footnote[This is a footnote.]
@@ -185,7 +184,6 @@ to switch the section numbering over to letters. See @sec:appendix for an exampl
 
 = References
 
-#v(-0.5em)
 == BibTeX Files <sec:bibtex>
 
 You can use regular BibTeX bibliography files with Typst.
