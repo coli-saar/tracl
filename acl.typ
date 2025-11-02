@@ -192,7 +192,7 @@
   show raw: set text(10pt, font: tracl-mono)
 
   // headings
-  set heading(numbering: "1.1")
+  set heading(numbering: "1.1   ")
 
   let sectionheading(title) = {
     v(1.2em, weak: true)
