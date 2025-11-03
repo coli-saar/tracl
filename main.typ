@@ -29,8 +29,9 @@
   These instructions should be used both for papers submitted for review and for final versions of accepted papers.
 ]
 
-
-
+#text(font: tracl-sans)[
+  #lorem(500)
+]
 = Introduction
 
 These instructions are for authors submitting papers to \*ACL conferences using Typst using the 
@@ -62,7 +63,7 @@ You can load tracl into your Typst file as follows:
   authors: (
     (
       name: "Alexander Koller",
-      email:"koller@lst.uni-saarland.de",
+      email:"koller@coli.uni-saarland.de",
       affiliation: [Saarland University],
     ),
   ),
@@ -218,8 +219,8 @@ to your paper. Note that you have to `read` the Bibtex file yourself before call
 The bibliography will be printed at the location where you call `print-acl-bibliography`.
 This is typically after the Limitations sections, but before the appendices.
 
-You can tweak the formatting of the bibliography by passing additional named arguments 
-to the `acl` function. These arguments will be passed on to Pergamon's `format-reference`
+You can tweak the formatting of the bibliography by passing named arguments 
+to the `print-acl-bibliography` function. These arguments will be passed on to Pergamon's `format-reference`
 function. See the #link("https://typst.app/universe/package/pergamon")[Pergamon documentation]
 for details.
 
@@ -266,10 +267,6 @@ Here are some workarounds.
 
 - Author lists with more than three authors will be very crowded. There is currently no real way to 
   expand the titlebox or use a larger grid for the author list.
-
-- When you directly follow a first-level heading (`=`) with a second-level heading (`==`), the 
-  style generates some extra whitespace in between. You can remove this extra whitespace with 
-  `#v(-0.5em)`. See the source code of @sec:footnotes for an example.
 
 - The two columns of a page will not automatically be aligned at the bottom. This is a 
   #link("https://github.com/typst/typst/issues/3442")[known limitation in Typst] that should be 

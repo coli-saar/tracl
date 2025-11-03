@@ -1,11 +1,11 @@
 # Tracl: ACL Style for Typst
 
-Tracl is a Typst template for writing papers for the *ACL series of conferences with Typst (ACL, EACL, NAACL, EMNLP, etc.).
+Tracl is an unofficial Typst template for writing papers for the *ACL series of conferences with Typst (ACL, EACL, NAACL, EMNLP, etc.).
 
 
 It implements the official [ACL paper formatting guidelines](https://acl-org.github.io/ACLPUB/formatting.html) and is modeled after the [LaTeX style](https://github.com/acl-org/acl-style-files). Tracl is the **T**ypst **R**econstruction of the **ACL** style.
 
-Tracl was developed by [Alexander Koller](https://www.coli.uni-saarland.de/~koller/), out of a personal desire to use Typst to write ACL papers. It is not officially supported by the  ACL is the [Association for Computational Linguistics](https://www.aclweb.org/portal/).
+Tracl was developed by [Alexander Koller](https://www.coli.uni-saarland.de/~koller/), out of a personal desire to use Typst to write ACL papers. It is not officially supported by ACL, but it was used to successfully publish [at least one paper](https://aclanthology.org/2025.findings-emnlp.352/).
 
 ## Usage
 
@@ -15,15 +15,13 @@ An example of a full paper prepared with tracl is [here](https://arxiv.org/abs/2
 
 ## Obtaining the fonts
 
-The official ACL style uses fonts which are not preinstalled with Typst. You can still compile your Typst document with the ACL style, but it will use fallback fonts and not look like an ACL paper. You should therefore download these fonts and make them available to Typst.
-They are licensed under open licenses.
+Tracl uses [TeX Gyre Termes](https://ctan.org/pkg/tex-gyre-termes) as the serif font for the main text (replaces Times), [TeX Gyre Heros](https://ctan.org/pkg/tex-gyre-heros) as the sans-serif font (replaces Helvetica), and [Inconsolata](https://fonts.google.com/specimen/Inconsolata) as the monospace font. TeX Gyre Termes, in particular, is accepted as a replacement for Times by [aclpubcheck](https://github.com/acl-org/aclpubcheck); it is an extended version of [Nimbus Roman No9 L](https://www.fontsquirrel.com/fonts/nimbus-roman-no9-l), the font that LaTeX uses when you import the `times` package.
 
-- For the "Times" font, download [Nimbus Roman No9 L](https://www.fontsquirrel.com/fonts/nimbus-roman-no9-l). (This is the font that the "times" package of TexLive actually uses.)
-- For the "sans serif" font, download [Nimbus Sans](https://www.fontsquirrel.com/fonts/nimbus-sans-l). (This is a replacement for Helvetica.)
-- For the monospace ("typewriter") font, download [Inconsolata](https://fonts.google.com/specimen/Inconsolata).
+These fonts are preinstalled in the Typst web app, so you should be able to use tracl out of the box simply by creating a project from the tracl template.
 
-If you are working in the _Typst web app_, copy all font files (\*.otf and \*.ttf) into the top level of your Typst project. If you are _working offline_, you can [install them into your system](https://typst.app/docs/reference/text/text/#parameters-font). 
+If you want to work offline, you will need to [install the fonts](https://typst.app/docs/reference/text/text/#parameters-font) on your computer. You can obtain the two TeX Gyre fonts from [CTAN](https://ctan.org/pkg/tex-gyre-termes) and Inconsolata from [Google Fonts](https://fonts.google.com/specimen/Inconsolata). All three fonts are distributed under open licenses.
 
+However, note that Typst currently [does not support variable fonts](https://github.com/typst/typst/issues/185). Static versions of TeX Gyre Termes and Heros are in the `opentype` directory of the Zip file you download. A static version of Inconsolata is [available here](https://fontsme.com/inconsolata.font). I recommend that you install these versions of the fonts until variable fonts are supported by Typst.
 
 
 ## License information
