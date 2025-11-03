@@ -29,7 +29,7 @@ cp acl.typ $RELEASE_DIR/lib.typ
 cp README.md $RELEASE_DIR/
 cp LICENSE $RELEASE_DIR/
 cp template/thumbnail.png $RELEASE_DIR/
-cp association-for-computational-linguistics-blinky.csl $RELEASE_DIR/template/
+# cp association-for-computational-linguistics-blinky.csl $RELEASE_DIR/template/
 cp template/blank.typ $RELEASE_DIR/template/main.typ
 
 # replace version in typst.toml
