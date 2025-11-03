@@ -15,7 +15,7 @@
     .EndPoint { fill:none; stroke:#888888; stroke-width:2 }
     .CtlPoint { fill:#888888; stroke:none }
     .AutoCtlPoint { fill:none; stroke:blue; stroke-width:4 }
-    .Label { font-size:22; font-family:Verdana }
+    .Label { font-size:22; font-family:TeX Gyre Heros }
   ]]></style>
 
   <polyline class="Connect" points="100,200 100,100" />

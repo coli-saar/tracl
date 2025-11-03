@@ -29,9 +29,6 @@
   These instructions should be used both for papers submitted for review and for final versions of accepted papers.
 ]
 
-#text(font: tracl-sans)[
-  #lorem(500)
-]
 = Introduction
 
 These instructions are for authors submitting papers to \*ACL conferences using Typst using the 

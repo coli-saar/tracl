@@ -305,7 +305,7 @@
   }
 
   // lists and enums
-  set list(marker: text(7pt, baseline: 0.2em)[●], indent: 1em)
+  set list(indent: 1em)
   show list: set par(spacing: 1em)
 
   set enum(indent: 1em)
