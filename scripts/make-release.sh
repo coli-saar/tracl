@@ -2,7 +2,7 @@
 
 # Bundles the files in this repository up for release.
 #
-# Usage: ./scripts/make-release.sh <VERSION>
+# Usage: ./scripts/make-release.sh <VERSION> [--update-docs]
 #
 # The resulting release package will be in release/preview/<PACKAGE>/<VERSION>.
 
@@ -15,13 +15,19 @@ then
     exit 1
 fi
 
-
 RELEASE_DIR=release/preview/tracl/$VERSION
 
+# Update version in main.pdf
+if [[ "$2" == "--update-docs" ]]; then
+    # Update occurrences of version in the README, but only if requested
+    echo "Updating main.typ to version $VERSION."
+
+    sed -i '' "s/#import \"@preview\/tracl:[^\"]*\":/#import \"@preview\/tracl:$VERSION\":/g" main.typ
+    typst c main.typ
+fi
 
 
 # Put together release
-
 rm -rf $RELEASE_DIR
 mkdir -p $RELEASE_DIR/template
 
