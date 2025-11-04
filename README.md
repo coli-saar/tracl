@@ -10,7 +10,7 @@ Tracl was developed by [Alexander Koller](https://www.coli.uni-saarland.de/~koll
 ## Usage
 
 The usage of the ACL style is documented in [main.pdf](https://github.com/coli-saar/tracl/blob/main/main.pdf).
-An example of an accepted EMNLP paper prepared with tracl is [Duchnowski et al. 2025](https://aclanthology.org/2025.findings-emnlp.352/).
+An example of a paper prepared with tracl is [Duchnowski et al. 2025](https://aclanthology.org/2025.findings-emnlp.352/).
 
 
 ## Obtaining the fonts
