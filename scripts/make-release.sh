@@ -24,6 +24,8 @@ if [[ "$2" == "--update-docs" ]]; then
 
     sed -i '' "s/#import \"@preview\/tracl:[^\"]*\":/#import \"@preview\/tracl:$VERSION\":/g" main.typ
     typst c main.typ
+
+    sed -i '' "s/#import \"@preview\/tracl:[^\"]*\":/#import \"@preview\/tracl:$VERSION\":/g" template/blank.typ
 fi
 
 
