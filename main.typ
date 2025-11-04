@@ -2,8 +2,6 @@
 #import "acl.typ": *
 #import "@preview/pergamon:0.5.0": *
 
-
-
 // float all figures to the top
 #set figure(placement: top)
 
@@ -37,9 +35,8 @@ They are not self-contained. All authors must follow the general instructions fo
 #footnote[http://acl-org.github.io/ACLPUB/formatting.html] and this document contains additional 
 instructions for the Typst style files.
 
-The templates include the Typst source of this document (`main.typ`), the Typst style file used 
-to format it (`acl.typ`), an ACL bibliography style (`association-for-computational-linguistics-blinky.csl`),
-and an example bibliography (`custom.bib`).
+Because this document is itself written with tracl, it is instructive to
+look at #link("https://github.com/coli-saar/tracl/blob/main/main.typ")[its source code] along with this PDF.
 
 
 = Engines
@@ -69,16 +66,18 @@ You can load tracl into your Typst file as follows:
 
 You can then write the rest of your document as usual. Use the `#abstract` command to typeset your abstract.
 
-Use `anonymous:true` to generate an anonymous version of your paper that is suitable for submission to the conference.
+Use `anonymous: true` to generate an anonymous version of your paper that is suitable for submission to the conference.
 
-If you split your document up over multiple source files, you will need to `#import "acl.typ"` in every source file
-to use the functions that tracl defines. The show rule with the call to `acl` should only appear once,
-in the main Typst source file.
+// If you split your document up over multiple source files, you may need to `#import "@preview/tracl..."` in every source file
+// to use the functions that tracl defines. 
+You can split your Typst document over multiple source files and combine them with `#include`, but
+the show rule with the call to `acl` should only appear once,
+in the main Typst source file that imports tracl.
 
 
 = Fonts
 
-You will need to install a number of free fonts to make tracl documents conform to the ACL style.
+You may need to install a number of free fonts to make tracl documents conform to the ACL style.
 See the #link("https://github.com/coli-saar/tracl")[README] for details.
 
 The serif, sans-serif, and monospace fonts that tracl uses to typeset the document can be accessed
@@ -209,7 +208,7 @@ tracl document therefore looks like this:
 #print-acl-bibliography()
 ```
 
-You can call `add-bib-resource` as many times as you like to make Bibtex files available
+You can call `add-bib-resource` as many times as you like to make multiple Bibtex files available
 to your paper. Note that you have to `read` the Bibtex file yourself before calling
 `add-bib-resource` because of architectural limitations of Typst.
 
@@ -241,9 +240,7 @@ For comparison with the ACL LaTeX style, `citen` corresponds to their `citealp`,
 and `citeg` corresponds to their `citeposs`.
 
 The citation commands are defined by Pergamon. If you split your paper across multiple 
-source files, you must therefore `#import` Pergamon in each of them. If the citation 
-commands are all the tracl-related functions you need in a source file, it's okay to 
-`#import` only Pergamon and not tracl itself.
+source files, you must therefore `#import` Pergamon in each of them.
 
 
 
