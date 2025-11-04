@@ -14,7 +14,7 @@
 // v0.2, adapted to Typst 0.12
 
 #import "@preview/oxifmt:0.2.1": strfmt
-#import "@local/pergamon:0.5.0": * // NB change both
+#import "@preview/pergamon:0.5.0": *
 #let dev = pergamon-dev
 
 // "Times" in TeX Live is actually Nimbus Roman.

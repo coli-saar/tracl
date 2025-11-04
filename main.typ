@@ -1,6 +1,6 @@
 
 #import "acl.typ": *
-#import "@local/pergamon:0.5.0": * // NB change both
+#import "@preview/pergamon:0.5.0": *
 
 
 

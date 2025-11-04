@@ -1,10 +1,10 @@
 
 // This is a minimal starting document for tracl, a Typst style for ACL.
-// See https://github.com/coli-saar/tracl for details.
+// See https://typst.app/universe/package/tracl for details.
 
 
 #import "@preview/tracl:0.6.1": *
-#import "@local/pergamon:0.5.0": * // NB change both
+#import "@preview/pergamon:0.5.0": *
 
 
 
