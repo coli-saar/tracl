@@ -3,8 +3,8 @@
 // See https://typst.app/universe/package/tracl for details.
 
 
-#import "@preview/tracl:0.7.0": *
-#import "@preview/pergamon:0.5.0": *
+#import "@preview/tracl:0.7.1": *
+#import "@preview/pergamon:0.6.0": *
 
 
 
@@ -35,9 +35,6 @@
 #lorem(80)
 
 
-// Uncomment this to include your bibliography
-
-/*
-#add-bib-resource(read("custom.bib"))
-#print-acl-bibliography()
-*/
+// Uncomment this to include your bibliography:
+// #add-bib-resource(read("custom.bib"))
+// #print-acl-bibliography()

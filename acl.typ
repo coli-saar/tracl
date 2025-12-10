@@ -2,7 +2,8 @@
 // Typst ACL style - https://github.com/coli-saar/tracl
 // by Alexander Koller <koller@coli.uni-saarland.de>
 
-// 2025-11-01 v0.7.0 - default font now TeX Gyre Termes; use Pergamon for references; compatible to Typst 0.14
+// 2025-12-10 v0.7.1 - bumped pergamon dependency to 0.6.0
+// 2025-11-01 v0.7.0 - default font now TeX Gyre Termes; use Pergamon for references; compatible with Typst 0.14
 // 2025-03-28 v0.6.0 - improved lists and line numbers
 // 2025-03-28 v0.5.2 - bumped blinky dependency to 0.2.0
 // 2025-03-02 v0.5.1 - fixed font names so as not to overwrite existing Typst symbols
@@ -14,7 +15,7 @@
 // v0.2, adapted to Typst 0.12
 
 #import "@preview/oxifmt:1.0.0": strfmt
-#import "@preview/pergamon:0.5.0": *
+#import "@preview/pergamon:0.6.0": *
 #let dev = pergamon-dev
 
 // "Times" in TeX Live is actually Nimbus Roman.
