@@ -295,8 +295,8 @@ Here are some workarounds.
 #add-bib-resource(read("custom.bib"))
 #print-acl-bibliography()
 
-#appendix[
-  = Example Appendix <sec:appendix>
+#show: appendix
 
-  This is an appendix.
-]
+= Example Appendix <sec:appendix>
+
+This is an appendix.
