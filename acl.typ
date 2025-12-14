@@ -252,6 +252,7 @@
 
   let acl-ref = format-reference(..format-reference-arguments)
 
+  set par(hanging-indent: 1em)
   print-bibliography(
     format-reference: acl-ref,
     sorting: "nyt",
