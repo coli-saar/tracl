@@ -253,11 +253,16 @@
 
   let acl-ref = format-reference(..format-reference-arguments)
 
-  print-bibliography(
-    format-reference: acl-ref,
-    sorting: "nyt",
-    label-generator: acl-cite.label-generator,
-    )
+  {
+    set par(hanging-indent: 1em, leading: 5pt)
+    set text(size: 10pt)
+    print-bibliography(
+      show-all: true,
+      format-reference: acl-ref,
+      sorting: "nyt",
+      label-generator: acl-cite.label-generator,
+      )
+  }
 }
 
 ////// END PERGAMON CONFIG ///////
