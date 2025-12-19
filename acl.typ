@@ -143,14 +143,14 @@
   }
 
   let pp = if pages == none {
-    ""
+    none
   } else if a != none {
     ":" + pages
   } else {
     ", " + (dev.printfield)(reference, "pages", options)
   }
-
-  a + pp
+  
+  epsilons(a, pp)
 }
 
 // Pergamon citation style suitable for ACL
