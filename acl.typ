@@ -29,7 +29,7 @@
 // In Typst 0.14.0 and later, use a #title element for the title
 #let use-title = sys.version >= version(0, 14, 0)
 
-#let maketitle(papertitle:none, authors:none, anonymous:false) = place(
+#let maketitle(papertitle:none, authors:none, anonymous:false, ncols:3) = place(
   top + center, scope: "parent", float: true)[
     #box(height: 5cm, width: 1fr)[
       #align(center)[
@@ -50,7 +50,7 @@
           set text(12pt)
           set par(leading: 0.5em)
           let count = authors.len()
-          let ncols = calc.min(count, 3)
+          ncols = calc.min(count, ncols)
           grid(
             columns: (1fr,) * ncols,
             row-gutter: 24pt,
@@ -273,7 +273,7 @@
 
 
 
-#let acl(doc, title:none, authors: none, anonymous: false) = {
+#let acl(doc, title:none, authors: none, anonymous: false, ncols:3) = {
   // accessibility
   let doc-authors = authors.map(dct => dct.name).join(", ")
   set document(title: title, author: if anonymous { "Anonymous" } else {doc-authors })
@@ -330,10 +330,10 @@
     )
     show figure: set par.line(numbering: none) // Disable numbers inside figures.
 
-    maketitle(papertitle:title, authors:authors, anonymous:anonymous)
+    maketitle(papertitle:title, authors:authors, anonymous:anonymous, ncols:ncols)
     style-title(acl-refsection(doc))
   } else {
-    style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous))
+    style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous, ncols:ncols))
     acl-refsection(doc)
   }
 
