@@ -8,7 +8,7 @@
 // formatting of ``` ... ``` blocks
 #show raw.where(block: true): it => pad(left: 1em, top: 1em, bottom: 1em, it)
 
-#show: doc => acl(doc,
+#show: acl.with(
   anonymous: false,
   title: [Instructions for \*ACL Proceedings],
   authors: (
@@ -51,7 +51,7 @@ You can load tracl into your Typst file as follows:
 ```
 #import "@preview/tracl:0.7.1": *
 
-#show: doc => acl(doc,
+#show: acl.with(
   anonymous: false,
   title: [(your title)],
   authors: (
@@ -167,8 +167,8 @@ Here's some text to illustrate the distance of the list from the subsequent para
 
 == Appendices
 
-Enclose the content of your appendix in the `#appendix` command
-to switch the section numbering over to letters. See @sec:appendix for an example.
+Supply the content of your appendix after the `#show: appendix` command to switch the section numbering over to letters.
+See @sec:appendix for an example.
 
 
 #figure(
@@ -295,8 +295,8 @@ Here are some workarounds.
 #add-bib-resource(read("custom.bib"))
 #print-acl-bibliography()
 
-#appendix[
-  = Example Appendix <sec:appendix>
+#show: appendix
 
-  This is an appendix.
-]
+= Example Appendix <sec:appendix>
+
+This is an appendix.
