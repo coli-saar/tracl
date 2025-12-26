@@ -61,12 +61,15 @@ You can load tracl into your Typst file as follows:
       affiliation: [Saarland University],
     ),
   ),
+  ncols: 3,
 )
 ```
 
 You can then write the rest of your document as usual. Use the `#abstract` command to typeset your abstract.
 
 Use `anonymous: true` to generate an anonymous version of your paper that is suitable for submission to the conference.
+
+Use the `ncols` argument to specify how many columns you want for the author list. The default is 3.
 
 // If you split your document up over multiple source files, you may need to `#import "@preview/tracl..."` in every source file
 // to use the functions that tracl defines. 
