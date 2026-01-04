@@ -20,6 +20,7 @@
   anonymous: false,
   title: [Three authors from the same institution],
   authors: make-authors(
+    // name-spacing: 4em,
     authors: ("Michael Sullivan", "Mareike Hartmann", "Alexander Koller"),
     affiliation: [Department of Language Science and Technology\
       Saarland Informatics Campus\
@@ -36,6 +37,7 @@
   anonymous: false,
   title: [Three authors from different institutions],
   authors: make-authors(
+    // block-spacing: 1.5cm,
     (
       authors: "Alex Duchnowski",
       affiliation: [Saarland University\ #email("alex@lst.uni-sb.de")]
@@ -59,6 +61,7 @@
   anonymous: false,
   title: [Mix of same and different institutions],
   authors: make-authors(
+    // block-spacing: 3em,
     (
       authors: ("Alex Duchnowski", "Alexander Koller"),
       affiliation: [Saarland University\ #email("{alex|koller}@lst.uni-sb.de")]

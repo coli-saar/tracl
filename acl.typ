@@ -31,7 +31,7 @@
 
 #let email(address) = text(font: tracl-mono, 11pt)[#link("mailto:" + address, address)]
 
-#let make-author-block(author-block) = {
+#let make-author-block(author-block, layout-options) = {
   assert(type(author-block) == dictionary)
   assert("authors" in author-block)
   assert("affiliation" in author-block)
@@ -44,14 +44,14 @@
   }
 
   box[
-    #set text(12pt)
+    #set text(layout-options.font-size)
     #set par(leading: 0.5em)
     #set align(center)
 
     // #let (authors, affiliation) = author-block
     #for (i, author) in authors.enumerate() {
       if i > 0 {
-        h(2em)
+        h(layout-options.name-spacing)
       }
       strong(author)
     }
@@ -60,7 +60,7 @@
   ]
 }
 
-#let make-author-row(author-row) = {
+#let make-author-row(author-row, layout-options) = {
   // author-row could be just a single block - force it into array of blocks
   let author-blocks = if type(author-row) == dictionary {
     (author-row,)
@@ -73,20 +73,37 @@
     #set align(center)
     #for (i, author-block) in author-blocks.enumerate() {
       if i > 0 {
-        h(2em)
+        h(layout-options.block-spacing)
       }
-      make-author-block(author-block)
+      make-author-block(author-block, layout-options)
     }
   ]
 }
 
+// default parameters for make-authors layout
+#let author-layout-parameters = (
+  name-spacing: 2em,
+  block-spacing: 3em,
+  row-spacing: 1em,
+  font-size: 12pt,
+)
 
 #let make-authors(..author-table) = {
   let author-rows = author-table.pos()
+  let layout-options = author-layout-parameters
+  let authors-in-named = (:)
+
+  for (key, value) in author-table.named().pairs() {
+    if key in layout-options {
+      layout-options.insert(key, value)
+    } else {
+      authors-in-named.insert(key, value)
+    }
+  }
 
   author-rows = if author-rows.len() == 0 {
     // only one block specified, through named arguments
-    (author-table.named(),)
+    (authors-in-named,)
   } else {
     author-rows
   }
@@ -100,15 +117,15 @@
 
   for (i, row) in author-rows.enumerate() {
     if i > 0 {
-      v(1em)
+      v(layout-options.row-spacing)
     }
-    make-author-row(row)
+    make-author-row(row, layout-options)
   }
 }
 
 
-#let maketitle(papertitle:none, authors:none, anonymous:false, titlebox-height: 5cm) = place(
-  top + center, scope: "parent", float: true)[
+#let maketitle(papertitle:none, authors:none, anonymous:false, titlebox-height: 5cm) = {
+  place(top + center, scope: "parent", float: true)[
     #box(height: titlebox-height, width: 1fr)[
       #align(center)[
         #if use-title {
@@ -131,6 +148,7 @@
       ]      
     ]
   ]
+}
 
 
 #let darkblue = rgb("000099")
