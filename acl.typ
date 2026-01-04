@@ -29,6 +29,84 @@
 // In Typst 0.14.0 and later, use a #title element for the title
 #let use-title = sys.version >= version(0, 14, 0)
 
+#let email(address) = text(font: tracl-mono, 11pt)[#link("mailto:" + address, address)]
+
+#let make-author-block(author-block) = {
+  assert(type(author-block) == dictionary)
+  assert("authors" in author-block)
+  assert("affiliation" in author-block)
+
+  // permit string (one author name) or array of strings
+  let authors = if type(author-block.authors) == str or type(author-block.authors) == content {
+    (author-block.authors,)
+  } else {
+    author-block.authors
+  }
+
+  box[
+    #set text(12pt)
+    #set par(leading: 0.5em)
+    #set align(center)
+
+    // #let (authors, affiliation) = author-block
+    #for (i, author) in authors.enumerate() {
+      if i > 0 {
+        h(2em)
+      }
+      strong(author)
+    }
+    #parbreak()
+    #author-block.affiliation
+  ]
+}
+
+#let make-author-row(author-row) = {
+  // author-row could be just a single block - force it into array of blocks
+  let author-blocks = if type(author-row) == dictionary {
+    (author-row,)
+  } else {
+    author-row
+  }
+
+  // set author blocks side by side
+  box[
+    #set align(center)
+    #for (i, author-block) in author-blocks.enumerate() {
+      if i > 0 {
+        h(2em)
+      }
+      make-author-block(author-block)
+    }
+  ]
+}
+
+
+#let make-authors(..author-table) = {
+  let author-rows = author-table.pos()
+
+  author-rows = if author-rows.len() == 0 {
+    // only one block specified, through named arguments
+    (author-table.named(),)
+  } else {
+    author-rows
+  }
+
+  author-rows = if type(author-rows.at(0)) == dictionary {
+    // single author row
+    (author-rows,)
+  } else {
+    author-rows
+  }
+
+  for (i, row) in author-rows.enumerate() {
+    if i > 0 {
+      v(1em)
+    }
+    make-author-row(row)
+  }
+}
+
+
 #let maketitle(papertitle:none, authors:none, anonymous:false) = place(
   top + center, scope: "parent", float: true)[
     #box(height: 5cm, width: 1fr)[
@@ -47,19 +125,7 @@
           set text(12pt)
           [*Anonymous ACL submission*]
         } else {
-          set text(12pt)
-          set par(leading: 0.5em)
-          let count = authors.len()
-          let ncols = calc.min(count, 3)
-          grid(
-            columns: (1fr,) * ncols,
-            row-gutter: 24pt,
-            ..authors.map(author => [
-              *#author.name* \
-              #author.affiliation \
-              #text(font: tracl-mono, 11pt)[#link("mailto:" + author.email)]
-            ]),
-          )  
+          authors
         }
         #v(1em)
       ]      
@@ -275,8 +341,9 @@
 
 #let acl(doc, title:none, authors: none, anonymous: false) = {
   // accessibility
-  let doc-authors = authors.map(dct => dct.name).join(", ")
-  set document(title: title, author: if anonymous { "Anonymous" } else {doc-authors })
+  // TODO - put these back in
+  // let doc-authors = authors.map(dct => dct.name).join(", ")
+  set document(title: title) // , author: if anonymous { "Anonymous" } else {doc-authors })
 
   // overall page setup
   let page-numbering = if anonymous { "1" } else { none } // number pages only if anonymous
