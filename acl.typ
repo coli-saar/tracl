@@ -107,9 +107,9 @@
 }
 
 
-#let maketitle(papertitle:none, authors:none, anonymous:false) = place(
+#let maketitle(papertitle:none, authors:none, anonymous:false, titlebox-height: 5cm) = place(
   top + center, scope: "parent", float: true)[
-    #box(height: 5cm, width: 1fr)[
+    #box(height: titlebox-height, width: 1fr)[
       #align(center)[
         #if use-title {
           title()
@@ -339,7 +339,7 @@
 
 
 
-#let acl(doc, title:none, authors: none, anonymous: false) = {
+#let acl(doc, title:none, authors: none, anonymous: false, titlebox-height: 5cm) = {
   // accessibility
   // TODO - put these back in
   // let doc-authors = authors.map(dct => dct.name).join(", ")
@@ -349,6 +349,8 @@
   let page-numbering = if anonymous { "1" } else { none } // number pages only if anonymous
   set page(paper: "a4", margin: (x: 2.5cm, y: 2.5cm), columns: 2, numbering: page-numbering)
   set columns(gutter: 6mm)
+
+  assert(titlebox-height >= 5cm)
   
   // some colors
   show link: it => text(darkblue)[#it]
@@ -397,10 +399,10 @@
     )
     show figure: set par.line(numbering: none) // Disable numbers inside figures.
 
-    maketitle(papertitle:title, authors:authors, anonymous:anonymous)
+    maketitle(papertitle:title, authors:authors, anonymous:anonymous, titlebox-height: titlebox-height)
     style-title(acl-refsection(doc))
   } else {
-    style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous))
+    style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous, titlebox-height: titlebox-height))
     acl-refsection(doc)
   }
 

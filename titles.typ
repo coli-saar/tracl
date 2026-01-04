@@ -77,6 +77,7 @@
 #acl(
   anonymous: false,
   title: [Multiple rows of authors],
+  titlebox-height: 5.5cm,
   authors: make-authors(
     // row 1
     (
