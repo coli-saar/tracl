@@ -44,20 +44,18 @@ Tracl requires Typst 0.12. The most recent compatibility update is for Typst 0.1
 
 You can load tracl into your Typst file as follows:
 
-#todo[FIX ME]
-
 ```
 #import "@preview/tracl:0.7.1": *
 
 #show: acl.with(
   anonymous: false,
   title: [(your title)],
-  authors: (
-    (
-      name: "Alexander Koller",
-      email:"koller@coli.uni-saarland.de",
-      affiliation: [Saarland University],
-    ),
+  authors: make-authors(
+    name: "Alexander Koller",
+    affiliation: [
+      Saarland University\
+      #email("koller@coli.uni-saarland.de")
+    ],
   ),
 )
 ```
@@ -80,6 +78,31 @@ See the #link("https://github.com/coli-saar/tracl")[README] for details.
 
 The serif, sans-serif, and monospace fonts that tracl uses to typeset the document can be accessed
 in the variables `tracl-serif`, `tracl-sans`, and `tracl-mono`. Use these in your own styling if you find it useful.
+
+
+= Title and Authors
+
+The ACL style instructions expect the title and authors to be listed at the top of the document, in a "titlebox"
+that is at least 5 cm high. If you have a long title or many authors, you can make the titlebox higher by passing an
+ argument `titlebox-height: <new height>` to the `acl` show rule. The "new height" must be a #link("https://typst.app/docs/reference/layout/length/")[Typst length],
+ and must be at least 5 cm.
+
+You have two main options to format the author list. The simplest is to use the `make-authors` function, which will
+allow you to place authors and affiliations side by side and on top of each other, as with the `\and`, `\And`, and `\AND`
+macros in the LaTeX style. The author list consists of one or more _rows_, each of which contains side-by-side _blocks_.
+Each block can contain one or more author _names_, all of which share a single affiliation. 
+A block is specified as a dictionary with keys `name` and `affiliation`; these are grouped into arrays to generate
+rows and the whole authors table. The easiest way to understand the options is to look at the example title pages at the end
+of this document, along with their source code.
+
+You can control the vertical
+spacing between rows using the `row-spacing` parameter of `make-authors` (default: 1em) and the horizontal spacing
+between blocks and between authors using the `block-spacing` (default: 3em) and `name-spacing` (default: 2em) parameters.
+
+Alternatively, you can simply pass content to the `authors` parameter of the `acl` function. This will allow you to
+typeset arbitrarily complex author lists. Note that tracl does nothing to ensure that your document is consistent with
+the ACL style guidelines in this case -- it is up to you to ensure you respect them.
+
 
 
 = Document Body
@@ -254,11 +277,8 @@ may be up to one page and will not count toward the final page limit. Note that 
 used by venues that do not rely on ARR so it is recommended to verify the requirement of a 
 "Limitations" section and other criteria with the venue in question.
 
-Tracl currently has a number of limitations compared to the more mature LaTeX style. 
+Tracl currently has a number of limitations compared to the more mature LaTeX ACL style. 
 Here are some workarounds.
-
-- Author lists with more than three authors will be very crowded. There is currently no real way to 
-  expand the titlebox or use a larger grid for the author list.
 
 - The two columns of a page will not automatically be aligned at the bottom. This is a 
   #link("https://github.com/typst/typst/issues/3442")[known limitation in Typst] that should be 

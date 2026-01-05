@@ -19,7 +19,7 @@ Tracl uses [TeX Gyre Termes](https://ctan.org/pkg/tex-gyre-termes) as the serif 
 
 These fonts are preinstalled in the Typst web app, so you should be able to use tracl out of the box simply by creating a project from the tracl template.
 
-If you want to work offline, you will need to [install the fonts](https://typst.app/docs/reference/text/text/#parameters-font) on your computer. You can obtain the two TeX Gyre fonts from [CTAN](https://ctan.org/pkg/tex-gyre-termes) and Inconsolata from [Google Fonts](https://fonts.google.com/specimen/Inconsolata). All three fonts are distributed under open licenses.
+If you want to work offline, you will need to [install the fonts](https://typst.app/docs/reference/text/text/#parameters-font) on your computer. You can obtain the two TeX Gyre fonts from [CTAN](https://ctan.org/pkg/tex-gyre-termes) and Inconsolata from [Google Fonts](https://fonts.google.com/specimen/Inconsolata). On Debian/Ubuntu, you can also just `apt install fonts-texgyre`. All three fonts are distributed under open licenses.
 
 However, note that Typst currently [does not support variable fonts](https://github.com/typst/typst/issues/185). Static versions of TeX Gyre Termes and Heros are in the `opentype` directory of the Zip file you download. A static version of Inconsolata is [available here](https://fontsme.com/inconsolata.font). I recommend that you install these versions of the fonts until variable fonts are supported by Typst.
 
