@@ -142,6 +142,7 @@
           set text(12pt)
           [*Anonymous ACL submission*]
         } else {
+          set text(12pt)
           authors
         }
         #v(1em)
@@ -353,6 +354,9 @@
 
 
 
+// For footnotes that arise in the titlebox, but should be displayed at the bottom
+// of the page.
+
 // first element: ordered list of footnotes
 // second element: dictionary with keys = labels that were previously added
 #let title-footnote-collection = state("title-footnote-collection", ((), (:)))
@@ -375,8 +379,54 @@
       [#footnote(numbering: numbering)[#footnote-text]#label(lbl)]
     }
   ]
+
+  // reset everything
   counter(footnote).update(0)
+  title-footnote-collection.update(x => ((), (:)))
 }
+
+
+// For "footnotes" indicating affiliations within the titlebox
+
+#let affiliation-counter = counter("custom-note")
+
+#let affiliation(label-name, content, num: none) = {
+  context {
+    let display-num = if num != none {
+      num
+    } else {
+      affiliation-counter.step()
+      str(affiliation-counter.get().first())
+    }
+
+    [#metadata(display-num)#label(label-name)]
+    super(display-num) 
+    h(0.1em)
+    content
+  }
+}
+
+#let affiliations(..refs) = context {
+  let labels = ()
+  for ref-string in refs.pos() {
+    let results = query(label(ref-string))
+    if results.len() > 0 {
+      let el = results.first()
+      if el != none and el.func() == metadata {
+        labels.push(el.value)
+      } else {
+        labels.push([*??*])
+      }
+    } else {
+      labels.push([*??*])
+    }
+  }
+
+  h(0.1em)
+  super(labels.join(", "))
+}
+
+
 
 
 

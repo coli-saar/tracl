@@ -423,7 +423,7 @@ This is an appendix.
     // row 2
     (
       (
-        name: [Michael Hahn#title-footnote([Joint senior authors], "fn:senior")],
+        name: [Michael Hahn#title-footnote([Joint senior authors.], "fn:senior")],
         affiliation: [Saarland University\ #email("mhahn@lst.uni-saarland.de")],
       ),
       (
@@ -436,3 +436,22 @@ This is an appendix.
   #filler-text
 ]
 
+
+#pagebreak()
+
+
+#acl(
+  anonymous: false,
+  title: [Free-form authors],
+  authors: [
+    *Alex Duchnowski*#affiliations("uds", "brown") #h(2em)
+    *Ellie Pavlick*#affiliations("brown") #h(2em)
+    *Alexander Koller*#affiliations("uds")\
+    #affiliation("uds")[Saarland University] #h(3em)
+    #affiliation("brown")[Brown University]\
+    #email("{alex|koller}@lst.uni-saarland.de") #h(2em)
+    #email("ellie_pavlick@brown.edu")
+  ]
+)[
+  #filler-text
+]
