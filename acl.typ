@@ -20,7 +20,7 @@
 
 // "Times" in TeX Live is actually Nimbus Roman.
 // TeX Gyre Termes is builtin in the Typst web app and accepted by aclpubcheck.
-#let tracl-serif = ("TeX Gyre Termes", "Nimbus Roman No9 L", "Libertinus Serif")
+#let tracl-serif = ("TeX Gyre Termes", "Libertinus Serif")
 #let tracl-sans = ("TeX Gyre Heros", "Helvetica")
 #let tracl-mono = ("Inconsolata", "DejaVu Sans Mono")
 
