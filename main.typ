@@ -423,11 +423,11 @@ This is an appendix.
     // row 2
     (
       (
-        name: [Michael Hahn],
+        name: [Michael Hahn#title-footnote([Joint senior authors], "fn:senior")],
         affiliation: [Saarland University\ #email("mhahn@lst.uni-saarland.de")],
       ),
       (
-        name: [Alexander Koller],
+        name: [Alexander Koller#title-footnote(none, "fn:senior")],
         affiliation: [Saarland University\ #email("koller@coli.uni-saarland.de")]
       )
     )

@@ -353,7 +353,30 @@
 
 
 
+// first element: ordered list of footnotes
+// second element: dictionary with keys = labels that were previously added
+#let title-footnote-collection = state("title-footnote-collection", ((), (:)))
 
+#let title-footnote(footnote-text, lbl, numbering: "*") = {
+  ref(label(lbl))
+  title-footnote-collection.update(x => {
+    if not lbl in x.at(1) {
+      x.at(0).push((footnote-text, lbl, numbering))
+      x.at(1).insert(lbl, 1)
+    }
+    
+    x
+  })
+}
+
+#let print-title-footnotes() = context {
+  hide()[
+    #for (footnote-text, lbl, numbering) in title-footnote-collection.get().at(0) {
+      [#footnote(numbering: numbering)[#footnote-text]#label(lbl)]
+    }
+  ]
+  counter(footnote).update(0)
+}
 
 
 
@@ -421,12 +444,11 @@
     style-title(acl-refsection(doc))
   } else {
     style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous, titlebox-height: titlebox-height))
+    print-title-footnotes()
     acl-refsection(doc)
   }
 
   // TODO: play around with these costs to optimize the layout in the end
   // set text(costs: (orphan: 0%, widow: 0%))
 }
-
-
 
