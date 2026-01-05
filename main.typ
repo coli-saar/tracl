@@ -446,9 +446,11 @@ This is an appendix.
   authors: [
     *Alex Duchnowski*#affiliations("uds", "brown") #h(2em)
     *Ellie Pavlick*#affiliations("brown") #h(2em)
-    *Alexander Koller*#affiliations("uds")\
+    *Alexander Koller*#affiliations("uds")
+
     #affiliation("uds")[Saarland University] #h(3em)
-    #affiliation("brown")[Brown University]\
+    #affiliation("brown")[Brown University]
+    
     #email("{alex|koller}@lst.uni-saarland.de") #h(2em)
     #email("ellie_pavlick@brown.edu")
   ]
