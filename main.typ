@@ -87,6 +87,8 @@ that is at least 5 cm high. If you have a long title or many authors, you can ma
  argument `titlebox-height: <new height>` to the `acl` show rule. The "new height" must be a #link("https://typst.app/docs/reference/layout/length/")[Typst length],
  and must be at least 5 cm.
 
+== Author lists with `make-authors`
+
 You have two main options to format the author list. The simplest is to use the `make-authors` function, which will
 allow you to place authors and affiliations side by side and on top of each other, as with the `\and`, `\And`, and `\AND`
 macros in the LaTeX style. The author list consists of one or more _rows_, each of which contains side-by-side _blocks_.
@@ -99,9 +101,20 @@ You can control the vertical
 spacing between rows using the `row-spacing` parameter of `make-authors` (default: 1em) and the horizontal spacing
 between blocks and between authors using the `block-spacing` (default: 3em) and `name-spacing` (default: 2em) parameters.
 
+== Free-form author lists
+
 Alternatively, you can simply pass content to the `authors` parameter of the `acl` function. This will allow you to
-typeset arbitrarily complex author lists. Note that tracl does nothing to ensure that your document is consistent with
+typeset arbitrarily complex author lists. See the "Free-form authors" example at the very end of this document.
+
+Tracl supports you in connecting authors to their affiliations by offering you the `affiliation` and `affil-ref` functions. You can define a marker for an affiliation by calling e.g. `#affiliation("uds")`, where `"uds"` is a unique key for an affiliation. This will typeset a superscripted symbol for this affiliation. You can then reference affiliations after an author name by calling `#affil-ref("uds")`; this will be replaced by the affiliation's symbol. 
+
+You can choose your own symbol for an affiliation through e.g. `#affiliation("uds", symbol: sym.dagger)`.
+You can also pass multiple affiliation strings to `affil-ref`; they will be typeset connected by commas.
+
+Note that tracl does nothing to ensure that your document is consistent with
 the ACL style guidelines in this case -- it is up to you to ensure you respect them.
+
+
 
 
 

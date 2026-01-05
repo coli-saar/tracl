@@ -433,6 +433,8 @@
 
 // Defines an affiliation
 #let affiliation(key, symbol: none, affiliation-numbering: "1") = {
+  h(0.1em)
+
   if symbol == none {
     // assign a number
     affiliations-state.update(x => {
@@ -440,7 +442,7 @@
       x.numbered.insert(key, symbol)
       x
     })
-
+    
     context { super(str(affiliations-state.get().numbered.len())) }
   } else {
     // use the provided symbol
@@ -449,7 +451,6 @@
       x
     })
 
-    h(0.1em)
     context { super(symbol) }
   }
 }
