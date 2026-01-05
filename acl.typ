@@ -26,6 +26,9 @@
 
 #let TITLEBOX-END-MARKER = "tracl-titlebox-end"
 
+// each component dictionary is a dict(key -> symbol)
+#let affiliations-state = state("affiliations", (numbered: (:), named: (:)))
+
 #let linespacing = 0.55em
 
 // In Typst 0.14.0 and later, use a #title element for the title
@@ -144,6 +147,7 @@
           set text(12pt)
           [*Anonymous ACL submission*]
         } else {
+          affiliations-state.update((numbered: (:), named: (:)))
           set text(12pt)
           authors
           metadata((kind: TITLEBOX-END-MARKER))
@@ -391,8 +395,6 @@
 
 // For "footnotes" indicating affiliations within the titlebox
 
-// each component dictionary is a dict(key -> symbol)
-#let affiliations-state = state("affiliations", (numbered: (:), named: (:)))
 
 // Returns the metadata element at the end of the titlebox.
 // If (as in main.typ) there are multiple titleboxes, it finds the next one.
