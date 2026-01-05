@@ -8,16 +8,12 @@
 // formatting of ``` ... ``` blocks
 #show raw.where(block: true): it => pad(left: 1em, top: 1em, bottom: 1em, it)
 
+#let todo(x) = text(fill: red, x)
+
 #show: acl.with(
   anonymous: false,
   title: [Instructions for \*ACL Proceedings],
-  authors: (
-    (
-      name: "Alexander Koller",
-      affiliation: [Saarland University],
-      email: "koller@coli.uni-saarland.de"
-    ),
-  ),
+  authors: make-authors(name: "Alexander Koller", affiliation: [Saarland University\ #email("koller@coli.uni-saarland.de")])
 )
 
 
@@ -47,6 +43,8 @@ Tracl requires Typst 0.12. The most recent compatibility update is for Typst 0.1
 = Preamble
 
 You can load tracl into your Typst file as follows:
+
+#todo[FIX ME]
 
 ```
 #import "@preview/tracl:0.7.1": *
@@ -300,3 +298,121 @@ Here are some workarounds.
 = Example Appendix <sec:appendix>
 
 This is an appendix.
+
+
+
+
+
+#let filler-text = [
+  #abstract[
+    This document demonstrates the different styles for
+    specifying authors in tracl.
+  ]  
+
+  = Introduction
+  #lorem(50)
+]
+
+
+
+
+
+
+#acl(
+  anonymous: false,
+  title: [Three authors from the same institution],
+  authors: make-authors(
+    // name-spacing: 4em,
+    name: ("Michael Sullivan", "Mareike Hartmann", "Alexander Koller"),
+    affiliation: [Department of Language Science and Technology\
+      Saarland Informatics Campus\
+      Saarland University, Saarbrücken, Germany\
+      #email("{msullivan, mareikeh, koller}@coli.uni-saarland.de")
+    ])
+)[
+  #filler-text
+]
+
+#pagebreak()
+
+#acl(
+  anonymous: false,
+  title: [Three authors from different institutions],
+  authors: make-authors(
+    // block-spacing: 1.5cm,
+    (
+      name: "Alex Duchnowski",
+      affiliation: [Saarland University\ #email("alex@lst.uni-sb.de")]
+    ),
+    (
+      name: "Ellie Pavlick",
+      affiliation: [Brown University\ #email("ellie_pavlick@brown.edu")]
+    ),
+    (
+      name: "Alexander Koller",
+      affiliation: [Saarland University\ #email("koller@lst.uni-sb.de")]
+    ),
+  )
+)[
+  #filler-text
+]
+
+#pagebreak()
+
+#acl(
+  anonymous: false,
+  title: [Mix of same and different institutions],
+  authors: make-authors(
+    // block-spacing: 3em,
+    (
+      name: ("Alex Duchnowski", "Alexander Koller"),
+      affiliation: [Saarland University\ #email("{alex|koller}@lst.uni-sb.de")]
+    ),
+    (
+      name: "Ellie Pavlick",
+      affiliation: [Brown University\ #email("ellie_pavlick@brown.edu")]
+    ),
+  )
+)[
+  #filler-text
+]
+
+#pagebreak()
+
+#acl(
+  anonymous: false,
+  title: [Multiple rows of authors],
+  titlebox-height: 5.5cm,
+  authors: make-authors(
+    // row 1
+    (
+      (
+        name: [Yuekun Yao],
+        affiliation: [Saarland University\ #email("ykyao@coli.uni-saarland.de")]
+      ),
+      (
+        name: [Yupei Du],
+        affiliation: [Utrecht University\ #email("y.du@uu.nl")],
+      ),
+      (
+        name: [Dawei Zhu],
+        affiliation: [Saarland University\ #email("dzhu@lsv.uni-saarland.de")],
+      )
+    ),
+
+    // row 2
+    (
+      (
+        name: [Michael Hahn],
+        affiliation: [Saarland University\ #email("mhahn@lst.uni-saarland.de")],
+      ),
+      (
+        name: [Alexander Koller],
+        affiliation: [Saarland University\ #email("koller@coli.uni-saarland.de")]
+      )
+    )
+  )
+)[
+  #filler-text
+]
+

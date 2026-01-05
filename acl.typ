@@ -33,14 +33,14 @@
 
 #let make-author-block(author-block, layout-options) = {
   assert(type(author-block) == dictionary)
-  assert("authors" in author-block)
+  assert("name" in author-block)
   assert("affiliation" in author-block)
 
   // permit string (one author name) or array of strings
-  let authors = if type(author-block.authors) == str or type(author-block.authors) == content {
-    (author-block.authors,)
+  let authors = if type(author-block.name) == str or type(author-block.name) == content {
+    (author-block.name,)
   } else {
-    author-block.authors
+    author-block.name
   }
 
   box[
