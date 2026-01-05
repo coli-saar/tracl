@@ -444,12 +444,12 @@ This is an appendix.
   anonymous: false,
   title: [Free-form authors],
   authors: [
-    *Alex Duchnowski*#affiliations("uds", "brown") #h(2em)
-    *Ellie Pavlick*#affiliations("brown") #h(2em)
-    *Alexander Koller*#affiliations("uds")
+    *Alex Duchnowski*#affil-ref("uds", "brown") #h(2em)
+    *Ellie Pavlick*#affil-ref("brown") #h(2em)
+    *Alexander Koller*#affil-ref("uds")
 
-    #affiliation("uds")[Saarland University] #h(3em)
-    #affiliation("brown")[Brown University]
+    #affiliation("uds", symbol: sym.dagger) Saarland University #h(3em)
+    #affiliation("brown") Brown University
     
     #email("{alex|koller}@lst.uni-saarland.de") #h(2em)
     #email("ellie_pavlick@brown.edu")

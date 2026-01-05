@@ -24,6 +24,8 @@
 #let tracl-sans = ("TeX Gyre Heros", "Helvetica")
 #let tracl-mono = ("Inconsolata", "DejaVu Sans Mono")
 
+#let TITLEBOX-END-MARKER = "tracl-titlebox-end"
+
 #let linespacing = 0.55em
 
 // In Typst 0.14.0 and later, use a #title element for the title
@@ -144,6 +146,7 @@
         } else {
           set text(12pt)
           authors
+          metadata((kind: TITLEBOX-END-MARKER))
         }
         #v(1em)
       ]      
@@ -388,35 +391,35 @@
 
 // For "footnotes" indicating affiliations within the titlebox
 
-#let affiliation-counter = counter("custom-note")
+// each component dictionary is a dict(key -> symbol)
+#let affiliations-state = state("affiliations", (numbered: (:), named: (:)))
 
-#let affiliation(label-name, content, num: none) = {
-  context {
-    let display-num = if num != none {
-      num
-    } else {
-      affiliation-counter.step()
-      str(affiliation-counter.get().first())
-    }
-
-    [#metadata(display-num)#label(label-name)]
-    super(display-num) 
-    h(0.1em)
-    content
+// Returns the metadata element at the end of the titlebox.
+// If (as in main.typ) there are multiple titleboxes, it finds the next one.
+#let find-titlebox-end() = {
+  let upcoming = query(selector(metadata).after(here()))
+  let matching = upcoming.filter(m => {
+    let v = m.value
+    type(v) == dictionary and v.at("kind", default: none) == TITLEBOX-END-MARKER
+  })
+  
+  if matching.len() > 0 {
+    matching.first()
+  } else {
+    none
   }
 }
 
-#let affiliations(..refs) = context {
+// Typesets an author's affiliation symbols.
+#let affil-ref(..keys) = context {
+  let all-keys = affiliations-state.at(find-titlebox-end().location())
   let labels = ()
-  for ref-string in refs.pos() {
-    let results = query(label(ref-string))
-    if results.len() > 0 {
-      let el = results.first()
-      if el != none and el.func() == metadata {
-        labels.push(el.value)
-      } else {
-        labels.push([*??*])
-      }
+  
+  for key in keys.pos() {
+    if key in all-keys.numbered {
+      labels.push(all-keys.numbered.at(key))
+    } else if key in all-keys.named {
+      labels.push(all-keys.named.at(key))
     } else {
       labels.push([*??*])
     }
@@ -426,6 +429,28 @@
   super(labels.join(", "))
 }
 
+// Defines an affiliation
+#let affiliation(key, symbol: none, affiliation-numbering: "1") = {
+  if symbol == none {
+    // assign a number
+    affiliations-state.update(x => {
+      let symbol = numbering(affiliation-numbering, x.numbered.len() + 1)
+      x.numbered.insert(key, symbol)
+      x
+    })
+
+    context { super(str(affiliations-state.get().numbered.len())) }
+  } else {
+    // use the provided symbol
+    affiliations-state.update(x => {
+      x.named.insert(key, symbol)
+      x
+    })
+
+    h(0.1em)
+    context { super(symbol) }
+  }
+}
 
 
 
