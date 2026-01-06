@@ -3,7 +3,7 @@
 // See https://typst.app/universe/package/tracl for details.
 
 
-#import "@preview/tracl:0.7.1": *
+#import "@local/tracl:0.8.0": *
 #import "@preview/pergamon:0.6.0": *
 
 
@@ -11,11 +11,10 @@
 #show: doc => acl(doc,
   anonymous: false,
   title: [A Blank ACL Paper],
-  authors: (
+  authors: make-authors(
     (
       name: "Your Name",
-      affiliation: [Your Affiliation],
-      email: "your@email.edu",
+      affiliation: [Your Affiliation\ #email("your@email.edu")]
     ),
   ),
 )
