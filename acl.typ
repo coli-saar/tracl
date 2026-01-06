@@ -14,11 +14,12 @@
 // v0.3, adjusted some formatting to the ACL style rules
 // v0.2, adapted to Typst 0.12
 
+#import "@preview/bullseye:0.1.0": *
 #import "@preview/oxifmt:1.0.0": strfmt
 #import "@preview/pergamon:0.6.0": *
 #let dev = pergamon-dev
 
-#let compilation-target = dictionary(std).at("target", default: () => "paged") // "html" or "paged"
+// #let compilation-target = dictionary(std).at("target", default: () => "paged") // "html" or "paged"
 
 // "Times" in TeX Live is actually Nimbus Roman.
 // TeX Gyre Termes is builtin in the Typst web app and accepted by aclpubcheck.
@@ -132,32 +133,56 @@
 
 
 #let maketitle(papertitle:none, authors:none, anonymous:false, titlebox-height: 5cm) = {
-  place(top + center, scope: "parent", float: true)[
-    #box(height: titlebox-height, width: 1fr)[
-      #align(center)[
-        #if use-title {
-          title()
-          v(2.2em)
-        } else {
-          text(15pt, font: tracl-serif)[#par(leading:0.5em)[
-            *#papertitle*
-          ]]
-          v(2.5em)
-        }
-      
-        #if anonymous {
-          set text(12pt)
-          [*Anonymous ACL submission*]
-        } else {
-          affiliations-state.update((numbered: (:), named: (:)))
-          set text(12pt)
-          authors
-          metadata((kind: TITLEBOX-END-MARKER))
-        }
-        #v(1em)
-      ]      
+  context match-target(
+    paged: place(top + center, scope: "parent", float: true)[
+      #box(height: titlebox-height, width: 1fr)[
+        #align(center)[
+          #if use-title {
+            title()
+            v(2.2em)
+          } else {
+            text(15pt, font: tracl-serif)[#par(leading:0.5em)[
+              *#papertitle*
+            ]]
+            v(2.5em)
+          }
+        
+          #if anonymous {
+            set text(12pt)
+            [*Anonymous ACL submission*]
+          } else {
+            affiliations-state.update((numbered: (:), named: (:)))
+            set text(12pt)
+            authors
+            metadata((kind: TITLEBOX-END-MARKER))
+          }
+          #v(1em)
+        ]      
+      ]
+    ],
+
+    html: [
+      #if use-title {
+        title()
+        v(2.2em)
+      } else {
+        text(15pt, font: tracl-serif)[#par(leading:0.5em)[
+          *#papertitle*
+        ]]
+        v(2.5em)
+      }
+
+      #if anonymous {
+        set text(12pt)
+        [*Anonymous ACL submission*]
+      } else {
+        affiliations-state.update((numbered: (:), named: (:)))
+        set text(12pt)
+        authors
+        metadata((kind: TITLEBOX-END-MARKER))
+      }    
     ]
-  ]
+  )
 }
 
 
@@ -167,15 +192,27 @@
 #show link: it => text(blue)[#it]
 
 
-#let abstract(abs) = [
-  #set par(leading: linespacing, first-line-indent: 0em, justify: true)
-  #align(center, 
-    box(width: 90%,[
+#let abstract(abs) = {
+  set par(leading: linespacing, first-line-indent: 0em, justify: true)
+
+  context match-target(
+    paged: align(center, 
+      box(width: 90%,[
+        #text(12pt)[*Abstract*]
+        #v(0.8em)
+        #text(10pt, align(left, abs))
+      ])
+    ),
+
+    html: [
+      // TODO wrap these in CSS classes, instead of specifying font sizes directly
       #text(12pt)[*Abstract*]
       #v(0.8em)
-      #text(10pt, align(left, abs))
-    ])
-  )]
+      #text(10pt, abs)
+    ]
+  )
+}
+    
 
 // typeset a line number
 #let sidenum(i) = {
@@ -466,10 +503,14 @@
   // let doc-authors = authors.map(dct => dct.name).join(", ")
   set document(title: title) // , author: if anonymous { "Anonymous" } else {doc-authors })
 
-  // overall page setup
+  // overall page setup - this only makes sense if we generate PDF
   let page-numbering = if anonymous { "1" } else { none } // number pages only if anonymous
-  set page(paper: "a4", margin: (x: 2.5cm, y: 2.5cm), columns: 2, numbering: page-numbering) if compilation-target != "html"
-  set columns(gutter: 6mm)
+  show: show-target(paged: doc => {
+    set page(paper: "a4", margin: (x: 2.5cm, y: 2.5cm), columns: 2, numbering: page-numbering)
+    set columns(gutter: 6mm)
+
+    doc
+  })
 
   assert(titlebox-height >= 5cm)
   
