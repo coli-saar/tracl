@@ -193,7 +193,7 @@
 
 
 #let abstract(abs) = {
-  set par(leading: linespacing, first-line-indent: 0em, justify: true)
+  set par(leading: linespacing, spacing: 1em, first-line-indent: 0em, justify: true)
 
   context match-target(
     paged: align(center, 

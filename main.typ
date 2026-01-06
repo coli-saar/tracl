@@ -21,6 +21,8 @@
   This document is a supplement to the general instructions for \*ACL authors. It contains instructions for using the #link("https://github.com/coli-saar/tracl")[tracl] Typst template for ACL conferences.
   The document itself conforms to its own specifications, and is therefore an example of what your manuscript should look like.
   These instructions should be used both for papers submitted for review and for final versions of accepted papers.
+
+  Here is a second paragraph.
 ]
 
 = Introduction
