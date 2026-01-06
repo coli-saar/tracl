@@ -23,6 +23,13 @@
   These instructions should be used both for papers submitted for review and for final versions of accepted papers.
 ]
 
+// #let target = dictionary(std).at("target", default: () => "paged")
+// #if target == "html" {
+//   [HTML content]
+// } else {
+//   [PDF content]
+}
+
 = Introduction
 
 These instructions are for authors submitting papers to \*ACL conferences using Typst using the 

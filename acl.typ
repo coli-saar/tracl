@@ -18,6 +18,8 @@
 #import "@preview/pergamon:0.6.0": *
 #let dev = pergamon-dev
 
+#let compilation-target = dictionary(std).at("target", default: () => "paged") // "html" or "paged"
+
 // "Times" in TeX Live is actually Nimbus Roman.
 // TeX Gyre Termes is builtin in the Typst web app and accepted by aclpubcheck.
 #let tracl-serif = ("TeX Gyre Termes", "Nimbus Roman No9 L", "Libertinus Serif")
@@ -466,7 +468,7 @@
 
   // overall page setup
   let page-numbering = if anonymous { "1" } else { none } // number pages only if anonymous
-  set page(paper: "a4", margin: (x: 2.5cm, y: 2.5cm), columns: 2, numbering: page-numbering)
+  set page(paper: "a4", margin: (x: 2.5cm, y: 2.5cm), columns: 2, numbering: page-numbering) if compilation-target != "html"
   set columns(gutter: 6mm)
 
   assert(titlebox-height >= 5cm)
