@@ -13,9 +13,9 @@
 #show: acl.with(
   anonymous: false,
   title: [Instructions for \*ACL Proceedings],
-  authors: make-authors(name: "Alexander Koller", affiliation: [Saarland University\ #email("koller@coli.uni-saarland.de")])
+  authors: make-authors(name: "Alexander Koller", affiliation: [Saarland University\ #email("koller@coli.uni-saarland.de")]),
+  meta-authors: "Alexander Koller"
 )
-
 
 #abstract[
   This document is a supplement to the general instructions for \*ACL authors. It contains instructions for using the #link("https://github.com/coli-saar/tracl")[tracl] Typst template for ACL conferences.
@@ -120,6 +120,17 @@ call to `title-footnote` will actually generate a footnote; subsequent calls wil
 add references to the same footnote. See the example "Multiple rows of authors" at the end
 of this document.
 
+== Document metadata
+
+Typst can store the title and authors of a document in the PDF metadata.
+Tracl automatically stores the title that is specified as an argument to the
+`acl` function. 
+
+However, because authors can be defined so flexibly, tracl cannot set the
+author metadata in the PDF automatically. You can pass the authors you want
+stored in the metadata in the optional `meta-authors` parameter of the `acl` function.
+If you set `anonymous: true`, tracl will always set the author metadata to
+"Anonymous", ensuring anonymity of your paper.
 
 
 = Document Body
@@ -594,3 +605,13 @@ This is an appendix.
   )  
     ```]
 ]
+
+
+
+
+
+
+// This is only needed because main.typ contains multiple `acl` documents
+// (titlepages at the end of the document). In your own document,
+// tracl will automatically set the title from the argument to the `acl` function.
+#set document(title: [Instructions for \*ACL Proceedings])

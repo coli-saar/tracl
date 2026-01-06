@@ -138,11 +138,15 @@
   }
 }
 
-#let acl(doc, title:none, authors: none, anonymous: false, titlebox-height: 5cm) = {
+#let acl(doc, title: none, authors: none, meta-authors: none, anonymous: false, titlebox-height: 5cm) = {
   // accessibility
-  // TODO - put these back in
-  // let doc-authors = authors.map(dct => dct.name).join(", ")
-  set document(title: title) // , author: if anonymous { "Anonymous" } else {doc-authors })
+  set document(title: title)
+  
+  if anonymous {
+    set document(author: "Anonymous")
+  } else if meta-authors != none {
+    set document(author: meta-authors)
+  }
 
   // overall page setup - this only makes sense if we generate PDF
   let page-numbering = if anonymous { "1" } else { none } // number pages only if anonymous
