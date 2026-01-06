@@ -1,5 +1,6 @@
 
-#import "acl.typ": *
+// #import "lib.typ": *
+#import "@local/tracl:0.8.0": *
 #import "@preview/pergamon:0.6.0": *
 
 // float all figures to the top
@@ -11,7 +12,7 @@
 #let todo(x) = text(fill: red, x)
 
 #show: acl.with(
-  anonymous: false,
+  anonymous: true,
   title: [Instructions for \*ACL Proceedings],
   authors: make-authors(name: "Alexander Koller", affiliation: [Saarland University\ #email("koller@coli.uni-saarland.de")])
 )

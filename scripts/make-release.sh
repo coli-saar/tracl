@@ -33,7 +33,8 @@ fi
 rm -rf $RELEASE_DIR
 mkdir -p $RELEASE_DIR/template
 
-cp acl.typ $RELEASE_DIR/lib.typ
+cp lib.typ $RELEASE_DIR/
+cp -r src $RELEASE_DIR/
 cp README.md $RELEASE_DIR/
 cp LICENSE $RELEASE_DIR/
 cp template/thumbnail.png $RELEASE_DIR/
