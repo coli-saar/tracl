@@ -336,18 +336,14 @@ This is an appendix.
 
 
 
-#let filler-text = [
-  #abstract[
-    This document demonstrates the different styles for
-    specifying authors in tracl.
-  ]  
-
-  = Introduction
-  #lorem(50)
-]
 
 
-
+#let titlebox-example(raw-content) = {
+  figure(
+    scope: "parent",
+    box(stroke: 1pt, inset: (x: 11pt), raw-content)
+  )
+}
 
 
 
@@ -355,7 +351,6 @@ This is an appendix.
   anonymous: false,
   title: [Three authors from the same institution],
   authors: make-authors(
-    // name-spacing: 4em,
     name: ("Michael Sullivan", "Mareike Hartmann", "Alexander Koller"),
     affiliation: [Department of Language Science and Technology\
       Saarland Informatics Campus\
@@ -363,13 +358,36 @@ This is an appendix.
       #email("{msullivan, mareikeh, koller}@coli.uni-saarland.de")
     ])
 )[
-  #filler-text
+  #abstract[
+    In the simplest case, all authors are from the same institution. Then
+    you can use `make-authors` to typeset a single block containing all authors
+    and this single institution. A block is defined by a dictionary with keys `name` and `affiliation`,
+    where `name` can either be a single author name (string or content) or an array of
+    author names.
+
+    Multiple author names within the same block are separated by an amount
+    of whitespace that is determined by the `author-spacing` parameter.
+  ]
+
+  #titlebox-example[
+    ```
+#acl(
+  title: [Three authors from the same institution],
+  authors: make-authors(
+    name: ("Michael Sullivan", "Mareike Hartmann", "Alexander Koller"),
+    affiliation: [Department of Language Science and Technology\
+      Saarland Informatics Campus\
+      Saarland University, Saarbrücken, Germany\
+      #email("{msullivan, mareikeh, koller}@coli.uni-saarland.de")
+    ])
+)
+    ```
+  ]
 ]
 
 #pagebreak()
 
 #acl(
-  anonymous: false,
   title: [Three authors from different institutions],
   authors: make-authors(
     // block-spacing: 1.5cm,
@@ -387,7 +405,31 @@ This is an appendix.
     ),
   )
 )[
-  #filler-text
+  #abstract[
+    If you want to show a separate institution for each author, you can
+    pass an array of multiple blocks to create a row. Blocks are separated
+    by an amount of whitespace that is determined by the `block-spacing`
+    parameter.
+  ]
+
+  #titlebox-example[
+    ```
+#acl(
+  title: [Three authors from different institutions],
+  authors: make-authors(
+    (
+      name: "Alex Duchnowski",
+      affiliation: [Saarland University\ #email("alex@lst.uni-sb.de")]
+    ), (
+      name: "Ellie Pavlick",
+      affiliation: [Brown University\ #email("ellie_pavlick@brown.edu")]
+    ), (
+      name: "Alexander Koller",
+      affiliation: [Saarland University\ #email("koller@lst.uni-sb.de")]
+    ),
+  )
+)
+    ``` ]
 ]
 
 #pagebreak()
@@ -407,13 +449,33 @@ This is an appendix.
     ),
   )
 )[
-  #filler-text
+  #abstract[
+    Within each row, you can mix blocks with single authors and blocks with
+    multiple authors. This is useful if some authors come from the same institution
+    and some come from different ones.
+  ]
+
+#titlebox-example[
+    ```
+#acl(
+  title: [Mix of same and different institutions],
+  authors: make-authors(
+    (
+      name: ("Alex Duchnowski", "Alexander Koller"),
+      affiliation: [Saarland University\ #email("{alex|koller}@lst.uni-sb.de")]
+    ), (
+      name: "Ellie Pavlick",
+      affiliation: [Brown University\ #email("ellie_pavlick@brown.edu")]
+    ),
+  )
+)
+    ``` ]
 ]
 
 #pagebreak()
 
 #acl(
-  anonymous: false,
+  // anonymous: false,
   title: [Multiple rows of authors],
   titlebox-height: 5.5cm,
   authors: make-authors(
@@ -446,12 +508,48 @@ This is an appendix.
     )
   )
 )[
-  #filler-text
+  #abstract[
+    If your authors don't fit into a single row, you can pass an array of rows
+    to `make-authors`. This will set the rows on top of each other, separated
+    by an amount of whitespace that is determined by the `row-spacing` argument.
+
+    Note the use of `title-footnote` to generate the "joint senior authors" footnote,
+    which is referenced from two different authors. Note also the use of
+    `titlebox-height` to increase the height of the titlebox.
+  ]
+
+  #titlebox-example[```
+#acl(
+  title: [Multiple rows of authors],
+  titlebox-height: 5.5cm,
+  authors: make-authors(
+    (   // row 1
+        (
+          name: [Yuekun Yao],
+          affiliation: [Saarland University\ #email("ykyao@coli.uni-saarland.de")]
+        ), (
+          name: [Yupei Du],
+          affiliation: [Utrecht University\ #email("y.du@uu.nl")],
+        ), (
+          name: [Dawei Zhu],
+          affiliation: [Saarland University\ #email("dzhu@lsv.uni-saarland.de")],
+        )
+    ),    
+    (   // row 2        
+        (
+          name: [Michael Hahn#title-footnote([Joint senior authors.], "fn:senior")],
+          affiliation: [Saarland University\ #email("mhahn@lst.uni-saarland.de")],
+        ), (
+          name: [Alexander Koller#title-footnote(none, "fn:senior")],
+          affiliation: [Saarland University\ #email("koller@coli.uni-saarland.de")]
+        )
+    )
+))
+    ```]
 ]
 
 
 #pagebreak()
-
 
 #acl(
   anonymous: false,
@@ -468,6 +566,27 @@ This is an appendix.
     #email("ellie_pavlick@brown.edu")
   ]
 )[
-  #filler-text
-]
+  #abstract[
+    You can ignore the `make-authors` function and simply arrange the authors
+    in the titlebox yourself. Tracl offers the functions `affiliation` and
+    `affil-ref` to facilitate the mapping of authors to affiliations.
+  ]
 
+  #titlebox-example[
+    ```
+  #acl(
+    title: [Free-form authors],
+    authors: [
+      *Alex Duchnowski*#affil-ref("uds", "brown") #h(2em)
+      *Ellie Pavlick*#affil-ref("brown") #h(2em)
+      *Alexander Koller*#affil-ref("uds")
+
+      #affiliation("uds", symbol: sym.dagger) Saarland University #h(3em)
+      #affiliation("brown") Brown University
+      
+      #email("{alex|koller}@lst.uni-saarland.de") #h(2em)
+      #email("ellie_pavlick@brown.edu")
+    ]
+  )  
+    ```]
+]
