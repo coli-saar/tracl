@@ -3,7 +3,7 @@
 // See https://typst.app/universe/package/tracl for details.
 
 
-#import "@local/tracl:0.8.0": *
+#import "@preview/tracl:0.8.0": *
 #import "@preview/pergamon:0.6.0": *
 
 

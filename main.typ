@@ -1,6 +1,6 @@
 
-// #import "lib.typ": *
-#import "@local/tracl:0.8.0": *
+#import "lib.typ": *
+// #import "@local/tracl:0.8.0": *
 #import "@preview/pergamon:0.6.0": *
 
 // float all figures to the top
@@ -9,10 +9,9 @@
 // formatting of ``` ... ``` blocks
 #show raw.where(block: true): it => pad(left: 1em, top: 1em, bottom: 1em, it)
 
-#let todo(x) = text(fill: red, x)
 
 #show: acl.with(
-  anonymous: true,
+  anonymous: false,
   title: [Instructions for \*ACL Proceedings],
   authors: make-authors(name: "Alexander Koller", affiliation: [Saarland University\ #email("koller@coli.uni-saarland.de")])
 )

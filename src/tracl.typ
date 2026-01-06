@@ -1,18 +1,4 @@
 
-// Typst ACL style - https://github.com/coli-saar/tracl
-// by Alexander Koller <koller@coli.uni-saarland.de>
-
-// 2025-12-10 v0.7.1 - bumped pergamon dependency to 0.6.0
-// 2025-11-01 v0.7.0 - default font now TeX Gyre Termes; use Pergamon for references; compatible with Typst 0.14
-// 2025-03-28 v0.6.0 - improved lists and line numbers
-// 2025-03-28 v0.5.2 - bumped blinky dependency to 0.2.0
-// 2025-03-02 v0.5.1 - fixed font names so as not to overwrite existing Typst symbols
-// 2025-02-28 v0.5.0 - adapted to Typst 0.13, released to Typst Universe
-// 2025-02-18 v0.4, many small changes and cleanup, and switch to Nimbus fonts
-// v0.3.2, ensure page numbers are printed only in anonymous version
-// v0.3.1, fixed "locate" deprecation
-// v0.3, adjusted some formatting to the ACL style rules
-// v0.2, adapted to Typst 0.12
 
 #import "@preview/bullseye:0.1.0": *
 #import "@preview/oxifmt:1.0.0": strfmt
@@ -24,7 +10,8 @@
 
 // "Times" in TeX Live is actually Nimbus Roman.
 // TeX Gyre Termes is builtin in the Typst web app and accepted by aclpubcheck.
-#let tracl-serif = ("TeX Gyre Termes", "Nimbus Roman No9 L", "Libertinus Serif")
+// Tracl <= 0.7.0 used "Nimbus Roman No9 L" as the font.
+#let tracl-serif = ("TeX Gyre Termes", "Libertinus Serif")
 #let tracl-sans = ("TeX Gyre Heros", "Helvetica")
 #let tracl-mono = ("Inconsolata", "DejaVu Sans Mono")
 
@@ -205,9 +192,6 @@
   // show figure: set block(inset: (top: 0pt, bottom: 1cm))
 
   // if anonymous, add line numbering to every page
-  // by executing it in the header
-
-
   show: it => {
     if anonymous {
       set par.line(numbering: "001", number-clearance: 4em)
@@ -223,27 +207,13 @@
     }
   }
 
+  // typeset the titlebox and document
   style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous, titlebox-height: titlebox-height))
-    print-title-footnotes()
-    acl-refsection(doc)
+  print-title-footnotes()
+  acl-refsection(doc)
 
-  // if anonymous {
-  //   set par.line(numbering: "001", number-clearance: 4em)
-  //   set par.line(
-  //     numbering: n => text(sidenumgray, font: tracl-sans, size: 8pt)[
-  //       *#strfmt("{:03}", n)*
-  //     ]
-  //   )
-  //   show figure: set par.line(numbering: none) // Disable numbers inside figures.
 
-  //   style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous, titlebox-height: titlebox-height))
-  //   print-title-footnotes()
-  //   acl-refsection(doc)
-  // } else {
-  //   style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous, titlebox-height: titlebox-height))
-  //   print-title-footnotes()
-  //   acl-refsection(doc)
-  // }
+
 
   // TODO: play around with these costs to optimize the layout in the end
   // set text(costs: (orphan: 0%, widow: 0%))
