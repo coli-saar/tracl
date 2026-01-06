@@ -408,15 +408,23 @@
 #let title-footnote-collection = state("title-footnote-collection", ((), (:)))
 
 #let title-footnote(footnote-text, lbl, numbering: "*") = {
-  ref(label(lbl))
-  title-footnote-collection.update(x => {
-    if not lbl in x.at(1) {
-      x.at(0).push((footnote-text, lbl, numbering))
-      x.at(1).insert(lbl, 1)
+  context match-target(
+    paged: {
+      ref(label(lbl))
+      title-footnote-collection.update(x => {
+        if not lbl in x.at(1) {
+          x.at(0).push((footnote-text, lbl, numbering))
+          x.at(1).insert(lbl, 1)
+        }
+        
+        x
+      })
+    },
+
+    html: {
+      footnote(numbering: numbering, footnote-text)
     }
-    
-    x
-  })
+  )
 }
 
 #let print-title-footnotes() = context {
