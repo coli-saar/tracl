@@ -21,8 +21,6 @@
   This document is a supplement to the general instructions for \*ACL authors. It contains instructions for using the #link("https://github.com/coli-saar/tracl")[tracl] Typst template for ACL conferences.
   The document itself conforms to its own specifications, and is therefore an example of what your manuscript should look like.
   These instructions should be used both for papers submitted for review and for final versions of accepted papers.
-
-  Here is a second paragraph.
 ]
 
 = Introduction
@@ -93,15 +91,9 @@ that is at least 5 cm high. If you have a long title or many authors, you can ma
 
 You have two main options to format the author list. The simplest is to use the `make-authors` function, which will
 allow you to place authors and affiliations side by side and on top of each other, as with the `\and`, `\And`, and `\AND`
-macros in the LaTeX style. The author list consists of one or more _rows_, each of which contains side-by-side _blocks_.
-Each block can contain one or more author _names_, all of which share a single affiliation. 
-A block is specified as a dictionary with keys `name` and `affiliation`; these are grouped into arrays to generate
-rows and the whole authors table. The easiest way to understand the options is to look at the example title pages at the end
+macros in the LaTeX style. The easiest way to understand the options is to look at the example title pages at the end
 of this document, along with their source code.
 
-You can control the vertical
-spacing between rows using the `row-spacing` parameter of `make-authors` (default: 1em) and the horizontal spacing
-between blocks and between authors using the `block-spacing` (default: 3em) and `name-spacing` (default: 2em) parameters.
 
 == Free-form author lists
 
@@ -113,10 +105,20 @@ Tracl supports you in connecting authors to their affiliations by offering you t
 You can choose your own symbol for an affiliation through e.g. `#affiliation("uds", symbol: sym.dagger)`.
 You can also pass multiple affiliation strings to `affil-ref`; they will be typeset connected by commas.
 
-Note that tracl does nothing to ensure that your document is consistent with
-the ACL style guidelines in this case -- it is up to you to ensure you respect them.
 
+== Footnotes in titleboxes 
 
+You can add a footnote to a titlebox using the `title-footnote` function.
+This will generate a footnote at the bottom of the page. You cannot currently
+use the regular Typst `footnote` function for this, because of a #link("https://github.com/typst/typst/issues/5765")[known Typst limitation].
+
+The function `title-footnote` takes two arguments. The first is the footnote text, and the
+second is a string that uniquely identifies the footnote (it will be used as the name of a
+Typst label). You can reference the same footnote from multiple places in the titlebox by
+calling `title-footnote` with the same identifier string. In this case, only the first
+call to `title-footnote` will actually generate a footnote; subsequent calls will simply
+add references to the same footnote. See the example "Multiple rows of authors" at the end
+of this document.
 
 
 
