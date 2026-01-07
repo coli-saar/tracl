@@ -2,6 +2,7 @@
 #import "lib.typ": *
 // #import "@local/tracl:0.8.0": *
 #import "@preview/pergamon:0.6.0": *
+// #import "@local/pergamon:0.7.1": *
 
 // float all figures to the top
 #set figure(placement: top)
@@ -364,6 +365,7 @@ This is an appendix.
 
 #acl(
   anonymous: false,
+  suppress-refsection: true,
   title: [Three authors from the same institution],
   authors: make-authors(
     name: ("Michael Sullivan", "Mareike Hartmann", "Alexander Koller"),
@@ -418,7 +420,8 @@ This is an appendix.
       name: "Alexander Koller",
       affiliation: [Saarland University\ #email("koller@lst.uni-sb.de")]
     ),
-  )
+  ),
+  suppress-refsection: true,
 )[
   #abstract[
     If you want to show a separate institution for each author, you can
@@ -462,7 +465,8 @@ This is an appendix.
       name: "Ellie Pavlick",
       affiliation: [Brown University\ #email("ellie_pavlick@brown.edu")]
     ),
-  )
+  ),
+  suppress-refsection: true,
 )[
   #abstract[
     Within each row, you can mix blocks with single authors and blocks with
@@ -521,7 +525,8 @@ This is an appendix.
         affiliation: [Saarland University\ #email("koller@coli.uni-saarland.de")]
       )
     )
-  )
+  ),
+  suppress-refsection: true,
 )[
   #abstract[
     If your authors don't fit into a single row, you can pass an array of rows
@@ -579,7 +584,8 @@ This is an appendix.
     
     #email("{alex|koller}@lst.uni-saarland.de") #h(2em)
     #email("ellie_pavlick@brown.edu")
-  ]
+  ],
+  suppress-refsection: true,
 )[
   #abstract[
     You can ignore the `make-authors` function and simply arrange the authors

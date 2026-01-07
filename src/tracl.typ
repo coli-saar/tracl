@@ -138,7 +138,51 @@
   }
 }
 
-#let acl(doc, title: none, authors: none, meta-authors: none, anonymous: false, titlebox-height: 5cm) = {
+/// Typesets a document in the ACL style.
+#let acl(
+  /// The body of the document.
+  /// -> content
+  doc, 
+
+  /// The title of the document.
+  /// -> str | content
+  title: none, 
+
+  /// The authors as they should be displayed in the titlebox.
+  /// You can use `make-authors` to typeset authors in a systematic way,
+  /// or you can use free-form text.
+  /// -> content
+  authors: none, 
+
+  /// The authors as they should be included in the PDF metadata.
+  /// If `anonymous` is true, the authors field in the metadata will
+  /// always say "Anonymous". Otherwise, if you leave `meta-authors`
+  /// at `none`, the authors field will be left blank.
+  /// -> str
+  meta-authors: none, 
+
+  /// Determines whether the paper should be anonymized. This will
+  /// suppress author information and add page and line numbers.
+  /// -> bool
+  anonymous: false, 
+
+  /// The height of the titlebox, i.e. the box at the top of the paper
+  /// that contains the title and authors. Tracl won't let you reduce
+  /// the height of the titlebox to be less than 5cm, in accordance
+  /// with the ACL style rules.
+  /// -> length
+  titlebox-height: 5cm,
+
+  /// Creates a document in the ACL style without a Pergamon
+  /// `refsection`. Normally, each paper needs to be enclosed in a
+  /// `refsection` so that you can cite papers and print a bibliography.
+  /// However, in the specific context of the example `main.typ` file,
+  /// where we nest an `acl` call within another `acl` call, this
+  /// breaks the bibliography of the main document. Leave this
+  /// parameter at `false` unless you know what you're doing.
+  /// -> bool
+  suppress-refsection: false
+) = {
   // accessibility
   set document(title: title)
   
@@ -214,7 +258,12 @@
   // typeset the titlebox and document
   style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous, titlebox-height: titlebox-height))
   print-title-footnotes()
-  acl-refsection(doc)
+
+  if suppress-refsection {
+    doc
+  } else {
+    acl-refsection(doc)
+  }
 
 
 

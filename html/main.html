@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Instructions for *ACL Proceedings</title>
+    <meta name="authors" content="Alexander Koller">
+  </head>
+  <body>
+    <h1>Instructions for *ACL Proceedings</h1>
+    <p><span style="display: inline-block"><span style="display: inline-block"><p><strong>Alexander Koller</strong></p><p>Saarland University<br><a href="mailto:koller@coli.uni-saarland.de">koller@coli.uni-saarland.de</a></p></span></span></p>
+    <p><strong>Abstract</strong></p>
+    <p>This document is a supplement to the general instructions for *ACL authors. It contains instructions for using the <a href="https://github.com/coli-saar/tracl">tracl</a> Typst template for ACL conferences. The document itself conforms to its own specifications, and is therefore an example of what your manuscript should look like. These instructions should be used both for papers submitted for review and for final versions of accepted papers.</p>
+    <h2>1<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Introduction</h2>
+    <p>These instructions are for authors submitting papers to *ACL conferences using Typst using the <a href="https://github.com/coli-saar/tracl">tracl</a> style. They are not self-contained. All authors must follow the general instructions for *ACL proceedings,<a id="loc-1" href="#loc-10" role="doc-noteref"><sup>1</sup></a> and this document contains additional instructions for the Typst style files.</p>
+    <p>Because this document is itself written with tracl, it is instructive to look at <a href="https://github.com/coli-saar/tracl/blob/main/main.typ">its source code</a> along with this PDF.</p>
+    <h2>2<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Engines</h2>
+    <p>Tracl requires Typst 0.12. The most recent compatibility update is for Typst 0.14.</p>
+    <h2>3<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Preamble</h2>
+    <p>You can load tracl into your Typst file as follows:</p>
+    <p>You can then write the rest of your document as usual. Use the <code>#abstract</code> command to typeset your abstract.</p>
+    <p>Use <code>anonymous: true</code> to generate an anonymous version of your paper that is suitable for submission to the conference.</p>
+    <p>You can split your Typst document over multiple source files and combine them with <code>#include</code>, but the show rule with the call to <code>acl</code> should only appear once, in the main Typst source file that imports tracl.</p>
+    <h2>4<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Fonts</h2>
+    <p>You may need to install a number of free fonts to make tracl documents conform to the ACL style. See the <a href="https://github.com/coli-saar/tracl">README</a> for details.</p>
+    <p>The serif, sans-serif, and monospace fonts that tracl uses to typeset the document can be accessed in the variables <code>tracl-serif</code>, <code>tracl-sans</code>, and <code>tracl-mono</code>. Use these in your own styling if you find it useful.</p>
+    <h2>5<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Title and Authors</h2>
+    <p>The ACL style instructions expect the title and authors to be listed at the top of the document, in a “titlebox” that is at least 5 cm high. If you have a long title or many authors, you can make the titlebox higher by passing an argument <code>titlebox-height: &lt;new height></code> to the <code>acl</code> show rule. The “new height” must be a <a href="https://typst.app/docs/reference/layout/length/">Typst length</a>, and must be at least 5 cm.</p>
+    <h3>5.1<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Author lists with <code>make-authors</code></h3>
+    <p>You have two main options to format the author list. The simplest is to use the <code>make-authors</code> function, which will allow you to place authors and affiliations side by side and on top of each other, as with the <code>\and</code>, <code>\And</code>, and <code>\AND</code> macros in the LaTeX style. The easiest way to understand the options is to look at the example title pages at the end of this document, along with their source code.</p>
+    <h3>5.2<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Free-form author lists</h3>
+    <p>Alternatively, you can simply pass content to the <code>authors</code> parameter of the <code>acl</code> function. This will allow you to typeset arbitrarily complex author lists. See the “Free-form authors” example at the very end of this document.</p>
+    <p>Tracl supports you in connecting authors to their affiliations by offering you the <code>affiliation</code> and <code>affil-ref</code> functions. You can define a marker for an affiliation by calling e.g. <code>#affiliation("uds")</code>, where <code>"uds"</code> is a unique key for an affiliation. This will typeset a superscripted symbol for this affiliation. You can then reference affiliations after an author name by calling <code>#affil-ref("uds")</code>; this will be replaced by the affiliation’s symbol.</p>
+    <p>You can choose your own symbol for an affiliation through e.g. <code>#affiliation("uds", symbol: sym.dagger)</code>. You can also pass multiple affiliation strings to <code>affil-ref</code>; they will be typeset connected by commas.</p>
+    <h3>5.3<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Footnotes in titleboxes</h3>
+    <p>You can add a footnote to a titlebox using the <code>title-footnote</code> function. This will generate a footnote at the bottom of the page. You cannot currently use the regular Typst <code>footnote</code> function for this, because of a <a href="https://github.com/typst/typst/issues/5765">known Typst limitation</a>.</p>
+    <p>The function <code>title-footnote</code> takes two arguments. The first is the footnote text, and the second is a string that uniquely identifies the footnote (it will be used as the name of a Typst label). You can reference the same footnote from multiple places in the titlebox by calling <code>title-footnote</code> with the same identifier string. In this case, only the first call to <code>title-footnote</code> will actually generate a footnote; subsequent calls will simply add references to the same footnote. See the example “Multiple rows of authors” at the end of this document.</p>
+    <h3>5.4<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Document metadata</h3>
+    <p>Typst can store the title and authors of a document in the PDF metadata. Tracl automatically stores the title that is specified as an argument to the <code>acl</code> function.</p>
+    <p>However, because authors can be defined so flexibly, tracl cannot set the author metadata in the PDF automatically. You can pass the authors you want stored in the metadata in the optional <code>meta-authors</code> parameter of the <code>acl</code> function. If you set <code>anonymous: true</code>, tracl will always set the author metadata to “Anonymous”, ensuring anonymity of your paper.</p>
+    <h2>6<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Document Body</h2>
+    <h3>6.1<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Footnotes</h3>
+    <p>Footnotes are inserted with the <code>#footnote</code> command.<a id="loc-2" href="#loc-11" role="doc-noteref"><sup>2</sup></a></p>
+    <h3>6.2<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Tables and figures</h3>
+    <p>See <a href="#loc-3">Table 1</a> for an example of a table and its caption. <strong>Do not override the default caption sizes.</strong></p>
+    <p>As much as possible, fonts in figures should conform to the document fonts. See <a href="#loc-5">Figure 1</a> for an example of a figure and its caption.</p>
+    <p>You can use the standard Typst <a href="https://typst.app/docs/reference/visualize/image/">image</a> function to include images into your document. Typst supports PNG, JPEG, and SVG. Use SVG if you want to include a vector graphic; you can use e.g. <a href="https://github.com/dawbarton/pdf2svg">pdf2svg</a> to convert PDF files. Be aware that Typst has pretty good built-in support for generating plots (e.g. through <a href="https://github.com/cetz-package/cetz-plot">CeTZ-Plot</a>), so you may be able to simply generate and style your graphics within your Typst source code.</p>
+    <p>A floating element will be automatically labeled as a “Table” if the top-level element is a Typst <code>table</code>; otherwise Typst will call it a “Figure”. If you want a table labeled as a “Figure”, you can pass the argument <code>kind: image</code> to the <code>figure</code> call (see the <a href="https://typst.app/docs/reference/model/figure/#parameters-kind">Typst documentation</a>).</p>
+    <p>By default, Typst places a <code>figure</code> within a single column. If you want a figure to stretch across both columns, you can pass the argument <code>scope: "parent"</code>. See the source code of <a href="#citation-guide">Table 2</a> for an example.</p>
+    <figure id="loc-3">
+      <table>
+        <tr>
+          <td><strong>First column</strong></td>
+          <td><strong>Second column</strong></td>
+        </tr>
+        <tr>
+          <td>some stuff</td>
+          <td>more stuff</td>
+        </tr>
+        <tr>
+          <td>second row</td>
+          <td>more second row</td>
+        </tr>
+      </table>
+      <figcaption>Table 1: An example table. Typst can simply use Unicode characters, so Table 1 from the LaTeX instructions is not needed any more.</figcaption>
+    </figure>
+    <h3>6.3<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Equations</h3>
+    <p>An example equation is shown below:</p>
+    <span id="loc-4"></span>
+    <p>Labels for equation numbers, sections, subsections, figures and tables are all defined as <a href="https://typst.app/docs/reference/foundations/label/">Typst labels</a>, and cross references to them are made with <a href="https://typst.app/docs/reference/model/ref/">ref</a>.</p>
+    <p>This is an example cross-reference to <a href="#loc-4">Equation 1</a>.</p>
+    <h3>6.4<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Lists</h3>
+    <p>Typst distinguishes between lists and enums with tight and non-tight spacing. Lists and enums with tight spacing are set with no extra space between the items:</p>
+    <ol>
+      <li>This is the first item of the list.</li>
+      <li>Here’s a second item.</li>
+    </ol>
+    <p>Lists and enums with non-tight spacing are set with a blank line of space in between, as in the <code>itemize</code> and <code>enumerate</code> environments of the LaTeX style:</p>
+    <ul>
+      <li>
+        <p>First element</p>
+      </li>
+      <li>
+        <p>Second element</p>
+      </li>
+    </ul>
+    <p>Here’s some text to illustrate the distance of the list from the subsequent paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+    <h3>6.5<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Appendices</h3>
+    <p>Supply the content of your appendix after the <code>#show: appendix</code> command to switch the section numbering over to letters. See <a href="#loc-7">Appendix A</a> for an example.</p>
+    <figure id="loc-5">
+      <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iIAogICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHdpZHRoPSI1Y20iIGhlaWdodD0iNGNtIiB2aWV3Qm94PSIwIDAgNTAwIDQwMCIKICAgICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSI+CiAgPHRpdGxlPkV4YW1wbGUgY3ViaWMwMS0gY3ViaWMgQsOpemllciBjb21tYW5kcyBpbiBwYXRoIGRhdGE8L3RpdGxlPgogIDxkZXNjPlBpY3R1cmUgc2hvd2luZyBhIHNpbXBsZSBleGFtcGxlIG9mIHBhdGggZGF0YQogICAgICAgIHVzaW5nIGJvdGggYSAiQyIgYW5kIGFuICJTIiBjb21tYW5kLAogICAgICAgIGFsb25nIHdpdGggYW5ub3RhdGlvbnMgc2hvd2luZyB0aGUgY29udHJvbCBwb2ludHMKICAgICAgICBhbmQgZW5kIHBvaW50czwvZGVzYz4KICA8c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWwogICAgLkJvcmRlciB7IGZpbGw6bm9uZTsgc3Ryb2tlOmJsdWU7IHN0cm9rZS13aWR0aDoxIH0KICAgIC5Db25uZWN0IHsgZmlsbDpub25lOyBzdHJva2U6Izg4ODg4ODsgc3Ryb2tlLXdpZHRoOjIgfQogICAgLlNhbXBsZVBhdGggeyBmaWxsOm5vbmU7IHN0cm9rZTpyZWQ7IHN0cm9rZS13aWR0aDo1IH0KICAgIC5FbmRQb2ludCB7IGZpbGw6bm9uZTsgc3Ryb2tlOiM4ODg4ODg7IHN0cm9rZS13aWR0aDoyIH0KICAgIC5DdGxQb2ludCB7IGZpbGw6Izg4ODg4ODsgc3Ryb2tlOm5vbmUgfQogICAgLkF1dG9DdGxQb2ludCB7IGZpbGw6bm9uZTsgc3Ryb2tlOmJsdWU7IHN0cm9rZS13aWR0aDo0IH0KICAgIC5MYWJlbCB7IGZvbnQtc2l6ZToyMjsgZm9udC1mYW1pbHk6VGVYIEd5cmUgSGVyb3MgfQogIF1dPjwvc3R5bGU+CgogIDxwb2x5bGluZSBjbGFzcz0iQ29ubmVjdCIgcG9pbnRzPSIxMDAsMjAwIDEwMCwxMDAiIC8+CiAgPHBvbHlsaW5lIGNsYXNzPSJDb25uZWN0IiBwb2ludHM9IjI1MCwxMDAgMjUwLDIwMCIgLz4KICA8cG9seWxpbmUgY2xhc3M9IkNvbm5lY3QiIHBvaW50cz0iMjUwLDIwMCAyNTAsMzAwIiAvPgogIDxwb2x5bGluZSBjbGFzcz0iQ29ubmVjdCIgcG9pbnRzPSI0MDAsMzAwIDQwMCwyMDAiIC8+CiAgPHBhdGggY2xhc3M9IlNhbXBsZVBhdGgiIGQ9Ik0xMDAsMjAwIEMxMDAsMTAwIDI1MCwxMDAgMjUwLDIwMAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBTNDAwLDMwMCA0MDAsMjAwIiAvPgogIDxjaXJjbGUgY2xhc3M9IkVuZFBvaW50IiBjeD0iMTAwIiBjeT0iMjAwIiByPSIxMCIgLz4KICA8Y2lyY2xlIGNsYXNzPSJFbmRQb2ludCIgY3g9IjI1MCIgY3k9IjIwMCIgcj0iMTAiIC8+CiAgPGNpcmNsZSBjbGFzcz0iRW5kUG9pbnQiIGN4PSI0MDAiIGN5PSIyMDAiIHI9IjEwIiAvPgogIDxjaXJjbGUgY2xhc3M9IkN0bFBvaW50IiBjeD0iMTAwIiBjeT0iMTAwIiByPSIxMCIgLz4KICA8Y2lyY2xlIGNsYXNzPSJDdGxQb2ludCIgY3g9IjI1MCIgY3k9IjEwMCIgcj0iMTAiIC8+CiAgPGNpcmNsZSBjbGFzcz0iQ3RsUG9pbnQiIGN4PSI0MDAiIGN5PSIzMDAiIHI9IjEwIiAvPgogIDxjaXJjbGUgY2xhc3M9IkF1dG9DdGxQb2ludCIgY3g9IjI1MCIgY3k9IjMwMCIgcj0iOSIgLz4KICA8dGV4dCBjbGFzcz0iTGFiZWwiIHg9IjI1IiB5PSI3MCI+TTEwMCwyMDAgQzEwMCwxMDAgMjUwLDEwMCAyNTAsMjAwPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJMYWJlbCIgeD0iMzI1IiB5PSIzNTAiCiAgICAgICAgc3R5bGU9InRleHQtYW5jaG9yOm1pZGRsZSI+UzQwMCwzMDAgNDAwLDIwMDwvdGV4dD4KPC9zdmc+Cg==">
+      <figcaption>Figure 1: A figure with a caption that runs for more than one line. The example picture comes from the <a href="https://github.com/openscad/svg-tests">openscad svg-tests</a> repository.</figcaption>
+    </figure>
+    <h2>7<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>References</h2>
+    <h3>7.1<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>BibTeX Files</h3>
+    <p>You can use regular BibTeX bibliography files with Typst. You can obtain the complete ACL Anthology as a BibTeX file from <a href="https://aclweb.org/anthology/anthology.bib.gz">https://aclweb.org/anthology/anthology.bib.gz</a>.</p>
+    <p>Please ensure that BibTeX records contain DOIs or URLs when possible, and for all the ACL materials that you reference. Use the <code>doi</code> field for DOIs and the <code>url</code> field for URLs. If a BibTeX entry has a URL or DOI field, the paper title in the references section will appear as a hyperlink to the paper. (<a href="#ref1-Ando2005">Ando and Zhang, 2005</a>; <a href="#ref1-andrew2007scalable">Andrew and Gao, 2007</a>; <a href="#ref1-rasooli-tetrault-2015">Rasooli and Tetreault, 2015</a>)</p>
+    <h3>7.2<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Bibliographies</h3>
+    <p>Tracl uses <a href="https://typst.app/universe/package/pergamon">Pergamon</a> to typeset the bibliography, with ACL-specific customization. The structure of a typical tracl document therefore looks like this:</p>
+    <p>You can call <code>add-bib-resource</code> as many times as you like to make multiple Bibtex files available to your paper. Note that you have to <code>read</code> the Bibtex file yourself before calling <code>add-bib-resource</code> because of architectural limitations of Typst.</p>
+    <p>The bibliography will be printed at the location where you call <code>print-acl-bibliography</code>. This is typically after the Limitations sections, but before the appendices.</p>
+    <p>You can tweak the formatting of the bibliography by passing named arguments to the <code>print-acl-bibliography</code> function. These arguments will be passed on to Pergamon’s <code>format-reference</code> function. See the <a href="https://typst.app/universe/package/pergamon">Pergamon documentation</a> for details.</p>
+    <h3>7.3<span style="white-space: pre-wrap">&#x20;&#x20;&#x20;&#x20;</span>Citations</h3>
+    <p><a href="#citation-guide">Table 2</a> shows how to cite papers in your text. Note that we use Pergamon’s <code>cite</code> function, rather than Typst’s builtin <code>cite</code>. This means that you must write <code>#cite("paperkey")</code> rather than <code>#cite(&lt;paperkey>)</code>, and you cannot just write <code>@paperkey</code>.</p>
+    <p>The functions <code>cite</code> and <code>citep</code> will generate citations in the form “(author, year)”. You can write <code>#citet("Gusfield:97")</code> to get citations of the form “author (year)”, as in <a href="#loc-6">Gusfield (1997)</a>. You can use the command <code>#citen("Gusfield:97")</code> (“cite none”) to get “author, year” citations, which is useful for using citations within parentheses. A possessive citation can be made with the <code>#citeg</code> command; this will yield e.g. “<a href="#loc-6">Gusfield's (1997)</a>”.</p>
+    <p>For comparison with the ACL LaTeX style, <code>citen</code> corresponds to their <code>citealp</code>, and <code>citeg</code> corresponds to their <code>citeposs</code>.</p>
+    <p>The citation commands are defined by Pergamon. If you split your paper across multiple source files, you must therefore <code>#import</code> Pergamon in each of them.</p>
+    <h2>Limitations</h2>
+    <p>Since December 2023, a “Limitations” section has been required for all papers submitted to ACL Rolling Review (ARR). This section should be placed at the end of the paper, before the references. The “Limitations” section (along with, optionally, a section for ethical considerations) may be up to one page and will not count toward the final page limit. Note that these files may be used by venues that do not rely on ARR so it is recommended to verify the requirement of a “Limitations” section and other criteria with the venue in question.</p>
+    <p>Tracl currently has a number of limitations compared to the more mature LaTeX ACL style. Here are some workarounds.</p>
+    <ul>
+      <li>The two columns of a page will not automatically be aligned at the bottom. This is a <a href="https://github.com/typst/typst/issues/3442">known limitation in Typst</a> that should be fixed at some point. For the time being, you can manually insert whitespace above each paragraph in the shorter column with <code>#v</code>.</li>
+    </ul>
+    <figure id="citation-guide">
+      <table>
+        <tr>
+          <td><strong>Output</strong></td>
+          <td><strong>Citation command</strong></td>
+          <td><strong>LaTeX equivalent</strong></td>
+        </tr>
+        <tr>
+          <td>(<a href="#loc-6">Gusfield, 1997</a>)</td>
+          <td><code>#cite("Gusfield:97")</code> or <code>#citep("Gusfield:97")</code></td>
+          <td><code>citep</code></td>
+        </tr>
+        <tr>
+          <td><a href="#loc-6">Gusfield (1997)</a></td>
+          <td><code>#citet("Gusfield:97")</code></td>
+          <td><code>citet</code></td>
+        </tr>
+        <tr>
+          <td><a href="#loc-6">Gusfield, 1997</a></td>
+          <td><code>#citen("Gusfield:97")</code></td>
+          <td><code>citealp</code></td>
+        </tr>
+        <tr>
+          <td><a href="#loc-6">Gusfield's (1997)</a></td>
+          <td><code>#citeg("Gusfield:97")</code></td>
+          <td><code>citeposs</code></td>
+        </tr>
+      </table>
+      <figcaption>Table 2: Citation commands supported by the style file.</figcaption>
+    </figure>
+    <h2 class="reference-heading">References</h2>
+    <table>
+      <tr>
+        <td>
+          <span id="ref1-Ando2005"></span>
+          <p>Rie Kubota Ando and Tong Zhang. 2005. A Framework for Learning Predictive Structures from Multiple Tasks and Unlabeled Data. <em>Journal of Machine Learning Research</em> 6:1817–1853.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span id="ref1-andrew2007scalable"></span>
+          <p>Galen Andrew and Jianfeng Gao. 2007. Scalable training of L1-regularized log-linear models. In <em>Proceedings of the 24th International Conference on Machine Learning</em>, pages 33–40.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span id="loc-6"></span>
+          <p>Dan Gusfield. 1997. <em>Algorithms on Strings, Trees and Sequences</em>. Cambridge, UK: Cambridge University Press.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span id="ref1-rasooli-tetrault-2015"></span>
+          <p>Mohammad Sadegh Rasooli and Joel R. Tetreault. 2015. <a href="http://arxiv.org/abs/1503.06733">Yara Parser: A Fast and Accurate Dependency Parser</a>. <em>Computing Research Repository</em> arXiv:1503.06733.</p>
+        </td>
+      </tr>
+    </table>
+    <h2 id="loc-7">A Example Appendix</h2>
+    <p>This is an appendix.</p>
+    <h1>Three authors from the same institution</h1>
+    <p><span style="display: inline-block"><span style="display: inline-block"><p><strong>Michael Sullivan</strong><strong>Mareike Hartmann</strong><strong>Alexander Koller</strong></p><p>Department of Language Science and Technology<br>Saarland Informatics Campus<br>Saarland University, Saarbrücken, Germany<br><a href="mailto:{msullivan, mareikeh, koller}@coli.uni-saarland.de">{msullivan, mareikeh, koller}@coli.uni-saarland.de</a></p></span></span></p>
+    <p><strong>Abstract</strong></p>
+    <p>In the simplest case, all authors are from the same institution. Then you can use <code>make-authors</code> to typeset a single block containing all authors and this single institution. A block is defined by a dictionary with keys <code>name</code> and <code>affiliation</code>, where <code>name</code> can either be a single author name (string or content) or an array of author names.</p>
+    <p>Multiple author names within the same block are separated by an amount of whitespace that is determined by the <code>author-spacing</code> parameter.</p>
+    <figure>
+      <p><span style="display: inline-block"></span></p>
+    </figure>
+    <h1>Three authors from different institutions</h1>
+    <p><span style="display: inline-block"><span style="display: inline-block"><p><strong>Alex Duchnowski</strong></p><p>Saarland University<br><a href="mailto:alex@lst.uni-sb.de">alex@lst.uni-sb.de</a></p></span><span style="display: inline-block"><p><strong>Ellie Pavlick</strong></p><p>Brown University<br><a href="mailto:ellie_pavlick@brown.edu">ellie_pavlick@brown.edu</a></p></span><span style="display: inline-block"><p><strong>Alexander Koller</strong></p><p>Saarland University<br><a href="mailto:koller@lst.uni-sb.de">koller@lst.uni-sb.de</a></p></span></span></p>
+    <p><strong>Abstract</strong></p>
+    <p>If you want to show a separate institution for each author, you can pass an array of multiple blocks to create a row. Blocks are separated by an amount of whitespace that is determined by the <code>block-spacing</code> parameter.</p>
+    <figure>
+      <p><span style="display: inline-block"></span></p>
+    </figure>
+    <h1>Mix of same and different institutions</h1>
+    <p><span style="display: inline-block"><span style="display: inline-block"><p><strong>Alex Duchnowski</strong><strong>Alexander Koller</strong></p><p>Saarland University<br><a href="mailto:{alex|koller}@lst.uni-sb.de">{alex|koller}@lst.uni-sb.de</a></p></span><span style="display: inline-block"><p><strong>Ellie Pavlick</strong></p><p>Brown University<br><a href="mailto:ellie_pavlick@brown.edu">ellie_pavlick@brown.edu</a></p></span></span></p>
+    <p><strong>Abstract</strong></p>
+    <p>Within each row, you can mix blocks with single authors and blocks with multiple authors. This is useful if some authors come from the same institution and some come from different ones.</p>
+    <figure>
+      <p><span style="display: inline-block"></span></p>
+    </figure>
+    <h1>Multiple rows of authors</h1>
+    <p><span style="display: inline-block"><span style="display: inline-block"><p><strong>Yuekun Yao</strong></p><p>Saarland University<br><a href="mailto:ykyao@coli.uni-saarland.de">ykyao@coli.uni-saarland.de</a></p></span><span style="display: inline-block"><p><strong>Yupei Du</strong></p><p>Utrecht University<br><a href="mailto:y.du@uu.nl">y.du@uu.nl</a></p></span><span style="display: inline-block"><p><strong>Dawei Zhu</strong></p><p>Saarland University<br><a href="mailto:dzhu@lsv.uni-saarland.de">dzhu@lsv.uni-saarland.de</a></p></span></span></p>
+    <p><span style="display: inline-block"><span style="display: inline-block"><p><strong>Michael Hahn<a id="loc-8" href="#loc-12" role="doc-noteref"><sup>*</sup></a></strong></p><p>Saarland University<br><a href="mailto:mhahn@lst.uni-saarland.de">mhahn@lst.uni-saarland.de</a></p></span><span style="display: inline-block"><p><strong>Alexander Koller<a id="loc-9" href="#loc-13" role="doc-noteref"><sup>†</sup></a></strong></p><p>Saarland University<br><a href="mailto:koller@coli.uni-saarland.de">koller@coli.uni-saarland.de</a></p></span></span></p>
+    <p><strong>Abstract</strong></p>
+    <p>If your authors don’t fit into a single row, you can pass an array of rows to <code>make-authors</code>. This will set the rows on top of each other, separated by an amount of whitespace that is determined by the <code>row-spacing</code> argument.</p>
+    <p>Note the use of <code>title-footnote</code> to generate the “joint senior authors” footnote, which is referenced from two different authors. Note also the use of <code>titlebox-height</code> to increase the height of the titlebox.</p>
+    <figure>
+      <p><span style="display: inline-block"></span></p>
+    </figure>
+    <h1>Free-form authors</h1>
+    <p><strong>Alex Duchnowski</strong><sup>†, 1</sup> <strong>Ellie Pavlick</strong><sup>1</sup> <strong>Alexander Koller</strong><sup>†</sup></p>
+    <p><sup>†</sup> Saarland University <sup>1</sup> Brown University</p>
+    <p><a href="mailto:{alex|koller}@lst.uni-saarland.de">{alex|koller}@lst.uni-saarland.de</a> <a href="mailto:ellie_pavlick@brown.edu">ellie_pavlick@brown.edu</a></p>
+    <p><strong>Abstract</strong></p>
+    <p>You can ignore the <code>make-authors</code> function and simply arrange the authors in the titlebox yourself. Tracl offers the functions <code>affiliation</code> and <code>affil-ref</code> to facilitate the mapping of authors to affiliations.</p>
+    <figure>
+      <p><span style="display: inline-block"></span></p>
+    </figure>
+    <section role="doc-endnotes">
+      <ol style="list-style-type: none">
+        <li id="loc-10"><a href="#loc-1" role="doc-backlink"><sup>1</sup></a><a href="http://acl-org.github.io/ACLPUB/formatting.html">http://acl-org.github.io/ACLPUB/formatting.html</a></li>
+        <li id="loc-11"><a href="#loc-2" role="doc-backlink"><sup>2</sup></a>This is a footnote.</li>
+        <li id="loc-12"><a href="#loc-8" role="doc-backlink"><sup>*</sup></a>Joint senior authors.</li>
+        <li id="loc-13"><a href="#loc-9" role="doc-backlink"><sup>†</sup></a></li>
+      </ol>
+    </section>
+  </body>
+</html>
