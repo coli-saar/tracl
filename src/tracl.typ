@@ -183,7 +183,7 @@
   /// -> bool
   suppress-refsection: false
 ) = {
-  // accessibility
+  // document metadata
   set document(title: title)
   
   if anonymous {
@@ -254,6 +254,21 @@
       it
     }
   }
+
+  // if HTML target, link to the stylesheet
+  // show: show-target(html: doc => {
+  //   html.html({
+  //     html.head({
+  //       html.link(
+  //         href: "https://cdn.jsdelivr.net/gh/coli-saar/tracl@main/html/arxiv.css",
+  //         rel: "stylesheet"
+  //       )
+  //     })
+
+  //     // doc
+  //     html.body(doc)
+  //   })
+  // })
 
   // typeset the titlebox and document
   style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous, titlebox-height: titlebox-height))
