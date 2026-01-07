@@ -5,12 +5,12 @@ Tracl is an unofficial Typst template for writing papers for the *ACL series of 
 
 It implements the official [ACL paper formatting guidelines](https://acl-org.github.io/ACLPUB/formatting.html) and is modeled after the [LaTeX style](https://github.com/acl-org/acl-style-files). Tracl is the **T**ypst **R**econstruction of the **ACL** style.
 
-Tracl was developed by [Alexander Koller](https://www.coli.uni-saarland.de/~koller/), out of a personal desire to use Typst to write ACL papers. It is not officially supported by ACL, but it was used to successfully publish [at least one paper](https://aclanthology.org/2025.findings-emnlp.352/).
+Tracl was developed by [Alexander Koller](https://www.coli.uni-saarland.de/~koller/), out of a personal desire to use Typst to write ACL papers. It is not officially supported by ACL, but there is a conversation happening [in a Github thread](https://github.com/acl-org/acl-style-files/issues/58).
 
 ## Usage
 
 The usage of the ACL style is documented in [main.pdf](https://github.com/coli-saar/tracl/blob/main/main.pdf).
-An example of a paper prepared with tracl is [Duchnowski et al. 2025](https://aclanthology.org/2025.findings-emnlp.352/).
+An example of an accepted EMNLP paper prepared with tracl is [Duchnowski et al. 2025](https://aclanthology.org/2025.findings-emnlp.352/).
 
 
 ## Obtaining the fonts
@@ -19,9 +19,15 @@ Tracl uses [TeX Gyre Termes](https://ctan.org/pkg/tex-gyre-termes) as the serif 
 
 These fonts are preinstalled in the Typst web app, so you should be able to use tracl out of the box simply by creating a project from the tracl template.
 
-If you want to work offline, you will need to [install the fonts](https://typst.app/docs/reference/text/text/#parameters-font) on your computer. You can obtain the two TeX Gyre fonts from [CTAN](https://ctan.org/pkg/tex-gyre-termes) and Inconsolata from [Google Fonts](https://fonts.google.com/specimen/Inconsolata). On Debian/Ubuntu, you can also just `apt install fonts-texgyre`. All three fonts are distributed under open licenses.
+If you want to work offline, you will need to [install the fonts](https://typst.app/docs/reference/text/text/#parameters-font) on your computer. You can obtain the two TeX Gyre fonts from [CTAN](https://ctan.org/pkg/tex-gyre-termes) and Inconsolata from [Google Fonts](https://fonts.google.com/specimen/Inconsolata).
 
 However, note that Typst currently [does not support variable fonts](https://github.com/typst/typst/issues/185). Static versions of TeX Gyre Termes and Heros are in the `opentype` directory of the Zip file you download. A static version of Inconsolata is [available here](https://fontsme.com/inconsolata.font). I recommend that you install these versions of the fonts until variable fonts are supported by Typst.
+
+
+## Contributors
+
+- Alexander Koller, [@alexanderkoller](https://github.com/alexanderkoller)
+- Vilém Zouhar, [@zouharvi](https://github.com/zouharvi)
 
 
 ## License information
