@@ -1,8 +1,7 @@
 
-#import "lib.typ": *
-// #import "@local/tracl:0.8.0": *
-#import "@preview/pergamon:0.6.0": *
-// #import "@local/pergamon:0.7.1": *
+// #import "lib.typ": *
+#import "@preview/tracl:0.8.0": *
+#import "@preview/pergamon:0.7.0": *
 
 // float all figures to the top
 #set figure(placement: top)
@@ -352,6 +351,9 @@ This is an appendix.
 
 
 
+
+// The code below is to illustrate the different ways to typeset
+// author lists.
 
 
 #let titlebox-example(raw-content) = {
