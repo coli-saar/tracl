@@ -1,8 +1,7 @@
 
-#import "lib.typ": *
-// #import "@local/tracl:0.8.0": *
-#import "@preview/pergamon:0.6.0": *
-// #import "@local/pergamon:0.7.1": *
+// #import "lib.typ": *
+#import "@local/tracl:0.8.0": *
+#import "@preview/pergamon:0.7.0": *
 
 // float all figures to the top
 #set figure(placement: top)
@@ -46,7 +45,7 @@ Tracl requires Typst 0.12. The most recent compatibility update is for Typst 0.1
 You can load tracl into your Typst file as follows:
 
 ```
-#import "@preview/tracl:0.7.1": *
+#import "@preview/tracl:0.8.0": *
 
 #show: acl.with(
   anonymous: false,
@@ -55,7 +54,7 @@ You can load tracl into your Typst file as follows:
     name: "Alexander Koller",
     affiliation: [
       Saarland University\
-      #email("koller@coli.uni-saarland.de")
+      #email("koller@coli.uni-sb.de")
     ],
   ),
 )
@@ -249,8 +248,8 @@ typeset the bibliography, with ACL-specific customization. The structure of a ty
 tracl document therefore looks like this:
 
 ```
-#import "@preview/tracl:0.7.1": *
-#import "@preview/pergamon:0.6.0": *
+#import "@preview/tracl:0.8.0": *
+#import "@preview/pergamon:0.7.0": *
 
 ... your document ...
 
@@ -352,6 +351,9 @@ This is an appendix.
 
 
 
+
+// The code below is to illustrate the different ways to typeset
+// author lists.
 
 
 #let titlebox-example(raw-content) = {
