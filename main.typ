@@ -1,6 +1,6 @@
 
-// #import "lib.typ": *
-#import "@preview/tracl:0.8.0": *
+#import "lib.typ": *
+// #import "@preview/tracl:0.8.0": *
 #import "@preview/pergamon:0.7.0": *
 
 // float all figures to the top
