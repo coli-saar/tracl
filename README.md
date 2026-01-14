@@ -7,6 +7,8 @@ It implements the official [ACL paper formatting guidelines](https://acl-org.git
 
 Tracl was developed by [Alexander Koller](https://www.coli.uni-saarland.de/~koller/), out of a personal desire to use Typst to write ACL papers. It is not officially supported by ACL, but there is a conversation happening [in a Github thread](https://github.com/acl-org/acl-style-files/issues/58).
 
+🚀 We are collecting papers written with tracl in the [Showcase](SHOWCASE.md) - feel free to add your own!
+
 ## Usage
 
 The usage of the ACL style is documented in [main.pdf](https://github.com/coli-saar/tracl/blob/main/main.pdf).
