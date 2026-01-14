@@ -7,7 +7,7 @@ You can add tracl-written papers once you have submitted them to Arxiv, but of c
 
 ## 2026
 
-Zouhar & Kocmi (2026). [Pearmut: Human Evaluation of Translation Made Trivial](https://arxiv.org/abs/2601.02933). Arxiv.
+Zouhar & Kocmi (2026). [Pearmut: Human Evaluation of Translation Made Trivial](https://arxiv.org/abs/2601.02933). arXiv:2601.02933 [cs.CL].
 
 
 ## 2025
