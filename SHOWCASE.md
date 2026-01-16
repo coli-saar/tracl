@@ -12,5 +12,7 @@ Zouhar & Kocmi (2026). [Pearmut: Human Evaluation of Translation Made Trivial](h
 
 ## 2025
 
+Koller (2025). [LLMs Generate Kitsch](https://hal.science/hal-05347116). Manuscript, hal-05347116.
+
 Duchnowski et al. (2025). [A Knapsack by Any Other Name: Presentation impacts LLM performance on NP-hard problems](https://aclanthology.org/2025.findings-emnlp.352/). Findings of EMNLP.
 
