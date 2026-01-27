@@ -1,7 +1,7 @@
 
 // #import "lib.typ": *
-#import "@preview/tracl:0.8.0": *
-#import "@preview/pergamon:0.7.0": *
+#import "@preview/tracl:0.8.1": *
+#import "@preview/pergamon:0.7.1": *
 
 // float all figures to the top
 #set figure(placement: top)
@@ -45,7 +45,7 @@ Tracl requires Typst 0.12. The most recent compatibility update is for Typst 0.1
 You can load tracl into your Typst file as follows:
 
 ```
-#import "@preview/tracl:0.8.0": *
+#import "@preview/tracl:0.8.1": *
 
 #show: acl.with(
   anonymous: false,
@@ -248,8 +248,8 @@ typeset the bibliography, with ACL-specific customization. The structure of a ty
 tracl document therefore looks like this:
 
 ```
-#import "@preview/tracl:0.8.0": *
-#import "@preview/pergamon:0.7.0": *
+#import "@preview/tracl:0.8.1": *
+#import "@preview/pergamon:0.7.1": *
 
 ... your document ...
 

@@ -1,6 +1,6 @@
 # Tracl: ACL Style for Typst
 
-Tracl is an unofficial Typst template for writing papers for the *ACL series of conferences with Typst (ACL, EACL, NAACL, EMNLP, etc.).
+Tracl is a Typst template for writing papers for the *ACL series of conferences with Typst (ACL, EACL, NAACL, EMNLP, etc.).
 
 
 It implements the official [ACL paper formatting guidelines](https://acl-org.github.io/ACLPUB/formatting.html) and is modeled after the [LaTeX style](https://github.com/acl-org/acl-style-files). Tracl is the **T**ypst **R**econstruction of the **ACL** style.
@@ -35,6 +35,7 @@ However, note that Typst currently [does not support variable fonts](https://git
 
 ## Version history
 
+- 2026-01-27 v0.8.1 - numeric Bibtex values no longer crash tracl
 - 2026-01-11 v0.8.0 - better presentation of authors; bump pergamon to 0.7.0; many bugfixes and improvements
 - 2025-12-10 v0.7.1 - bumped pergamon dependency to 0.6.0
 - 2025-11-01 v0.7.0 - default font now TeX Gyre Termes; use Pergamon for references; compatible with Typst 0.14

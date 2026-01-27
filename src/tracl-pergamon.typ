@@ -1,6 +1,5 @@
 #import "@preview/oxifmt:1.0.0": strfmt
-#import "@preview/pergamon:0.7.0": *
-// #import "@local/pergamon:0.7.1": *
+#import "@preview/pergamon:0.7.1": *
 #let dev = pergamon-dev
 
 
