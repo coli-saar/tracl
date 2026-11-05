@@ -7,6 +7,8 @@ You can add tracl-written papers once you have submitted them to Arxiv, but of c
 
 ## 2026
 
+Thillainathan et al. (2026). [AuthorMix: Modular Authorship Style Transfer via Layer-wise Adapter Mixing](https://aclanthology.org/2026.emnlp-main.2215/). Proceedings of EMNLP.
+
 Zouhar & Kocmi (2026). [Pearmut: Human Evaluation of Translation Made Trivial](https://arxiv.org/abs/2601.02933). arXiv:2601.02933 [cs.CL].
 
 
