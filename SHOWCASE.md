@@ -9,8 +9,13 @@ You can add tracl-written papers once you have submitted them to Arxiv, but of c
 
 Thillainathan et al. (2026). [AuthorMix: Modular Authorship Style Transfer via Layer-wise Adapter Mixing](https://aclanthology.org/2026.emnlp-main.2215/). Proceedings of EMNLP.
 
-Zouhar & Kocmi (2026). [Pearmut: Human Evaluation of Translation Made Trivial](https://arxiv.org/abs/2601.02933). arXiv:2601.02933 [cs.CL].
+Zouhar & Kocmi (2026). [Pearmut: Human Evaluation of Translation Made Trivial](https://aclanthology.org/2026.emnlp-demos.7/). ACL 2026 Demo.
 
+Zouhar et al. (2026). [Dynamically Allocating Evaluation Effort for Model Ranking](https://aclanthology.org/2026.findings-emnlp.360/). ACL 2026 Findings.
+
+Zouhar et al. (2026). [Contrastive ESA: Human Evaluation of Multiple Translations at Once](https://aclanthology.org/2026.wmt-main.47/). WMT 2026.
+
+Kalikman et al. (2026). [Augmenting Text to Increase Translation Difficulty](https://aclanthology.org/2026.eamt-1.21/). EAMT 2026.
 
 ## 2025
 
