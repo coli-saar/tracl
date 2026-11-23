@@ -15,27 +15,6 @@ The usage of the ACL style is documented in [main.pdf](https://github.com/coli-s
 An example of an accepted EMNLP paper prepared with tracl is [Duchnowski et al. 2025](https://aclanthology.org/2025.findings-emnlp.352/).
 
 
-## Flush-bottom columns
-
-On Typst 0.15 or newer, `acl` now stretches the spaces between main-text
-paragraphs so completed columns reach the bottom of their available text area.
-This also applies to a completed left column on the last page. The final occupied
-column keeps its natural spacing. Explicit page and column breaks also end a
-flow segment, so a short section ending is not stretched. Line spacing within
-paragraphs is unchanged.
-
-The title box, abstract, footnotes, figure captions, lists, tables, nested boxes
-and blocks, and bibliography retain their own internal spacing. Floating figures
-and footnotes reduce the available text area normally. Columns containing no
-eligible paragraph gap cannot stretch without changing line spacing.
-
-Use `#show: acl.with(flushbottom: false, ...)` to retain the previous layout.
-The release requires Typst 0.15 or newer. HTML output does not use this feature.
-A custom show rule that wraps every paragraph in a block opts those paragraphs
-out of stretching; style-only paragraph show rules continue to compose.
-
-Regression tests and renderable examples are in `tests/flushbottom`.
-
 ## Obtaining the fonts
 
 Tracl uses [TeX Gyre Termes](https://ctan.org/pkg/tex-gyre-termes) as the serif font for the main text (replaces Times), [TeX Gyre Heros](https://ctan.org/pkg/tex-gyre-heros) as the sans-serif font (replaces Helvetica), and [Inconsolata](https://fonts.google.com/specimen/Inconsolata) as the monospace font. TeX Gyre Termes, in particular, is accepted as a replacement for Times by [aclpubcheck](https://github.com/acl-org/aclpubcheck); it is an extended version of [Nimbus Roman No9 L](https://www.fontsquirrel.com/fonts/nimbus-roman-no9-l), the font that LaTeX uses when you import the `times` package.
@@ -43,9 +22,6 @@ Tracl uses [TeX Gyre Termes](https://ctan.org/pkg/tex-gyre-termes) as the serif 
 These fonts are preinstalled in the Typst web app, so you should be able to use tracl out of the box simply by creating a project from the tracl template.
 
 If you want to work offline, you will need to [install the fonts](https://typst.app/docs/reference/text/text/#parameters-font) on your computer. You can obtain the two TeX Gyre fonts from [CTAN](https://ctan.org/pkg/tex-gyre-termes) and Inconsolata from [Google Fonts](https://fonts.google.com/specimen/Inconsolata).
-
-However, note that Typst currently [does not support variable fonts](https://github.com/typst/typst/issues/185). Static versions of TeX Gyre Termes and Heros are in the `opentype` directory of the Zip file you download. A static version of Inconsolata is [available here](https://fontsme.com/inconsolata.font). I recommend that you install these versions of the fonts until variable fonts are supported by Typst.
-
 
 ## Contributors
 
