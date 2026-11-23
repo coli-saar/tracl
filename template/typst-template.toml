@@ -2,7 +2,7 @@
 [package]
 name = "tracl"
 version = "VERSION"
-compiler = "0.12.0"
+compiler = "0.15.0"
 entrypoint = "lib.typ"
 authors = ["Alexander Koller <https://www.coli.uni-saarland.de/~koller/>"]
 license = "Apache-2.0"

@@ -37,7 +37,8 @@ look at #link("https://github.com/coli-saar/tracl/blob/main/main.typ")[its sourc
 
 = Engines
 
-Tracl requires Typst 0.12. The most recent compatibility update is for Typst 0.14.
+Tracl requires Typst 0.15 or newer.
+Set `flushbottom: false` in the `acl` call to retain the previous paragraph layout.
 
 
 = Preamble
@@ -305,16 +306,14 @@ may be up to one page and will not count toward the final page limit. Note that 
 used by venues that do not rely on ARR so it is recommended to verify the requirement of a 
 "Limitations" section and other criteria with the venue in question.
 
-Tracl currently has a number of limitations compared to the more mature LaTeX ACL style. 
-Here are some workarounds.
+Tracl stretches the spaces between main-text paragraphs to align completed
+columns with the bottom of the available text area. The last occupied column
+keeps its natural spacing. Set `flushbottom: false` in the `acl` call to disable
+this behavior. No manual `#v` spacers are necessary.
 
-- The two columns of a page will not automatically be aligned at the bottom. This is a 
-  #link("https://github.com/typst/typst/issues/3442")[known limitation in Typst] that should be 
-  fixed at some point. For the time being, you can manually insert whitespace above each paragraph 
-  in the shorter column with `#v`.
-
-
-
+Paragraphs inside the abstract, footnotes, captions, lists, tables, boxes and
+blocks, and the bibliography keep their original internal spacing. A column
+with no eligible paragraph gap cannot be stretched without changing line spacing.
 
 #figure(
   scope: "parent",

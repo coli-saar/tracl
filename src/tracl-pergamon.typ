@@ -1,3 +1,4 @@
+#import "tracl-flushbottom.typ": natural-spacing
 #import "@preview/oxifmt:1.0.0": strfmt
 #import "@preview/pergamon:0.7.1": *
 #let dev = pergamon-dev
@@ -135,11 +136,11 @@
   {
     set par(hanging-indent: 1em, leading: 5pt)
     set text(size: 10pt)
-    print-bibliography(
+    natural-spacing(print-bibliography(
       format-reference: acl-ref,
       sorting: "nyt",
       label-generator: acl-cite.label-generator,
-      )
+      ))
   }
 }
 

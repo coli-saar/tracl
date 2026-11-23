@@ -1,3 +1,4 @@
+#import "tracl-flushbottom.typ": flush-bottom
 
 
 #import "@preview/bullseye:0.1.0": *
@@ -164,7 +165,10 @@
   /// Determines whether the paper should be anonymized. This will
   /// suppress author information and add page and line numbers.
   /// -> bool
-  anonymous: false, 
+  anonymous: false,
+
+  /// Justify completed text columns vertically (Typst 0.15+).
+  flushbottom: true,
 
   /// The height of the titlebox, i.e. the box at the top of the paper
   /// that contains the title and authors. Tracl won't let you reduce
@@ -259,11 +263,10 @@
   style-title(maketitle(papertitle:title, authors:authors, anonymous:anonymous, titlebox-height: titlebox-height))
   print-title-footnotes()
 
-  if suppress-refsection {
-    doc
-  } else {
-    acl-refsection(doc)
-  }
+  let body = if flushbottom {
+    context { if target() == "paged" { flush-bottom(doc) } else { doc } }
+  } else { doc }
+  if suppress-refsection { body } else { acl-refsection(body) }
 
 
 
