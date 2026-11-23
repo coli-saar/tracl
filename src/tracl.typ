@@ -1,3 +1,4 @@
+#import "tracl-units.typ": tex-pt, body-size
 #import "tracl-flushbottom.typ": flush-bottom
 
 
@@ -18,40 +19,55 @@
 
 #let linespacing = 0.55em
 
+// ACL rounds the text height to one topskip and 51 baseline intervals.
+#let baseline-skip = 13.6 * tex-pt
+#let top-skip = 11 * tex-pt
+#let first-baseline = 25mm + top-skip
+#let last-baseline = first-baseline + 51 * baseline-skip
+// Termes' cap height is 662 units per em. Use an explicit line box so
+// first-line placement and baseline spacing agree even with fallback fonts.
+#let cap-height = 0.662em
+#let body-cap = 0.662 * body-size
+
 // In Typst 0.14.0 and later, use a #title element for the title
 #let use-title = sys.version >= version(0, 14, 0)
 
-#let email(address) = text(font: tracl-mono, 11pt)[#link("mailto:" + address, address)]
+#let email(address) = text(font: tracl-mono, body-size)[#link("mailto:" + address, address)]
 
-#let maketitle(papertitle:none, authors:none, anonymous:false, titlebox-height: 5cm) = {
+#let maketitle(papertitle:none, authors:none, anonymous:false, titlebox-height: 11 * baseline-skip) = {
   context match-target(
     // We generate PDF => place the titlebox in a two-column container.
     // Using `place` is a little bit clunky; it makes footnotes out of the titlebox
     // difficult. But the alternative would be to enclose the entire document in
     // a `columns` element, and that has a lot of followup consequences that are even worse.
-    paged: place(top + center, scope: "parent", float: true)[
+    paged: place(top + center, scope: "parent", float: true, clearance: 0pt)[
       #box(height: titlebox-height, width: 1fr)[
         #align(center)[
+          // LaTeX starts the title 1/8 inch below the nominal top margin.
+          #v(0.125in - (top-skip - body-cap))
+          #let author-strut = 14 * tex-pt
           #if use-title {
+            // TeX inserts baseline glue between the title and author strut.
+            show std.title: set text(top-edge: "bounds", bottom-edge: 0.7 * author-strut - baseline-skip)
             title()
-            v(2.2em)
           } else {
-            text(15pt, font: tracl-serif)[#par(leading:0.5em)[
+            text(14.4 * tex-pt, font: tracl-serif)[#par(leading:0.5em)[
               *#papertitle*
             ]]
-            v(2.5em)
           }
         
+          #v(0.2in)
+          #v(1fr)
+          #set text(12 * tex-pt, top-edge: 0.7 * author-strut, bottom-edge: -0.3 * author-strut)
           #if anonymous {
-            set text(12pt)
             [*Anonymous ACL submission*]
           } else {
             affiliations-state.update((numbered: (:), named: (:)))
-            set text(12pt)
             authors
             metadata((kind: TITLEBOX-END-MARKER))
           }
-          #v(1em)
+          #v(0.3in + top-skip - body-cap)
+          #v(2fr)
         ]      
       ]
     ],
@@ -61,17 +77,17 @@
       #if use-title {
         title()
       } else {
-        text(15pt, font: tracl-serif)[#par(leading:0.5em)[
+        text(14.4 * tex-pt, font: tracl-serif)[#par(leading:0.5em)[
           *#papertitle*
         ]]
       }
 
       #if anonymous {
-        set text(12pt)
+        set text(12 * tex-pt)
         [*Anonymous ACL submission*]
       } else {
         affiliations-state.update((numbered: (:), named: (:)))
-        set text(12pt)
+        set text(12 * tex-pt)
         authors
         metadata((kind: TITLEBOX-END-MARKER))
       }    
@@ -92,17 +108,17 @@
   context match-target(
     paged: align(center, 
       box(width: 90%,[
-        #text(12pt)[*Abstract*]
+        #text(12 * tex-pt)[*Abstract*]
         #v(0.8em)
-        #text(10pt, align(left, abs))
+        #text(10 * tex-pt, align(left, abs))
       ])
     ),
 
     html: [
       // TODO wrap these in CSS classes, instead of specifying font sizes directly
-      #text(12pt)[*Abstract*]
+      #text(12 * tex-pt)[*Abstract*]
       #v(0.8em)
-      #text(10pt, abs)
+      #text(10 * tex-pt, abs)
     ]
   )
 }
@@ -131,7 +147,7 @@
 #let style-title(doc) = {
   // This doesn't work - waiting for advice.
   if use-title {
-    show std.title: set text(15pt, font: tracl-serif)
+    show std.title: set text(14.4 * tex-pt, font: tracl-serif)
     show std.title: set par(leading:0.5em)
     doc
   } else {
@@ -175,7 +191,7 @@
   /// the height of the titlebox to be less than 5cm, in accordance
   /// with the ACL style rules.
   /// -> length
-  titlebox-height: 5cm,
+  titlebox-height: 11 * baseline-skip,
 
   /// Creates a document in the ACL style without a Pergamon
   /// `refsection`. Normally, each paper needs to be enclosed in a
@@ -196,15 +212,6 @@
     set document(author: meta-authors)
   }
 
-  // overall page setup - this only makes sense if we generate PDF
-  let page-numbering = if anonymous { "1" } else { none } // number pages only if anonymous
-  show: show-target(paged: doc => {
-    set page(paper: "a4", margin: (x: 2.5cm, y: 2.5cm), columns: 2, numbering: page-numbering)
-    set columns(gutter: 6mm)
-
-    doc
-  })
-
   assert(titlebox-height >= 5cm)
   
   // some colors
@@ -215,20 +222,37 @@
   set text(11pt, font: tracl-serif)
   set par(leading: linespacing, first-line-indent: 4mm, justify: true, spacing: linespacing)
 
-  show figure.caption: set text(10pt, font: tracl-serif)
+  // overall page setup - this only makes sense if we generate PDF
+  let page-numbering = if anonymous { "1" } else { none } // number pages only if anonymous
+  show: show-target(paged: doc => {
+    let bottom = 297mm - last-baseline
+    set page(paper: "a4", columns: 2, numbering: page-numbering,
+      margin: (x: 25mm, top: first-baseline - body-cap, bottom: bottom),
+      footer-descent: 30 * tex-pt - body-cap)
+    set text(size: body-size, top-edge: cap-height, bottom-edge: "baseline")
+    let gap = baseline-skip - body-cap
+    set par(leading: gap, spacing: gap, first-line-indent: body-size)
+    set columns(gutter: 6mm)
+
+    doc
+  })
+
+  show figure.caption: set text(10 * tex-pt, font: tracl-serif)
   show figure.caption: set align(left)
   show figure.caption: it => [#v(0.5em) #it]
 
-  show footnote.entry: set text(9pt, font: tracl-serif)
+  show footnote.entry: set text(9 * tex-pt, font: tracl-serif)
 
-  show raw: set text(10pt, font: tracl-mono)
+  // Typst scales raw text to 0.8em. LaTeX typewriter text inherits its
+  // surrounding size, including in footnotes and captions.
+  show raw: set text(size: 1.25em, font: tracl-mono)
 
   // headings
   set heading(numbering: "1.1   ")
 
   show heading: it => {
     set block(above: if it.level == 1 { 1.3em } else { 1.5em })
-    set text(if it.level == 1 { 12pt } else { 11pt })
+    set text(if it.level == 1 { 12 * tex-pt } else { body-size })
     it
     v(if it.level == 1 { 1.2em } else { 1em }, weak: true)
   }
@@ -246,11 +270,15 @@
   // if anonymous, add line numbering to every page
   show: it => {
     if anonymous {
-      set par.line(numbering: "001", number-clearance: 4em)
+      set par.line(numbering: "001", number-clearance: 1.6cm)
       set par.line(
-        numbering: n => text(sidenumgray, font: tracl-sans, size: 8pt)[
-          *#strfmt("{:03}", n)*
-        ]
+        numbering: n => context {
+          let num = text(sidenumgray, font: tracl-sans, size: 8 * tex-pt)[*#strfmt("{:03}", n)*]
+          // lineno right-aligns the right-column label inside a 10 TeX pt box.
+          if here().position().x > page.width / 2 {
+            move(dx: 10 * tex-pt - measure(num).width, num)
+          } else { num }
+        }
       )
       show figure: set par.line(numbering: none) // Disable numbers inside figures.
       it

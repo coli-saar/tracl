@@ -1,3 +1,4 @@
+#import "tracl-units.typ": tex-pt
 
 #import "@preview/bullseye:0.1.0": *
 
@@ -61,7 +62,7 @@
   name-spacing: 2em,
   block-spacing: 3em,
   row-spacing: 1em,
-  font-size: 12pt,
+  font-size: 12 * tex-pt,
 )
 
 #let make-authors(..author-table) = {
