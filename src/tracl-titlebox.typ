@@ -22,7 +22,7 @@
 
   box[
     #set text(layout-options.font-size)
-    #set par(leading: 0.5em)
+    #set par(leading: 0pt)
     #set align(center)
 
     // #let (authors, affiliation) = author-block
