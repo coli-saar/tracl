@@ -272,13 +272,13 @@
     if anonymous {
       set par.line(numbering: "001", number-clearance: 1.6cm)
       set par.line(
-        numbering: n => context {
-          let num = text(sidenumgray, font: tracl-sans, size: 8 * tex-pt)[*#strfmt("{:03}", n)*]
-          // lineno right-aligns the right-column label inside a 10 TeX pt box.
-          if here().position().x > page.width / 2 {
-            move(dx: 10 * tex-pt - measure(num).width, num)
-          } else { num }
-        }
+        // lineno right-aligns the label inside a 10 TeX pt box. Labels are
+        // wider than the box and overflow to its left.
+        numbering: n => box(width: 10 * tex-pt, align(right, {
+          text(sidenumgray, font: tracl-sans, size: 8 * tex-pt)[
+            *#strfmt("{:03}", n)*
+          ]
+        }))
       )
       show figure: set par.line(numbering: none) // Disable numbers inside figures.
       it
