@@ -107,7 +107,8 @@
 
   context match-target(
     paged: align(center, 
-      box(width: 90%,[
+      // acl.sty indents the abstract by 0.6cm on both sides.
+      box(width: 100% - 1.2cm,[
         #text(12 * tex-pt)[*Abstract*]
         #v(0.8em)
         #text(10 * tex-pt, align(left, abs))
@@ -250,12 +251,29 @@
   // headings
   set heading(numbering: "1.1   ")
 
+  // The natural skips are chosen such that the baseline distances above and
+  // below a heading equal those of acl.sty's \section (23.91pt above, 20.78pt
+  // below) and \subsection (22.31pt above, 17.55pt below), as measured in the
+  // PDFs. The stretch of these skips is added by flush-bottom.
   show heading: it => {
-    set block(above: if it.level == 1 { 1.3em } else { 1.5em })
+    set block(above: if it.level == 1 { 15.91pt } else { 15.23pt })
     set text(if it.level == 1 { 12 * tex-pt } else { body-size })
     it
-    v(if it.level == 1 { 1.2em } else { 1em }, weak: true)
+    v(if it.level == 1 { 13.64pt } else { 10.20pt }, weak: true)
   }
+
+  // Space between a float (figure, table) and the text below it.
+  // acl.sty leaves LaTeX's \textfloatsep at 20pt (plus 2pt minus 4pt). TeX
+  // measures it from the bottom of the float to the box of the next line and
+  // adds a baselineskip gap, so that the last caption baseline ends up 34.67pt
+  // above the next text baseline. Typst measures `clearance` from the float to
+  // the cap height of the next line; the extra 7.25pt below makes both
+  // distances agree (measured: 34.68pt in Typst). Only the natural size is
+  // reproduced: `clearance` is a fixed length, so \textfloatsep's stretch and
+  // shrink are not.
+  let textfloatsep = 20pt
+  let typst-vs-tex-offset = 7.25pt
+  set place(clearance: textfloatsep + typst-vs-tex-offset)
 
   // lists and enums
   set list(indent: 1em)
